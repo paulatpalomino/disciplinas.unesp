@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slides das aulas · Banco de Dados e suas Aplicações · UNESP-Araraquara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--orange:#c2410c;--teal:#115e59;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;}
+.topbar,.quando,.cod,.acoes a,.espera,.tag,.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);}
+.topbar b{color:var(--ink);font-weight:600;letter-spacing:.12em;}
+main{max-width:1080px;margin:0 auto;padding:0 32px 64px;}
+.hero{padding:64px 0 36px;border-bottom:1px solid var(--rule);margin-bottom:24px;}
+.hero-meta{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--orange);margin-bottom:18px;}
+h1{font-family:'IBM Plex Serif',serif;font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lede{font-size:18px;font-weight:300;color:var(--ink-soft);max-width:720px;}
+ol.aulas{list-style:none;border-top:1px solid var(--rule);}
+.aula{display:grid;grid-template-columns:150px 1fr auto;gap:20px;align-items:center;padding:16px 4px;border-bottom:1px solid var(--rule);}
+.quando{display:flex;flex-direction:column;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+.quando .num{color:var(--orange);font-weight:600;}
+.quando .data{color:var(--ink-mute);}
+.titulo{font-family:'IBM Plex Serif',serif;font-size:20px;line-height:1.3;}
+.acoes{display:flex;gap:8px;align-items:center;}
+.acoes a{font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:9px 12px;border-radius:3px;border:1px solid var(--ink);color:var(--ink);white-space:nowrap;}
+.acoes a.abrir{background:var(--ink);color:#fff;}
+.acoes a:hover{border-color:var(--orange);}
+.acoes a.abrir:hover{background:var(--orange);}
+.acoes a:focus-visible{outline:3px solid var(--orange);outline-offset:2px;}
+.espera{display:none;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);white-space:nowrap;}
+.aula.futura .titulo,.aula.futura .quando{opacity:.45;}
+.aula.futura a{display:none;}
+.aula.futura .espera{display:inline;}
+.aula.recente{background:#fff;box-shadow:inset 4px 0 0 var(--orange);padding-left:16px;}
+.tag{display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+.nota{font-size:14px;color:var(--ink-mute);margin-top:28px;max-width:760px;}
+footer{border-top:1px solid var(--rule);margin-top:48px;padding-top:20px;font-size:13px;color:var(--ink-mute);}
+footer strong{color:var(--ink-soft);}
+@media (max-width:720px){
+  .topbar{padding:12px 16px;} main{padding:0 16px 48px;} .hero{padding:40px 0 28px;}
+  .aula{grid-template-columns:1fr;gap:8px;padding:16px 0;}
+  .aula.recente{padding-left:12px;}
+  .quando{flex-direction:row;gap:12px;}
+  .titulo{font-size:18px;}
+}
+</style>
+</head>
+<body>
+<header class="topbar"><span><b>UNESP-Araraquara</b> · Administração Pública</span><span>Profa. Dra. Paula Toledo Palomino</span></header>
+<main>
+  <div class="hero">
+    <div class="hero-meta">Banco de Dados e suas Aplicações · CED7651 · 2º semestre de 2026</div>
+    <h1>Slides das <em>aulas</em></h1>
+    <p class="lede">Os slides de cada aula aparecem aqui no dia da aula. Abra no navegador para usar as animações passo a passo; o PDF traz os mesmos passos por escrito.</p>
+  </div>
+  <ol class="aulas">
+      <li class="aula" data-libera="2026-10-05T16:00:00-03:00" data-ddmm="05/10">
+        <div class="quando"><span class="num">Aula 01</span><span class="data">seg · 05/10</span></div>
+        <div class="titulo">O gestor que pergunta aos dados</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-01/aula01-o-gestor-que-pergunta-aos-dados.html" aria-label="Abrir os slides da Aula 1: O gestor que pergunta aos dados">Abrir slides</a>
+          <a class="pdf" href="aula-01/aula01-o-gestor-que-pergunta-aos-dados.pdf" aria-label="PDF da Aula 1">PDF</a>
+          <span class="espera">abre em 05/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-07T14:00:00-03:00" data-ddmm="07/10">
+        <div class="quando"><span class="num">Aula 02</span><span class="data">qua · 07/10</span></div>
+        <div class="titulo">A planilha essencial</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-02/aula02-a-planilha-essencial.html" aria-label="Abrir os slides da Aula 2: A planilha essencial">Abrir slides</a>
+          <a class="pdf" href="aula-02/aula02-a-planilha-essencial.pdf" aria-label="PDF da Aula 2">PDF</a>
+          <span class="espera">abre em 07/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-14T14:00:00-03:00" data-ddmm="14/10">
+        <div class="quando"><span class="num">Aula 03</span><span class="data">qua · 14/10</span></div>
+        <div class="titulo">Funções que respondem perguntas</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-03/aula03-funcoes-que-respondem-perguntas.html" aria-label="Abrir os slides da Aula 3: Funções que respondem perguntas">Abrir slides</a>
+          <a class="pdf" href="aula-03/aula03-funcoes-que-respondem-perguntas.pdf" aria-label="PDF da Aula 3">PDF</a>
+          <span class="espera">abre em 14/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-19T16:00:00-03:00" data-ddmm="19/10">
+        <div class="quando"><span class="num">Aula 04</span><span class="data">seg · 19/10</span></div>
+        <div class="titulo">A planilha como base de dados</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-04/aula04-a-planilha-como-base-de-dados.html" aria-label="Abrir os slides da Aula 4: A planilha como base de dados">Abrir slides</a>
+          <a class="pdf" href="aula-04/aula04-a-planilha-como-base-de-dados.pdf" aria-label="PDF da Aula 4">PDF</a>
+          <span class="espera">abre em 19/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-21T14:00:00-03:00" data-ddmm="21/10">
+        <div class="quando"><span class="num">Aula 05</span><span class="data">qua · 21/10</span></div>
+        <div class="titulo">Resumir para decidir</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-05/aula05-resumir-para-decidir.html" aria-label="Abrir os slides da Aula 5: Resumir para decidir">Abrir slides</a>
+          <a class="pdf" href="aula-05/aula05-resumir-para-decidir.pdf" aria-label="PDF da Aula 5">PDF</a>
+          <span class="espera">abre em 21/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-26T16:00:00-03:00" data-ddmm="26/10">
+        <div class="quando"><span class="num">Aula 06</span><span class="data">seg · 26/10</span></div>
+        <div class="titulo">Oficina de revisão de planilhas e treino da Missão prática 1</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-06/aula06-oficina-de-revisao-de-planilhas.html" aria-label="Abrir os slides da Aula 6: Oficina de revisão de planilhas e treino da Missão prática 1">Abrir slides</a>
+          <a class="pdf" href="aula-06/aula06-oficina-de-revisao-de-planilhas.pdf" aria-label="PDF da Aula 6">PDF</a>
+          <span class="espera">abre em 26/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-10-28T14:00:00-03:00" data-ddmm="28/10">
+        <div class="quando"><span class="num">Aula 07</span><span class="data">qua · 28/10</span></div>
+        <div class="titulo">Missão prática 1 e os limites da planilha</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-07/aula07-missao-pratica-1-e-limites-da-planilha.html" aria-label="Abrir os slides da Aula 7: Missão prática 1 e os limites da planilha">Abrir slides</a>
+          <a class="pdf" href="aula-07/aula07-missao-pratica-1-e-limites-da-planilha.pdf" aria-label="PDF da Aula 7">PDF</a>
+          <span class="espera">abre em 28/10</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-04T14:00:00-03:00" data-ddmm="04/11">
+        <div class="quando"><span class="num">Aula 08</span><span class="data">qua · 04/11</span></div>
+        <div class="titulo">Por que bancos de dados</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-08/aula08-por-que-bancos-de-dados.html" aria-label="Abrir os slides da Aula 8: Por que bancos de dados">Abrir slides</a>
+          <a class="pdf" href="aula-08/aula08-por-que-bancos-de-dados.pdf" aria-label="PDF da Aula 8">PDF</a>
+          <span class="espera">abre em 04/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-09T16:00:00-03:00" data-ddmm="09/11">
+        <div class="quando"><span class="num">Aula 09</span><span class="data">seg · 09/11</span></div>
+        <div class="titulo">O modelo conceitual</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-09/aula09-o-modelo-conceitual.html" aria-label="Abrir os slides da Aula 9: O modelo conceitual">Abrir slides</a>
+          <a class="pdf" href="aula-09/aula09-o-modelo-conceitual.pdf" aria-label="PDF da Aula 9">PDF</a>
+          <span class="espera">abre em 09/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-16T16:00:00-03:00" data-ddmm="16/11">
+        <div class="quando"><span class="num">Aula 10</span><span class="data">seg · 16/11</span></div>
+        <div class="titulo">O modelo relacional</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-10/aula10-o-modelo-relacional.html" aria-label="Abrir os slides da Aula 10: O modelo relacional">Abrir slides</a>
+          <a class="pdf" href="aula-10/aula10-o-modelo-relacional.pdf" aria-label="PDF da Aula 10">PDF</a>
+          <span class="espera">abre em 16/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-18T14:00:00-03:00" data-ddmm="18/11">
+        <div class="quando"><span class="num">Aula 11</span><span class="data">qua · 18/11</span></div>
+        <div class="titulo">SQL essencial: perguntar a uma tabela</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-11/aula11-sql-essencial-1.html" aria-label="Abrir os slides da Aula 11: SQL essencial: perguntar a uma tabela">Abrir slides</a>
+          <a class="pdf" href="aula-11/aula11-sql-essencial-1.pdf" aria-label="PDF da Aula 11">PDF</a>
+          <span class="espera">abre em 18/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-23T16:00:00-03:00" data-ddmm="23/11">
+        <div class="quando"><span class="num">Aula 12</span><span class="data">seg · 23/11</span></div>
+        <div class="titulo">SQL essencial: a junção</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-12/aula12-sql-essencial-2-a-juncao.html" aria-label="Abrir os slides da Aula 12: SQL essencial: a junção">Abrir slides</a>
+          <a class="pdf" href="aula-12/aula12-sql-essencial-2-a-juncao.pdf" aria-label="PDF da Aula 12">PDF</a>
+          <span class="espera">abre em 23/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-25T14:00:00-03:00" data-ddmm="25/11">
+        <div class="quando"><span class="num">Aula 13</span><span class="data">qua · 25/11</span></div>
+        <div class="titulo">Do banco de dados ao painel: fatos e dimensões</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-13/aula13-fatos-dimensoes-e-primeiros-passos-no-power-bi.html" aria-label="Abrir os slides da Aula 13: Do banco de dados ao painel: fatos e dimensões">Abrir slides</a>
+          <a class="pdf" href="aula-13/aula13-fatos-dimensoes-e-primeiros-passos-no-power-bi.pdf" aria-label="PDF da Aula 13">PDF</a>
+          <span class="espera">abre em 25/11</span>
+        </div>
+      </li>
+      <li class="aula" data-libera="2026-11-30T16:00:00-03:00" data-ddmm="30/11">
+        <div class="quando"><span class="num">Aula 14</span><span class="data">seg · 30/11</span></div>
+        <div class="titulo">Power Query: limpar antes de confiar</div>
+        <div class="acoes">
+          <a class="abrir" href="aula-14/aula14-power-query-1-limpeza-e-qualidade.html" aria-label="Abrir os slides da Aula 14: Power Query: limpar antes de confiar">Abrir slides</a>
+          <a class="pdf" href="aula-14/aula14-power-query-1-limpeza-e-qualidade.pdf" aria-label="PDF da Aula 14">PDF</a>
+          <span class="espera">abre em 30/11</span>
+        </div>
+      </li>
+  </ol>
+  <p class="nota">No computador, as setas do teclado passam os slides. Dentro de uma animação, clique uma vez no quadro e use as setas para avançar os passos. Os valores dos exemplos são simulados.</p>
+  <footer><strong>Banco de Dados e suas Aplicações (CED7651)</strong> · Bacharelado em Administração Pública · UNESP-Araraquara. Material produzido com o auxílio de ferramentas de IA e revisado pela professora; a penúltima tela de cada aula explica como.</footer>
+</main>
+<script>
+(function(){
+  var LIBERAR_TODAS = false;
+  var agora = Date.now(), recente = null;
+  document.querySelectorAll('.aula').forEach(function(li){
+    var libera = Date.parse(li.getAttribute('data-libera'));
+    if (!LIBERAR_TODAS && !(libera <= agora)) { li.classList.add('futura'); }
+    else { recente = li; }
+  });
+  if (recente) {
+    recente.classList.add('recente');
+    var t = document.createElement('span'); t.className = 'tag'; t.textContent = 'Aula mais recente';
+    recente.querySelector('.titulo').prepend(t, document.createElement('br'));
+  }
+})();
+</script>
+</body>
+</html>
