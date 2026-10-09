@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- ANIMACAO DE RESOLUCAO - Banco de Dados e suas Aplicações (CED7651) - bd-a04-classificar-sem-desalinhar
+     Direcao B. Valores SIMULADOS e rotulados. Roda offline, sem dependencia de internet. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classificar sem desalinhar - animação de resolução</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;
+--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;
+--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;
+-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh;font-size:16px}
+.topbar{border-bottom:1px solid var(--rule);padding:11px 26px;display:flex;justify-content:space-between;align-items:center;
+font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);flex-wrap:wrap;gap:8px}
+.topbar b{color:var(--ink);font-weight:600;letter-spacing:.12em}
+body.embed .topbar,body.embed .signoff,body.embed .eyebrow,body.embed h1,body.embed .lede,body.embed .pergunta{display:none}
+body.embed .wrap{padding:14px 22px 8px}
+body.embed .caso{margin-top:0}
+body.embed .stage{margin-top:14px}
+body.embed .steps{max-height:306px}
+body.embed .figbox svg{height:300px}
+body.embed .controls{margin-top:12px;padding-top:10px}
+.wrap{flex:1;max-width:1280px;width:100%;margin:0 auto;padding:22px 26px 10px}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);margin-bottom:8px}
+h1{font-family:'IBM Plex Serif',serif;font-weight:400;line-height:1.1;letter-spacing:-.02em;font-size:clamp(23px,2.9vw,33px);max-width:960px}
+h1 em{font-style:italic}
+h1 .o{color:var(--orange)}h1 .t{color:var(--teal)}
+.lede{font-size:15px;color:var(--ink-soft);font-weight:300;max-width:820px;margin-top:7px}
+.caso{margin-top:12px;border-left:4px solid var(--orange);background:#fff;padding:10px 16px;max-width:1000px}
+.caso .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:3px}
+.caso p{font-size:14.5px;color:var(--ink-soft)}
+.stage{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;margin-top:18px;align-items:start}
+@media(max-width:980px){.stage{grid-template-columns:1fr}}
+.panel-rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:9px;display:block;border-bottom:1px solid var(--rule);padding-bottom:5px}
+.steps{list-style:none;max-height:440px;overflow-y:auto;padding-right:6px;scrollbar-width:thin}
+.steps li{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;border-left:3px solid var(--rule);padding:7px 0 7px 13px;margin-bottom:9px}
+.steps li.on{opacity:1;transform:none}
+.steps li.cur{border-left-color:var(--ink);background:var(--rule-soft)}
+.steps li.k-ctx{border-left-color:var(--orange)}
+.steps li.k-formal{border-left-color:var(--teal)}
+.steps li.k-wrong.cur,.steps li.k-wrong{border-left-color:var(--wrong)}
+.steps li.k-correct.cur,.steps li.k-correct{border-left-color:var(--correct)}
+.steps .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-mute);display:block;margin-bottom:3px}
+.steps li.k-wrong .rot{color:var(--wrong)}.steps li.k-correct .rot{color:var(--correct)}
+.steps li.k-ctx .rot{color:var(--orange)}.steps li.k-formal .rot{color:var(--teal)}
+.steps .math{font-family:'IBM Plex Serif',serif;font-size:19px;line-height:1.35;color:var(--ink)}
+.steps li.k-wrong .math{color:var(--wrong)}.steps li.k-correct .math{color:var(--correct)}
+.steps li.k-formal .math{color:var(--teal)}
+.steps .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;max-width:560px}
+.steps .note b{color:var(--ink);font-weight:600}
+.figbox{border:1px solid var(--rule);background:#fff;padding:10px 12px 6px}
+.figcap{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;color:var(--ink-mute);letter-spacing:.05em;min-height:26px;padding-top:6px;border-top:1px solid var(--rule-soft);margin-top:4px}
+svg{width:100%;height:auto;display:block}
+.controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
+.btn{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 14px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:3px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.ghost{border-color:var(--rule);color:var(--ink-mute)}
+.counter{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);margin-left:auto;letter-spacing:.05em}
+.pergunta{margin-top:14px;padding:12px 18px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16.5px;max-width:900px}
+.signoff{border-top:1px solid var(--rule);padding:9px 26px;text-align:center;font-family:'IBM Plex Serif',serif;font-style:italic;font-size:12.5px;color:var(--ink-mute);line-height:1.7}
+.signoff b{font-style:normal;font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);font-weight:600}
+@media print{@page{size:A4 landscape;margin:10mm}
+ body{min-height:auto}.controls{display:none}.steps{max-height:none;overflow:visible}
+ .steps li{opacity:1!important;transform:none!important;break-inside:avoid}
+ .steps li.cur{background:transparent}
+ .stage{grid-template-columns:1.15fr 1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div><b>Biblioteca · Banco de Dados</b> &nbsp;·&nbsp; Animação de resolução &nbsp;·&nbsp; Classificar, filtrar e somar só o que está visível</div>
+  <div>Aula 4 · a planilha como base de dados · CED7651</div>
+</header>
+
+<main class="wrap">
+  <div class="eyebrow">Planilha · a tabela como base de dados</div>
+  <h1>Cada linha é um registro: <em class="o">ele anda inteiro</em></h1>
+  <p class="lede">Classificar muda a ordem das linhas. Filtrar esconde linhas. Nenhum dos dois pode separar os valores de um mesmo registro.</p>
+  <div class="caso"><span class="rot">Situação · valores simulados</span><p>A ouvidoria registrou cinco protocolos, com a secretaria e os dias que a resposta levou. O gestor pergunta: qual protocolo demorou mais?</p></div>
+
+  <div class="stage">
+    <div>
+      <span class="panel-rot">Resolução passo a passo</span>
+      <ol class="steps" id="steps"></ol>
+    </div>
+    <div>
+      <span class="panel-rot">O que está acontecendo</span>
+      <div class="figbox">
+        <svg id="fig" viewBox="0 0 500 340" role="img" aria-label="Uma tabela de cinco protocolos é classificada do jeito errado, só uma coluna, e do jeito certo, a tabela inteira; depois é filtrada"></svg>
+        <div class="figcap" id="figcap"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prev">‹ Anterior</button>
+    <button class="btn" id="next">Próximo ›</button>
+    <button class="btn ghost" id="playb">▶ Tocar</button>
+    <button class="btn ghost" id="reset">⟲ Reiniciar</button>
+    <span class="counter" id="counter">passo 1 de 1</span>
+  </div>
+
+  <div class="pergunta">Se alguém classificar só uma coluna e salvar a planilha, dá para descobrir depois qual era a ordem certa? O que isso diz sobre guardar uma cópia dos dados originais?</div>
+</main>
+
+<footer class="signoff">
+  Produzida com auxílio de IA (Claude/Anthropic); revisão e responsabilidade: <b>Profa. Dra. Paula Toledo Palomino</b>. Valores simulados.<br>
+  Animação de resolução · Aula 4 · Banco de Dados e suas Aplicações · CED7651 · UNESP-Araraquara
+</footer>
+
+<script>
+if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
+var PAL={ink:'#161618',mute:'#6b6b70',rule:'#e2e0d9',ruleSoft:'#ecebe5',orange:'#c2410c',orangeSoft:'#fed7aa',
+teal:'#115e59',tealSoft:'#ccfbf1',blue:'#1e3a8a',correct:'#15803d',wrong:'#b91c1c'};
+
+/* ---- mini biblioteca de desenho (SVG em coordenadas de dados) ---- */
+function Plot(o){
+  var W=500,H=340,pl=(o.pl===undefined?52:o.pl),pr=16,pt=18,pb=(o.pb===undefined?38:o.pb);
+  var s='';
+  var X=function(v){return pl+(v-o.x0)/(o.x1-o.x0)*(W-pl-pr);};
+  var Y=function(v){return H-pb-(v-o.y0)/(o.y1-o.y0)*(H-pt-pb);};
+  var esc=function(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+  var api={X:X,Y:Y,
+   axes:function(xl,yl,xt,yt,fmt){
+     s+='<line x1="'+X(o.x0)+'" y1="'+Y(o.y0)+'" x2="'+X(o.x1)+'" y2="'+Y(o.y0)+'" stroke="'+PAL.ink+'" stroke-width="1.1"/>';
+     s+='<line x1="'+X(o.x0)+'" y1="'+Y(o.y0)+'" x2="'+X(o.x0)+'" y2="'+Y(o.y1)+'" stroke="'+PAL.ink+'" stroke-width="1.1"/>';
+     (xt||[]).forEach(function(v){ s+='<line x1="'+X(v)+'" y1="'+Y(o.y0)+'" x2="'+X(v)+'" y2="'+(Y(o.y0)+4)+'" stroke="'+PAL.mute+'"/>'+
+        '<text x="'+X(v)+'" y="'+(Y(o.y0)+16)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="'+PAL.mute+'">'+esc(v)+'</text>';});
+     (yt||[]).forEach(function(v){ s+='<line x1="'+X(o.x0)+'" y1="'+Y(v)+'" x2="'+(X(o.x0)-4)+'" y2="'+Y(v)+'" stroke="'+PAL.mute+'"/>'+
+        '<text x="'+(X(o.x0)-8)+'" y="'+(Y(v)+3.5)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="'+PAL.mute+'">'+esc(fmt?fmt(v):v)+'</text>';});
+     if(xl) s+='<text x="'+X(o.x1)+'" y="'+(Y(o.y0)+30)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" letter-spacing="0.06em" fill="'+PAL.mute+'">'+esc(xl)+'</text>';
+     if(yl) s+='<text x="'+(X(o.x0)+8)+'" y="'+(Y(o.y1)-6)+'" text-anchor="start" font-family="IBM Plex Mono,monospace" font-size="9.5" letter-spacing="0.06em" fill="'+PAL.mute+'">'+esc(yl)+'</text>';
+     return api;},
+   grid:function(xs,ys){ (xs||[]).forEach(function(v){s+='<line x1="'+X(v)+'" y1="'+Y(o.y0)+'" x2="'+X(v)+'" y2="'+Y(o.y1)+'" stroke="'+PAL.ruleSoft+'"/>';});
+     (ys||[]).forEach(function(v){s+='<line x1="'+X(o.x0)+'" y1="'+Y(v)+'" x2="'+X(o.x1)+'" y2="'+Y(v)+'" stroke="'+PAL.ruleSoft+'"/>';}); return api;},
+   curve:function(f,col,w,dash,a,b){ var A=(a===undefined?o.x0:a),B=(b===undefined?o.x1:b),p=[],N=180;
+     for(var i=0;i<=N;i++){var xv=A+(B-A)*i/N, yv=f(xv); if(!isFinite(yv))continue;
+       if(yv>o.y1*1.6||yv<o.y0-(o.y1-o.y0)*0.6)continue; p.push(X(xv).toFixed(1)+','+Y(yv).toFixed(1));}
+     s+='<polyline fill="none" stroke="'+col+'" stroke-width="'+(w||2.4)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+' points="'+p.join(' ')+'"/>'; return api;},
+   seg:function(x1,y1,x2,y2,col,w,dash){ s+='<line x1="'+X(x1)+'" y1="'+Y(y1)+'" x2="'+X(x2)+'" y2="'+Y(y2)+'" stroke="'+col+'" stroke-width="'+(w||2)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; return api;},
+   dot:function(x,y,col,r){ s+='<circle cx="'+X(x)+'" cy="'+Y(y)+'" r="'+(r||4.6)+'" fill="'+col+'"/>'; return api;},
+   ring:function(x,y,col,r){ s+='<circle cx="'+X(x)+'" cy="'+Y(y)+'" r="'+(r||6)+'" fill="#fff" stroke="'+col+'" stroke-width="2"/>'; return api;},
+   band:function(x1,x2,col,op){ s+='<rect x="'+X(x1)+'" y="'+Y(o.y1)+'" width="'+(X(x2)-X(x1))+'" height="'+(Y(o.y0)-Y(o.y1))+'" fill="'+col+'" opacity="'+(op||0.16)+'"/>'; return api;},
+   lab:function(x,y,txt,col,size,anchor,dx,dy){ s+='<text x="'+(X(x)+(dx||0))+'" y="'+(Y(y)+(dy||0))+'" text-anchor="'+(anchor||'start')+'" font-family="IBM Plex Mono,monospace" font-size="'+(size||10.5)+'" fill="'+col+'">'+esc(txt)+'</text>'; return api;},
+   px:function(x,y,txt,col,size,anchor,weight){ s+='<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'" font-family="IBM Plex Mono,monospace" font-size="'+(size||10.5)+'" font-weight="'+(weight||400)+'" fill="'+col+'">'+esc(txt)+'</text>'; return api;},
+   rawpx:function(str){ s+=str; return api;},
+   out:function(){return s;}};
+  return api;
+}
+function card(x,y,w,h,txt,col,fill){
+  var s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(fill||'#fff')+'" stroke="'+col+'" stroke-width="1.4" rx="3"/>';
+  var lines=String(txt).split('|');
+  lines.forEach(function(l,i){ s+='<text x="'+(x+w/2)+'" y="'+(y+18+i*15)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10.5" fill="'+col+'">'+l+'</text>';});
+  return s;
+}
+function arrow(x1,y1,x2,y2,col,w){
+  var a=Math.atan2(y2-y1,x2-x1),L=8;
+  return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+col+'" stroke-width="'+(w||1.8)+'"/>'+
+   '<polygon points="'+x2+','+y2+' '+(x2-L*Math.cos(a-0.4))+','+(y2-L*Math.sin(a-0.4))+' '+(x2-L*Math.cos(a+0.4))+','+(y2-L*Math.sin(a+0.4))+'" fill="'+col+'"/>';
+}
+var nf=function(v,d){return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:(d===undefined?0:d),maximumFractionDigits:(d===undefined?0:d)});};
+
+
+/* ---- dados dos passos ---- */
+var STEPS=[{"r": "A PERGUNTA", "k": "ctx", "m": "qual protocolo demorou mais para ser respondido?", "n": "Com cinco linhas, dá para achar no olho. Com 425, não: é preciso classificar."}, {"r": "A TABELA", "m": "uma linha por protocolo: protocolo, secretaria e dias", "n": "Os três valores de uma linha falam do mesmo protocolo. Eles formam um registro e precisam andar juntos."}, {"r": "O JEITO ERRADO", "k": "wrong", "m": "selecionar só a coluna dias e classificar", "n": "A coluna dias muda de ordem, mas as colunas protocolo e secretaria ficam onde estavam."}, {"r": "O ESTRAGO", "k": "wrong", "m": "\"P-01, da Saúde, levou 97 dias\": falso", "n": "A planilha não avisa. Cada número agora está ao lado do protocolo errado, e a tabela inteira deixou de ser confiável."}, {"r": "O JEITO CERTO", "k": "correct", "m": "selecionar a tabela inteira e classificar pela coluna dias", "n": "As linhas trocam de lugar inteiras. Cada protocolo continua com a sua secretaria e os seus dias."}, {"r": "A RESPOSTA", "k": "correct", "m": "P-02, de Obras: 97 dias", "n": "O maior valor subiu para a primeira linha, com o registro completo."}, {"r": "FILTRAR", "m": "mostrar só os protocolos da Saúde", "n": "O filtro deixa visíveis as linhas que atendem ao critério. As outras ficam escondidas."}, {"r": "O FILTRO ESCONDE, NÃO APAGA", "k": "wrong", "m": "=SOMA(C2:C6) continua dando 125", "n": "A SOMA enxerga todas as linhas, inclusive as escondidas: 97 + 12 + 8 + 5 + 3 = 125. Parece que o filtro não funcionou."}, {"r": "SOMAR SÓ O QUE ESTÁ VISÍVEL", "k": "correct", "m": "=SUBTOTAL(109; C2:C6) dá 8", "n": "O SUBTOTAL com o código 109 soma só as linhas visíveis: 5 + 3 = 8. Com 103, ele conta; com 101, calcula a média."}, {"r": "LEITURA DE GESTÃO", "k": "ctx", "m": "classificar e filtrar são jeitos de olhar: o dado continua o mesmo", "n": "O registro anda inteiro, e o filtro não apaga nada. Antes de mexer, guarde uma cópia da aba original."}];
+var FIGCAPS=["A pergunta do gestor.", "A tabela: cada linha é um registro.", "Só a coluna dias foi classificada.", "Os números ficaram ao lado dos protocolos errados.", "A tabela inteira foi classificada.", "O registro completo na primeira linha.", "O filtro deixa só a Saúde visível.", "A SOMA enxerga as linhas escondidas.", "O SUBTOTAL soma só as visíveis.", "Jeitos de olhar o mesmo dado."];
+
+/* ---- figura por passo (especifica desta animacao) ---- */
+function drawStep(i){
+
+  var s='';
+  function T(x,y,txt,size,col,anchor,fam,weight){ s+='<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'" font-family="'+(fam||'IBM Plex Sans,sans-serif')+'" font-size="'+(size||13)+'" font-weight="'+(weight||400)+'" fill="'+(col||PAL.ink)+'">'+txt+'</text>'; }
+  function M(x,y,txt,size,col,anchor,weight){ T(x,y,txt,size||11,col||PAL.ink,anchor,'IBM Plex Mono,monospace',weight); }
+  function R(x,y,w,h,stroke,fill,sw,dash){ s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(fill||'#fff')+'" stroke="'+(stroke||PAL.rule)+'" stroke-width="'+(sw||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+  /* tabela: hl(r,c) devolve null ou {st:cor da borda, fill:fundo, col:cor do texto} */
+  function tab(x0,y0,cols,ws,rows,title,hl,rh){
+    rh=rh||22; if(title) M(x0,y0-8,title,10,PAL.mute,'start',600);
+    var x=x0; for(var c=0;c<cols.length;c++){ R(x,y0,ws[c],rh,PAL.rule,PAL.ruleSoft); M(x+5,y0+rh-7,cols[c],9.5,PAL.ink,'start',600); x+=ws[c]; }
+    for(var r=0;r<rows.length;r++){ x=x0; for(var c=0;c<cols.length;c++){
+        var h=(hl && hl(r,c)); R(x,y0+rh*(r+1),ws[c],rh,h?h.st:PAL.rule,h?(h.fill||'#fff8f3'):'#fff',h?2:1);
+        M(x+5,y0+rh*(r+1)+rh-7,rows[r][c],10,h?(h.col||h.st):PAL.ink); x+=ws[c]; } }
+  }
+  function CAIXA(x,y,w,h,rot,txt,col,fill,size){ R(x,y,w,h,col||PAL.rule,fill||'#fff',1.4); M(x+12,y+20,rot,10,col||PAL.mute,'start',600); T(x+12,y+h-14,txt,size||16,col||PAL.ink); }
+
+  var O=[['P-01','Saúde','5'],['P-02','Obras','97'],['P-03','Educação','8'],['P-04','Trânsito','12'],['P-05','Saúde','3']];
+  var ERR=[['P-01','Saúde','97'],['P-02','Obras','12'],['P-03','Educação','8'],['P-04','Trânsito','5'],['P-05','Saúde','3']];
+  var OK=[['P-02','Obras','97'],['P-04','Trânsito','12'],['P-03','Educação','8'],['P-01','Saúde','5'],['P-05','Saúde','3']];
+  var cols=['protocolo','secretaria','dias'], ws=[90,120,70];
+  if(i===0){ CAIXA(40,90,420,80,'PERGUNTA DO GESTOR','qual protocolo demorou mais?',PAL.teal,'#f3fbf9',19); R(40,190,420,56,PAL.rule,'#fff'); T(52,224,'com 425 linhas, não dá para achar no olho',14,PAL.mute); return s; }
+  if(i===1){ tab(110,60,cols,ws,O,'PROTOCOLOS',function(r,c){return r===1?{st:PAL.orange}:null;},26); M(110,236,'cada linha é um registro: os três valores andam juntos',10.5,PAL.orange); return s; }
+  if(i===2||i===3){ tab(110,60,cols,ws,ERR,'SÓ A COLUNA DIAS FOI CLASSIFICADA',function(r,c){ if(c===2) return {st:PAL.wrong,fill:'#fff5f5'}; if(i===3&&r===0) return {st:PAL.wrong,fill:'#fff5f5'}; return null;},26);
+    M(110,236,i===2?'a coluna dias mudou de ordem; as outras, não':'ERRADO: P-01 nunca levou 97 dias',10.5,PAL.wrong); return s; }
+  if(i===4||i===5){ tab(110,60,cols,ws,OK,'A TABELA INTEIRA FOI CLASSIFICADA',function(r,c){ if(i===5&&r===0) return {st:PAL.correct,fill:'#f0fdf4'}; return null;},26);
+    M(110,236,i===4?'CERTO: as linhas trocaram de lugar inteiras':'CERTO: P-02, de Obras, 97 dias',10.5,PAL.correct); return s; }
+  // filtro: só Saúde visível
+  var FIL=[['P-01','Saúde','5'],['P-05','Saúde','3']];
+  tab(110,50,cols,ws,FIL,'FILTRO: SECRETARIA = SAÚDE',function(r,c){return c===1?{st:PAL.teal,fill:'#f3fbf9'}:null;},26);
+  R(110,132,280,40,PAL.rule,PAL.ruleSoft,1,'4 3'); M(122,157,'3 linhas escondidas (Obras, Trânsito, Educação)',9.5,PAL.mute);
+  if(i===7){ CAIXA(110,190,280,62,'ERRADO PARA ESTA PERGUNTA','=SOMA(C2:C6) → 125',PAL.wrong,'#fff5f5',15); M(110,274,'a SOMA enxerga as linhas escondidas',10.5,PAL.wrong); }
+  if(i===8){ CAIXA(110,190,280,62,'CERTO','=SUBTOTAL(109; C2:C6) → 8',PAL.correct,'#f0fdf4',15); M(110,274,'só as linhas visíveis: 5 + 3',10.5,PAL.correct); }
+  if(i===9){ CAIXA(110,190,280,62,'DOIS JEITOS DE OLHAR','o dado continua o mesmo',PAL.teal,'#f3fbf9',15); M(110,274,'guarde uma cópia da aba original',10.5,PAL.mute); }
+  return s;
+
+}
+
+/* ---- motor ---- */
+var ol=document.getElementById('steps'), fig=document.getElementById('fig'), figcap=document.getElementById('figcap'),
+    counter=document.getElementById('counter'), cur=0, timer=null, playing=false;
+STEPS.forEach(function(st,i){
+  var li=document.createElement('li');
+  li.className='k-'+(st.k||'plain');
+  li.innerHTML='<span class="rot">'+st.r+'</span><span class="math">'+st.m+'</span>'+(st.n?'<div class="note">'+st.n+'</div>':'');
+  ol.appendChild(li);
+});
+function render(){
+  var lis=ol.children;
+  for(var i=0;i<lis.length;i++){
+    lis[i].classList.toggle('on', i<=cur);
+    lis[i].classList.toggle('cur', i===cur);
+  }
+  fig.innerHTML=drawStep(cur);
+  figcap.textContent=FIGCAPS[Math.min(cur,FIGCAPS.length-1)]||'';
+  counter.textContent='passo '+(cur+1)+' de '+STEPS.length;
+  if(lis[cur]&&lis[cur].scrollIntoView) lis[cur].scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function go(i){ cur=Math.max(0,Math.min(STEPS.length-1,i)); render(); }
+function stop(){ playing=false; clearInterval(timer); document.getElementById('playb').textContent='▶ Tocar'; }
+document.getElementById('next').addEventListener('click',function(){stop();go(cur+1);});
+document.getElementById('prev').addEventListener('click',function(){stop();go(cur-1);});
+document.getElementById('reset').addEventListener('click',function(){stop();go(0);});
+document.getElementById('playb').addEventListener('click',function(){
+  if(playing){stop();return;}
+  if(cur>=STEPS.length-1) go(0);
+  playing=true; this.textContent='❚❚ Pausar';
+  timer=setInterval(function(){ if(cur>=STEPS.length-1){stop();} else go(cur+1); },3200);
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();stop();go(cur+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();stop();go(cur-1);}
+  else if(e.key==='Home'){e.preventDefault();stop();go(0);}
+  else if(e.key==='End'){e.preventDefault();stop();go(STEPS.length-1);}
+});
+/* API usada pela exportacao de PDF e video */
+window.__anim={total:STEPS.length,go:function(i){stop();go(i);},all:function(){var l=ol.children;for(var i=0;i<l.length;i++){l[i].classList.add('on');}}};
+render();
+</script>
+</body>
+</html>

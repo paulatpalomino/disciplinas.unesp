@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!-- ANIMACAO DE RESOLUCAO - Banco de Dados e suas Aplicações (CED7651) - bd-a02-a-referencia-que-escorrega
+     Direcao B. Valores SIMULADOS e rotulados. Roda offline, sem dependencia de internet. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A referência que escorrega - animação de resolução</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;
+--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;
+--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;
+-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh;font-size:16px}
+.topbar{border-bottom:1px solid var(--rule);padding:11px 26px;display:flex;justify-content:space-between;align-items:center;
+font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);flex-wrap:wrap;gap:8px}
+.topbar b{color:var(--ink);font-weight:600;letter-spacing:.12em}
+body.embed .topbar,body.embed .signoff,body.embed .eyebrow,body.embed h1,body.embed .lede,body.embed .pergunta{display:none}
+body.embed .wrap{padding:14px 22px 8px}
+body.embed .caso{margin-top:0}
+body.embed .stage{margin-top:14px}
+body.embed .steps{max-height:306px}
+body.embed .figbox svg{height:300px}
+body.embed .controls{margin-top:12px;padding-top:10px}
+.wrap{flex:1;max-width:1280px;width:100%;margin:0 auto;padding:22px 26px 10px}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);margin-bottom:8px}
+h1{font-family:'IBM Plex Serif',serif;font-weight:400;line-height:1.1;letter-spacing:-.02em;font-size:clamp(23px,2.9vw,33px);max-width:960px}
+h1 em{font-style:italic}
+h1 .o{color:var(--orange)}h1 .t{color:var(--teal)}
+.lede{font-size:15px;color:var(--ink-soft);font-weight:300;max-width:820px;margin-top:7px}
+.caso{margin-top:12px;border-left:4px solid var(--orange);background:#fff;padding:10px 16px;max-width:1000px}
+.caso .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:3px}
+.caso p{font-size:14.5px;color:var(--ink-soft)}
+.stage{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;margin-top:18px;align-items:start}
+@media(max-width:980px){.stage{grid-template-columns:1fr}}
+.panel-rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:9px;display:block;border-bottom:1px solid var(--rule);padding-bottom:5px}
+.steps{list-style:none;max-height:440px;overflow-y:auto;padding-right:6px;scrollbar-width:thin}
+.steps li{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;border-left:3px solid var(--rule);padding:7px 0 7px 13px;margin-bottom:9px}
+.steps li.on{opacity:1;transform:none}
+.steps li.cur{border-left-color:var(--ink);background:var(--rule-soft)}
+.steps li.k-ctx{border-left-color:var(--orange)}
+.steps li.k-formal{border-left-color:var(--teal)}
+.steps li.k-wrong.cur,.steps li.k-wrong{border-left-color:var(--wrong)}
+.steps li.k-correct.cur,.steps li.k-correct{border-left-color:var(--correct)}
+.steps .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-mute);display:block;margin-bottom:3px}
+.steps li.k-wrong .rot{color:var(--wrong)}.steps li.k-correct .rot{color:var(--correct)}
+.steps li.k-ctx .rot{color:var(--orange)}.steps li.k-formal .rot{color:var(--teal)}
+.steps .math{font-family:'IBM Plex Serif',serif;font-size:19px;line-height:1.35;color:var(--ink)}
+.steps li.k-wrong .math{color:var(--wrong)}.steps li.k-correct .math{color:var(--correct)}
+.steps li.k-formal .math{color:var(--teal)}
+.steps .note{font-size:13.5px;color:var(--ink-soft);margin-top:3px;max-width:560px}
+.steps .note b{color:var(--ink);font-weight:600}
+.figbox{border:1px solid var(--rule);background:#fff;padding:10px 12px 6px}
+.figcap{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;color:var(--ink-mute);letter-spacing:.05em;min-height:26px;padding-top:6px;border-top:1px solid var(--rule-soft);margin-top:4px}
+svg{width:100%;height:auto;display:block}
+.controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
+.btn{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 14px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:3px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.ghost{border-color:var(--rule);color:var(--ink-mute)}
+.counter{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);margin-left:auto;letter-spacing:.05em}
+.pergunta{margin-top:14px;padding:12px 18px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16.5px;max-width:900px}
+.signoff{border-top:1px solid var(--rule);padding:9px 26px;text-align:center;font-family:'IBM Plex Serif',serif;font-style:italic;font-size:12.5px;color:var(--ink-mute);line-height:1.7}
+.signoff b{font-style:normal;font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);font-weight:600}
+@media print{@page{size:A4 landscape;margin:10mm}
+ body{min-height:auto}.controls{display:none}.steps{max-height:none;overflow:visible}
+ .steps li{opacity:1!important;transform:none!important;break-inside:avoid}
+ .steps li.cur{background:transparent}
+ .stage{grid-template-columns:1.15fr 1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div><b>Biblioteca · Banco de Dados</b> &nbsp;·&nbsp; Animação de resolução &nbsp;·&nbsp; Referência relativa e absoluta</div>
+  <div>Aula 2 · a planilha essencial · CED7651</div>
+</header>
+
+<main class="wrap">
+  <div class="eyebrow">Planilha · referências · o erro que a planilha não avisa</div>
+  <h1>A fórmula certa, arrastada do jeito errado, dá um número <em class="o">que parece certo</em></h1>
+  <p class="lede">Arrastar uma fórmula copia a lógica e muda os endereços. Quase sempre é isso que queremos. Quando uma célula precisa ficar parada, ela tem de ser travada.</p>
+  <div class="caso"><span class="rot">Situação · valores simulados</span><p>Programa municipal de alimentação escolar: gasto mensal na coluna B e taxa de reajuste de 6% na célula I1. A tarefa é calcular, na coluna E, o gasto de cada mês com o reajuste.</p></div>
+
+  <div class="stage">
+    <div>
+      <span class="panel-rot">Resolução passo a passo</span>
+      <ol class="steps" id="steps"></ol>
+    </div>
+    <div>
+      <span class="panel-rot">O que está acontecendo</span>
+      <div class="figbox">
+        <svg id="fig" viewBox="0 0 500 340" role="img" aria-label="Planilha com as colunas A, B, E e I; a fórmula de reajuste é arrastada e a referência da taxa escorrega para células vazias"></svg>
+        <div class="figcap" id="figcap"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prev">‹ Anterior</button>
+    <button class="btn" id="next">Próximo ›</button>
+    <button class="btn ghost" id="playb">▶ Tocar</button>
+    <button class="btn ghost" id="reset">⟲ Reiniciar</button>
+    <span class="counter" id="counter">passo 1 de 1</span>
+  </div>
+
+  <div class="pergunta">Por que a planilha não mostrou nenhuma mensagem de erro no reajuste, mas mostraria #DIV/0! se a mesma coisa acontecesse numa divisão?</div>
+</main>
+
+<footer class="signoff">
+  Produzida com auxílio de IA (Claude/Anthropic); revisão e responsabilidade: <b>Profa. Dra. Paula Toledo Palomino</b>. Valores simulados.<br>
+  Animação de resolução · Aula 2 · Banco de Dados e suas Aplicações · CED7651 · UNESP-Araraquara
+</footer>
+
+<script>
+if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
+var PAL={ink:'#161618',mute:'#6b6b70',rule:'#e2e0d9',ruleSoft:'#ecebe5',orange:'#c2410c',orangeSoft:'#fed7aa',
+teal:'#115e59',tealSoft:'#ccfbf1',blue:'#1e3a8a',correct:'#15803d',wrong:'#b91c1c'};
+
+/* ---- mini biblioteca de desenho (SVG em coordenadas de dados) ---- */
+function Plot(o){
+  var W=500,H=340,pl=(o.pl===undefined?52:o.pl),pr=16,pt=18,pb=(o.pb===undefined?38:o.pb);
+  var s='';
+  var X=function(v){return pl+(v-o.x0)/(o.x1-o.x0)*(W-pl-pr);};
+  var Y=function(v){return H-pb-(v-o.y0)/(o.y1-o.y0)*(H-pt-pb);};
+  var esc=function(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+  var api={X:X,Y:Y,
+   axes:function(xl,yl,xt,yt,fmt){
+     s+='<line x1="'+X(o.x0)+'" y1="'+Y(o.y0)+'" x2="'+X(o.x1)+'" y2="'+Y(o.y0)+'" stroke="'+PAL.ink+'" stroke-width="1.1"/>';
+     s+='<line x1="'+X(o.x0)+'" y1="'+Y(o.y0)+'" x2="'+X(o.x0)+'" y2="'+Y(o.y1)+'" stroke="'+PAL.ink+'" stroke-width="1.1"/>';
+     (xt||[]).forEach(function(v){ s+='<line x1="'+X(v)+'" y1="'+Y(o.y0)+'" x2="'+X(v)+'" y2="'+(Y(o.y0)+4)+'" stroke="'+PAL.mute+'"/>'+
+        '<text x="'+X(v)+'" y="'+(Y(o.y0)+16)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="'+PAL.mute+'">'+esc(v)+'</text>';});
+     (yt||[]).forEach(function(v){ s+='<line x1="'+X(o.x0)+'" y1="'+Y(v)+'" x2="'+(X(o.x0)-4)+'" y2="'+Y(v)+'" stroke="'+PAL.mute+'"/>'+
+        '<text x="'+(X(o.x0)-8)+'" y="'+(Y(v)+3.5)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="'+PAL.mute+'">'+esc(fmt?fmt(v):v)+'</text>';});
+     if(xl) s+='<text x="'+X(o.x1)+'" y="'+(Y(o.y0)+30)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" letter-spacing="0.06em" fill="'+PAL.mute+'">'+esc(xl)+'</text>';
+     if(yl) s+='<text x="'+(X(o.x0)+8)+'" y="'+(Y(o.y1)-6)+'" text-anchor="start" font-family="IBM Plex Mono,monospace" font-size="9.5" letter-spacing="0.06em" fill="'+PAL.mute+'">'+esc(yl)+'</text>';
+     return api;},
+   grid:function(xs,ys){ (xs||[]).forEach(function(v){s+='<line x1="'+X(v)+'" y1="'+Y(o.y0)+'" x2="'+X(v)+'" y2="'+Y(o.y1)+'" stroke="'+PAL.ruleSoft+'"/>';});
+     (ys||[]).forEach(function(v){s+='<line x1="'+X(o.x0)+'" y1="'+Y(v)+'" x2="'+X(o.x1)+'" y2="'+Y(v)+'" stroke="'+PAL.ruleSoft+'"/>';}); return api;},
+   curve:function(f,col,w,dash,a,b){ var A=(a===undefined?o.x0:a),B=(b===undefined?o.x1:b),p=[],N=180;
+     for(var i=0;i<=N;i++){var xv=A+(B-A)*i/N, yv=f(xv); if(!isFinite(yv))continue;
+       if(yv>o.y1*1.6||yv<o.y0-(o.y1-o.y0)*0.6)continue; p.push(X(xv).toFixed(1)+','+Y(yv).toFixed(1));}
+     s+='<polyline fill="none" stroke="'+col+'" stroke-width="'+(w||2.4)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+' points="'+p.join(' ')+'"/>'; return api;},
+   seg:function(x1,y1,x2,y2,col,w,dash){ s+='<line x1="'+X(x1)+'" y1="'+Y(y1)+'" x2="'+X(x2)+'" y2="'+Y(y2)+'" stroke="'+col+'" stroke-width="'+(w||2)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; return api;},
+   dot:function(x,y,col,r){ s+='<circle cx="'+X(x)+'" cy="'+Y(y)+'" r="'+(r||4.6)+'" fill="'+col+'"/>'; return api;},
+   ring:function(x,y,col,r){ s+='<circle cx="'+X(x)+'" cy="'+Y(y)+'" r="'+(r||6)+'" fill="#fff" stroke="'+col+'" stroke-width="2"/>'; return api;},
+   band:function(x1,x2,col,op){ s+='<rect x="'+X(x1)+'" y="'+Y(o.y1)+'" width="'+(X(x2)-X(x1))+'" height="'+(Y(o.y0)-Y(o.y1))+'" fill="'+col+'" opacity="'+(op||0.16)+'"/>'; return api;},
+   lab:function(x,y,txt,col,size,anchor,dx,dy){ s+='<text x="'+(X(x)+(dx||0))+'" y="'+(Y(y)+(dy||0))+'" text-anchor="'+(anchor||'start')+'" font-family="IBM Plex Mono,monospace" font-size="'+(size||10.5)+'" fill="'+col+'">'+esc(txt)+'</text>'; return api;},
+   px:function(x,y,txt,col,size,anchor,weight){ s+='<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'" font-family="IBM Plex Mono,monospace" font-size="'+(size||10.5)+'" font-weight="'+(weight||400)+'" fill="'+col+'">'+esc(txt)+'</text>'; return api;},
+   rawpx:function(str){ s+=str; return api;},
+   out:function(){return s;}};
+  return api;
+}
+function card(x,y,w,h,txt,col,fill){
+  var s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(fill||'#fff')+'" stroke="'+col+'" stroke-width="1.4" rx="3"/>';
+  var lines=String(txt).split('|');
+  lines.forEach(function(l,i){ s+='<text x="'+(x+w/2)+'" y="'+(y+18+i*15)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10.5" fill="'+col+'">'+l+'</text>';});
+  return s;
+}
+function arrow(x1,y1,x2,y2,col,w){
+  var a=Math.atan2(y2-y1,x2-x1),L=8;
+  return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+col+'" stroke-width="'+(w||1.8)+'"/>'+
+   '<polygon points="'+x2+','+y2+' '+(x2-L*Math.cos(a-0.4))+','+(y2-L*Math.sin(a-0.4))+' '+(x2-L*Math.cos(a+0.4))+','+(y2-L*Math.sin(a+0.4))+'" fill="'+col+'"/>';
+}
+var nf=function(v,d){return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:(d===undefined?0:d),maximumFractionDigits:(d===undefined?0:d)});};
+
+
+/* ---- dados dos passos ---- */
+var STEPS=[{"r": "A SITUAÇÃO", "k": "ctx", "m": "gasto reajustado = gasto × (1 + taxa) &nbsp;·&nbsp; taxa de 6% na célula I1", "n": "A taxa está numa célula só, ao lado da tabela. Se o reajuste mudar, basta trocar esse número."}, {"r": "A FÓRMULA NA PRIMEIRA LINHA", "m": "E2: =B2*(1+I1) &nbsp;→&nbsp; 38.500 × 1,06 = 40.810", "n": "Na primeira linha, tudo certo: o gasto de janeiro vezes 1,06."}, {"r": "ARRASTAR PARA BAIXO", "m": "E3: =B3*(1+I2) &nbsp;·&nbsp; E4: =B4*(1+I3)", "n": "Ao arrastar, a planilha soma uma linha a cada endereço. B2 virou B3, o que é bom. Mas I1 virou I2, e I2 está vazia."}, {"r": "CÉLULA VAZIA CONTA COMO ZERO", "k": "wrong", "m": "E3 = 152.300 × (1 + 0) = 152.300 &nbsp;·&nbsp; sem reajuste", "n": "Do segundo mês em diante, o reajuste sumiu. E nenhuma mensagem de erro apareceu."}, {"r": "O TOTAL PARECE NORMAL", "k": "wrong", "m": "total reajustado = 1.694.310", "n": "É um número plausível, um pouco maior que o total original. Quem não confere, entrega."}, {"r": "A CONTA DE CONTROLE", "k": "formal", "m": "1.692.000 × 1,06 = 1.793.520 &nbsp;≠&nbsp; 1.694.310", "n": "Se todo mês sobe 6%, o total também sobe 6%. A conta de controle não bate: faltam 99.210 reais."}, {"r": "TRAVAR A CÉLULA DA TAXA", "k": "formal", "m": "E2: =B2*(1+$I$1)", "n": "O cifrão trava: $I trava a coluna, $1 trava a linha. Ao arrastar, esse endereço não anda."}, {"r": "ARRASTAR DE NOVO", "m": "E3: =B3*(1+$I$1) &nbsp;→&nbsp; 152.300 × 1,06 = 161.438", "n": "B3 continua andando, como deve. A taxa fica parada em I1."}, {"r": "RESULTADO", "k": "correct", "m": "total reajustado = 1.793.520 = conta de controle", "n": "Agora o total bate com a conta de controle."}, {"r": "LEITURA DE GESTÃO", "k": "ctx", "m": "um erro de referência subestimou o orçamento em quase R$ 100 mil", "n": "A planilha não avisa quando a lógica está errada. Por isso, todo cálculo importante ganha uma conta de controle."}];
+var FIGCAPS=["A planilha: gasto na coluna B, taxa em I1.", "A fórmula da primeira linha.", "Ao arrastar, a taxa escorrega para I2 e I3, vazias.", "Sem taxa, o gasto é copiado sem reajuste.", "O total errado parece razoável.", "A conta de controle revela o erro.", "O cifrão trava a célula da taxa.", "Arrastando de novo, a taxa fica parada.", "O total certo bate com a conta de controle.", "A lição para quem trabalha com dado público."];
+
+/* ---- figura por passo (especifica desta animacao) ---- */
+function drawStep(i){
+
+  var s='';
+  function T(x,y,txt,size,col,anchor,fam,weight){ s+='<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'" font-family="'+(fam||'IBM Plex Sans,sans-serif')+'" font-size="'+(size||13)+'" font-weight="'+(weight||400)+'" fill="'+(col||PAL.ink)+'">'+txt+'</text>'; }
+  function M(x,y,txt,size,col,anchor,weight){ T(x,y,txt,size||11,col||PAL.ink,anchor,'IBM Plex Mono,monospace',weight); }
+  function R(x,y,w,h,stroke,fill,sw,dash){ s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(fill||'#fff')+'" stroke="'+(stroke||PAL.rule)+'" stroke-width="'+(sw||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+
+  var COLS=[['',30],['A',62],['B',96],['E',124],['I',70]];
+  var X0=18, Y0=56, H=28;
+  var xs=[X0]; for(var c=0;c<COLS.length;c++) xs.push(xs[c]+COLS[c][1]);
+  var LIN=['','1','2','3','4','…','14'];
+  function cellXY(col,row){ return [xs[col], Y0+row*H]; }
+  function cell(col,row,txt,opt){ opt=opt||{}; var p=cellXY(col,row); R(p[0],p[1],COLS[col][1],H,opt.stroke||PAL.rule,opt.fill||'#fff',opt.sw||1,opt.dash);
+     if(txt!==undefined && txt!=='') M(p[0]+(opt.left?6:COLS[col][1]-6),p[1]+18,txt,opt.size||11,opt.col||PAL.ink,opt.left?'start':'end',opt.weight); }
+  function grade(E,Istate){
+    // cabeçalho de colunas
+    for(var c=0;c<COLS.length;c++){ var p=cellXY(c,0); R(p[0],p[1],COLS[c][1],H,PAL.rule,PAL.ruleSoft); if(COLS[c][0]) M(p[0]+COLS[c][1]/2,p[1]+18,COLS[c][0],11,PAL.mute,'middle'); }
+    for(var r=1;r<LIN.length;r++){ var p=cellXY(0,r); R(p[0],p[1],COLS[0][1],H,PAL.rule,PAL.ruleSoft); M(p[0]+COLS[0][1]/2,p[1]+18,LIN[r],10.5,PAL.mute,'middle'); }
+    cell(1,1,'Mês',{left:true,size:10.5,weight:600}); cell(2,1,'Gasto',{size:10.5,weight:600}); cell(3,1,'Reajustado',{size:10.5,weight:600});
+    cell(4,1,Istate.i1||'6%',Istate.o1||{});
+    cell(1,2,'jan',{left:true}); cell(2,2,'38.500'); cell(1,3,'fev',{left:true}); cell(2,3,'152.300');
+    cell(1,4,'mar',{left:true}); cell(2,4,'171.800');
+    cell(1,5,'…',{left:true,col:PAL.mute}); cell(2,5,'…',{col:PAL.mute}); cell(3,5,E.dots||'',{col:PAL.mute}); cell(4,5,'',{});
+    cell(1,6,'Total',{left:true,weight:600}); cell(2,6,'1.692.000',{weight:600});
+    cell(3,2,E.e2||'',E.o2||{}); cell(3,3,E.e3||'',E.o3||{}); cell(3,4,E.e4||'',E.o4||{}); cell(3,6,E.e14||'',E.o14||{});
+    cell(4,2,Istate.i2||'',Istate.o2||{}); cell(4,3,Istate.i3||'',Istate.o3||{}); cell(4,4,'',{}); cell(4,6,'',{});
+    M(xs[4]+COLS[4][1]+8,Y0+H+18,'← taxa',10,PAL.mute);
+    M(X0,Y0+7*H+14,'Colunas C, D, F, G e H existem na planilha; foram omitidas no desenho.',9,PAL.mute);
+  }
+  function barra(txt,col){ R(18,14,382,28,PAL.rule,'#fff'); M(28,33,'fx',11,PAL.mute); M(52,33,txt||'',12,col||PAL.ink); }
+  function aviso(y,titulo,l1,l2,cor,fundo){ R(18,y,464,70,cor,fundo,1.4); M(30,y+20,titulo,10.5,cor,'start',600); T(30,y+41,l1,13.5,PAL.ink); if(l2) T(30,y+60,l2,13.5,PAL.ink); }
+
+  var E={}, I={}, bar='', barCol=PAL.ink;
+  var hiB={stroke:PAL.orange,sw:2,fill:'#fff8f3'};
+  if(i===0){ I.o1={stroke:PAL.teal,sw:2,fill:'#f3fbf9'}; }
+  if(i===1){ E.e2='40.810'; E.o2={stroke:PAL.ink,sw:2}; I.o1={stroke:PAL.teal,sw:2,fill:'#f3fbf9'}; bar='=B2*(1+I1)'; }
+  if(i===2){ E.e2='40.810'; E.e3='=B3*(1+I2)'; E.o3={stroke:PAL.wrong,sw:2,size:9.5,col:PAL.wrong};
+     E.e4='=B4*(1+I3)'; E.o4={stroke:PAL.wrong,sw:1.4,size:9.5,col:PAL.wrong};
+     I.o2={stroke:PAL.wrong,sw:2,dash:'4 3',fill:'#fff5f5'}; I.i2='vazia'; I.o2.col=PAL.wrong; I.o2.size=9.5;
+     I.o3={stroke:PAL.wrong,sw:1.4,dash:'4 3',fill:'#fff5f5',col:PAL.wrong,size:9.5}; I.i3='vazia'; bar='=B3*(1+I2)'; barCol=PAL.wrong; }
+  if(i===3||i===4||i===5){ E.e2='40.810'; E.e3='152.300'; E.o3={fill:'#fff5f5',col:PAL.wrong,stroke:PAL.wrong,sw:1.4};
+     E.e4='171.800'; E.o4={fill:'#fff5f5',col:PAL.wrong,stroke:PAL.wrong,sw:1.4}; E.dots='…';
+     I.i2='vazia'; I.o2={dash:'4 3',col:PAL.wrong,size:9.5}; bar='=B3*(1+I2)'; barCol=PAL.wrong; }
+  if(i>=4 && i<=5){ E.e14='1.694.310'; E.o14={stroke:PAL.wrong,sw:2,col:PAL.wrong,weight:600,fill:'#fff5f5'}; }
+  if(i===6){ E.e2='40.810'; E.o2={stroke:PAL.teal,sw:2}; I.o1={stroke:PAL.teal,sw:2.4,fill:'#f3fbf9',weight:600}; bar='=B2*(1+$I$1)'; barCol=PAL.teal; }
+  if(i>=7){ E.e2='40.810'; E.e3='161.438'; E.e4='182.108'; E.dots='…'; E.o3={fill:'#f0fdf4',col:PAL.correct,stroke:PAL.correct,sw:1.4};
+     E.o4={fill:'#f0fdf4',col:PAL.correct,stroke:PAL.correct,sw:1.4}; I.o1={stroke:PAL.teal,sw:2,fill:'#f3fbf9'}; bar='=B3*(1+$I$1)'; barCol=PAL.teal; }
+  if(i>=8){ E.e14='1.793.520'; E.o14={stroke:PAL.correct,sw:2,col:PAL.correct,weight:600,fill:'#f0fdf4'}; }
+  if(i===9){ barra('=B3*(1+$I$1)',PAL.teal); aviso(96,'LEITURA DE GESTÃO','A planilha não avisa quando a lógica está errada.','Todo cálculo importante ganha uma conta de controle.',PAL.teal,'#f3fbf9');
+     aviso(186,'O ERRO, EM REAIS','Sem o cifrão, o reajuste sumiu em 11 meses:','o orçamento ficaria R$ 99.210 abaixo do necessário.',PAL.wrong,'#fff5f5'); return s; }
+  barra(bar,barCol);
+  grade(E,I);
+  if(i===5){ R(18,280,464,54,PAL.teal,'#f3fbf9',1.4); M(28,298,'CONTA DE CONTROLE',10,PAL.teal,'start',600);
+     M(28,322,'1.692.000 × 1,06 = 1.793.520',12.5,PAL.teal,'start',600); M(472,322,'≠ 1.694.310',12.5,PAL.wrong,'end',600); }
+  if(i===8){ R(18,280,464,54,PAL.correct,'#f0fdf4',1.4); M(28,298,'CONFERIDO',10,PAL.correct,'start',600);
+     M(28,322,'1.692.000 × 1,06 = 1.793.520 = total da coluna E',12.5,PAL.correct,'start',600); }
+  return s;
+
+}
+
+/* ---- motor ---- */
+var ol=document.getElementById('steps'), fig=document.getElementById('fig'), figcap=document.getElementById('figcap'),
+    counter=document.getElementById('counter'), cur=0, timer=null, playing=false;
+STEPS.forEach(function(st,i){
+  var li=document.createElement('li');
+  li.className='k-'+(st.k||'plain');
+  li.innerHTML='<span class="rot">'+st.r+'</span><span class="math">'+st.m+'</span>'+(st.n?'<div class="note">'+st.n+'</div>':'');
+  ol.appendChild(li);
+});
+function render(){
+  var lis=ol.children;
+  for(var i=0;i<lis.length;i++){
+    lis[i].classList.toggle('on', i<=cur);
+    lis[i].classList.toggle('cur', i===cur);
+  }
+  fig.innerHTML=drawStep(cur);
+  figcap.textContent=FIGCAPS[Math.min(cur,FIGCAPS.length-1)]||'';
+  counter.textContent='passo '+(cur+1)+' de '+STEPS.length;
+  if(lis[cur]&&lis[cur].scrollIntoView) lis[cur].scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function go(i){ cur=Math.max(0,Math.min(STEPS.length-1,i)); render(); }
+function stop(){ playing=false; clearInterval(timer); document.getElementById('playb').textContent='▶ Tocar'; }
+document.getElementById('next').addEventListener('click',function(){stop();go(cur+1);});
+document.getElementById('prev').addEventListener('click',function(){stop();go(cur-1);});
+document.getElementById('reset').addEventListener('click',function(){stop();go(0);});
+document.getElementById('playb').addEventListener('click',function(){
+  if(playing){stop();return;}
+  if(cur>=STEPS.length-1) go(0);
+  playing=true; this.textContent='❚❚ Pausar';
+  timer=setInterval(function(){ if(cur>=STEPS.length-1){stop();} else go(cur+1); },3200);
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();stop();go(cur+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();stop();go(cur-1);}
+  else if(e.key==='Home'){e.preventDefault();stop();go(0);}
+  else if(e.key==='End'){e.preventDefault();stop();go(STEPS.length-1);}
+});
+/* API usada pela exportacao de PDF e video */
+window.__anim={total:STEPS.length,go:function(i){stop();go(i);},all:function(){var l=ol.children;for(var i=0;i<l.length;i++){l[i].classList.add('on');}}};
+render();
+</script>
+</body>
+</html>

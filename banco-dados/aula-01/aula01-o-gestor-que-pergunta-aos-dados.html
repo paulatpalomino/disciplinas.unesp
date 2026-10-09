@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 1 - Abertura - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O gestor que pergunta aos dados - Aula 1 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 1 · Abertura</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 1</span><span>·</span><span>Abertura da disciplina</span></div>
+  <h1>O gestor que <em>pergunta</em> aos dados</h1>
+  <p class="hero-lede">Quem administra o público decide com números. Esta disciplina ensina o caminho do dado bruto à decisão: planilha, banco de dados, painel e, o tempo todo, a pergunta certa e a fonte do número.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · QUEM SOU</div><h2 class="bloco-title">Dados públicos são o meu <em class="orange">tema de trabalho</em></h2></div>
+<div class="prose"><p>Sou a Paula. Minha área é tecnologia, dados e políticas públicas. Lidero o PRAXIS, grupo de pesquisa em governança digital da UNESP, e coordeno projetos ligados ao Ministério da Educação.</p><p>Nesta disciplina, vocês vão fazer o que se faz em qualquer secretaria que leva dados a sério: <strong>organizar, perguntar, conferir e comunicar</strong>.</p><p>Ninguém precisa chegar sabendo programar. Precisa chegar disposto a perguntar.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · UM MÊS DA MERENDA</div><h2 class="bloco-title">Olhe por <em class="orange">vinte segundos</em></h2></div>
+<table class="tab"><tr><th>Escola</th><th>Refeições servidas no mês</th><th>Gasto no mês (R$)</th></tr><tr><td>Escola 1</td><td class="n">10.000</td><td class="n">35.000,00</td></tr><tr><td>Escola 2</td><td class="n">7.000</td><td class="n">24.500,00</td></tr><tr><td>Escola 3</td><td class="n">6.000</td><td class="n">27.000,00</td></tr><tr><td>Escola 4</td><td class="n">8.000</td><td class="n">28.000,00</td></tr><tr><td>Escola 5</td><td class="n">5.000</td><td class="n">17.500,00</td></tr></table><div class="prose"><p>Programa municipal de alimentação escolar, um mês, cinco escolas. Você é quem responde pela secretaria.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Onde o gestor <em class="orange">pergunta primeiro</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Olhando a tabela, qual escola merece a primeira pergunta do gestor?</p>
+    <ol><li>A Escola 1, que tem o maior gasto.</li><li>A Escola 5, que tem o menor gasto.</li><li>A Escola 3.</li><li>Nenhuma: os números parecem normais.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · OLHAR OU PERGUNTAR</div><h2 class="bloco-title">O maior gasto não é <em class="orange">o problema</em></h2></div>
+<table class="tab"><tr><th>Escola</th><th>Refeições</th><th>Gasto (R$)</th><th>Custo por refeição (R$)</th></tr><tr><td>Escola 1</td><td class="n">10.000</td><td class="n">35.000,00</td><td class="n">3,50</td></tr><tr><td>Escola 2</td><td class="n">7.000</td><td class="n">24.500,00</td><td class="n">3,50</td></tr><tr><td>Escola 3</td><td class="n">6.000</td><td class="n">27.000,00</td><td class="n"><strong style="color:var(--wrong)">4,50</strong></td></tr><tr><td>Escola 4</td><td class="n">8.000</td><td class="n">28.000,00</td><td class="n">3,50</td></tr><tr><td>Escola 5</td><td class="n">5.000</td><td class="n">17.500,00</td><td class="n">3,50</td></tr></table><div class="prose"><p>Olhando o gasto, a Escola 1 chama a atenção. <strong>Perguntando</strong> quanto custa cada refeição (gasto ÷ refeições), aparece a Escola 3: R$ 4,50, contra R$ 3,50 nas outras. Neste mês, isso são R$ 6.000 a mais.</p><p>Pode ser desvio, frete mais caro de uma escola rural ou erro de digitação. <strong>O dado não responde por quê. Ele mostra onde perguntar.</strong></p></div><p class="fonte">Valores simulados. Conta: 6.000 refeições × (4,50 − 3,50) = R$ 6.000.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · A DISCIPLINA EM UMA FRASE</div><h2 class="bloco-title">Do dado bruto <em>à decisão</em></h2></div>
+<div class="passo"><div><b>1 · Planilha</b><span>organizar os dados e fazer as primeiras perguntas</span></div><div><b>2 · Banco de dados</b><span>separar em tabelas e perguntar com SQL</span></div><div><b>3 · Painel</b><span>Power BI: do dado bruto ao painel confiável</span></div><div><b>4 · Decisão</b><span>nota técnica: o que o gestor deve fazer</span></div></div><div class="prose"><p>Por baixo das quatro etapas, o tempo todo: <strong>de onde veio o dado, se ele é confiável e se pode ser usado</strong>. Isso é governança de dados.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · O MAPA</div><h2 class="bloco-title">Cinco unidades, <em class="orange">uma pergunta</em> por unidade</h2></div>
+<table class="tab"><tr><th>Unidade</th><th>Aulas</th><th>A pergunta</th></tr><tr><td>1 · Planilhas: a porta de entrada</td><td class="n">1 a 7</td><td>Como organizar e resumir dados para responder a uma pergunta?</td></tr><tr><td>2 · Do arquivo ao banco de dados</td><td class="n">8 a 12</td><td>Por que separar os dados em tabelas e como perguntar a elas?</td></tr><tr><td>3 · Inteligência de negócios com Power BI</td><td class="n">13 a 21</td><td>Como transformar dado bruto em painel confiável?</td></tr><tr><td>4 · Dados públicos, governança e IA</td><td class="n">22 a 25</td><td>Posso confiar nesse dado, posso usá-lo e como explico o resultado?</td></tr><tr><td>5 · Desafio de Dados da Gestão Pública</td><td class="n">26 a 31</td><td>Qual decisão este painel apoia?</td></tr></table><div class="prose"><p><strong>Avisos do calendário:</strong> na Semana da Administração Pública não há aula; o Desafio fecha na Aula 30, com a vitrine dos grupos sorteados. As datas estão no calendário da turma.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · POR QUE POWER BI</div><h2 class="bloco-title">Uma ferramenta de <em>gestão</em>, com limites que vocês precisam conhecer</h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">O que é</span><h4>Painéis a partir de dados brutos</h4><ul><li>Junta tabelas, limpa, calcula e desenha</li><li>Usado em órgãos públicos e em empresas</li><li>A ENAP usa em curso de análise de dados para servidores</li></ul></div><div class="card errado"><span class="rot">Limites</span><h4>O que ele não faz</h4><ul><li>Roda somente em Windows</li><li>Na licença gratuita, não publica nem compartilha pela internet</li><li>Por isso, a entrega é o arquivo e um PDF</li></ul></div><div class="card certo"><span class="rot">Plano B</span><h4>Se você não tem Windows em casa</h4><ul><li>Os computadores da sala</li><li>Looker Studio: gratuito, pelo navegador</li><li>Os mesmos conceitos valem nos dois</li></ul></div></div><div class="prose"><p>Antes do Power BI, a planilha, que é onde quase todo dado público chega primeiro.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · TODO NÚMERO TEM ENDEREÇO</div><h2 class="bloco-title">Número sem fonte é <em class="orange">opinião</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">A fonte</span><h4>De onde veio?</h4><ul><li>Qual base, de qual órgão</li><li>De quando (data de extração)</li><li>Com qual recorte</li></ul></div><div class="card olho"><span class="rot">A conferência</span><h4>Faz sentido?</h4><ul><li>Bate com um total conhecido?</li><li>A unidade está certa?</li><li>Tem valor absurdo?</li></ul></div><div class="card errado"><span class="rot">O cuidado</span><h4>Pode ser usado?</h4><ul><li>Dado pessoal não vai para painel público</li><li>Não vai para ferramenta de IA</li><li>Contagens e médias, nunca pessoas</li></ul></div></div><div class="prose"><p>A Lei Geral de Proteção de Dados Pessoais (LGPD) vale para o setor público. Nesta disciplina, trabalhamos com dados simulados e com dados públicos abertos, e a regra vale desde hoje.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Publicar ou <em class="orange">proteger</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Uma planilha de atendimentos da assistência social tem nome, CPF, bairro e tipo de benefício. Você vai publicar um painel na internet. O que fazer?</p>
+    <ol><li>Publicar como está: é dado público.</li><li>Apagar só a coluna do nome.</li><li>Retirar nome e CPF e mostrar só contagens por bairro e tipo de benefício.</li><li>Não dá para publicar nada.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · COMO VOCÊ SERÁ AVALIADO</div><h2 class="bloco-title">Sem provas grandes. Tudo <em>com consulta</em>.</h2></div>
+<table class="tab"><tr><th>Peça</th><th>O que é</th><th>Peso</th></tr><tr><td>Checagens de preparo</td><td>Formulário curto antes de algumas aulas, sobre a leitura ou o vídeo de preparo. Valem as 8 melhores de 10.</td><td class="n">10%</td></tr><tr><td>Laboratórios</td><td>Prática no computador. Você informa os números de controle que obteve. Valem os 12 melhores de 16.</td><td class="n">20%</td></tr><tr><td>Missões práticas</td><td>Duas tarefas individuais no computador (Aulas 7 e 19), com consulta e sem IA.</td><td class="n">30%</td></tr><tr><td>Desafio de Dados</td><td>Em grupo: painel sobre base pública real e nota técnica, entregues no Classroom.</td><td class="n">35%</td></tr><tr><td>Pergunta individual</td><td>Na Aula 30, escrita, sozinho, sobre uma escolha do seu próprio painel.</td><td class="n">5%</td></tr></table><div class="prose"><p>Dois terços da nota (65%) são individuais. O detalhe está no documento sobre como funciona a disciplina, no Classroom.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · NADA É DEFINITIVO</div><h2 class="bloco-title">Errar faz parte. Quase tudo tem <em class="orange">nova chance</em>.</h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Laboratório</span><h4>O número não bateu?</h4><ul><li>A explicação mostra o erro provável</li><li>Reenvio até o início da aula seguinte</li><li>Os quatro piores não contam</li></ul></div><div class="card pergunta"><span class="rot">Missão prática</span><h4>Não atingiu um item?</h4><ul><li>Refaz na Aula 29</li><li>Vale o melhor resultado de cada item</li></ul></div><div class="card certo"><span class="rot">Desafio</span><h4>O painel ainda não está bom?</h4><ul><li>Dois marcos com devolutiva</li><li>Revisão por pares na Aula 27</li></ul></div></div><div class="prose"><p><strong>Regras da universidade:</strong> frequência mínima de 70% e média 5,0. Com frequência e sem média, há exame final de 22 a 26/02/2027; a nota final é a média entre a nota do semestre e a do exame.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · COMO É UMA AULA</div><h2 class="bloco-title">Pouca fala, <em>muita prática</em></h2></div>
+<div class="passo"><div><b>1 · Preparo</b><span>leitura ou vídeo curto, com checagem</span></div><div><b>2 · Dúvidas</b><span>explicação breve, a partir do que travou</span></div><div><b>3 · Laboratório</b><span>prática guiada no computador, com número de controle</span></div><div><b>4 · Fechamento</b><span>os erros mais comuns da turma, e por quê</span></div></div><div class="prose"><p><strong>Número de controle:</strong> no fim do laboratório, você informa no formulário o número que a sua planilha mostrou, por exemplo o total do ano. Se bater, você sabe que acertou. Se não bater, a explicação mostra onde provavelmente está o erro, e você pode corrigir e enviar de novo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · E A INTELIGÊNCIA ARTIFICIAL?</div><h2 class="bloco-title">A IA propõe, <em>o dado decide</em>, você responde</h2></div>
+<div class="compara tres"><div class="card errado"><span class="rot">Sem IA</span><h4>Onde você mostra o que sabe</h4><ul><li>Missões práticas</li><li>Pergunta individual sobre o Desafio</li></ul></div><div class="card pergunta"><span class="rot">Livre</span><h4>Para estudar</h4><ul><li>Tirar dúvida, pedir outro exemplo</li><li>Explicar uma função ou um erro</li><li>Não precisa declarar</li></ul></div><div class="card certo"><span class="rot">Declarada</span><h4>Laboratórios e Desafio</h4><ul><li>Permitida, com declaração no formulário</li><li>O número de controle mostra se está certo</li><li>Na Aula 24: IA como parceira auditada</li></ul></div></div><div class="prose"><p>Declarar que usou IA nunca tira nota. E, de novo: dado pessoal não vai para ferramenta de IA.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">12 · O DESAFIO DE DADOS</div><h2 class="bloco-title">Uma pergunta de gestão, <em class="orange">uma base pública real</em>, um painel</h2></div>
+<table class="tab"><tr><th>Quando</th><th>O que acontece</th></tr><tr><td>Aula 22</td><td>Marco 1: a pergunta e a base de dados escolhidas, com a fonte</td></tr><tr><td>Aula 25</td><td>Marco 2: o painel e a recomendação, em rascunho, com devolutiva</td></tr><tr><td>Aulas 26 a 29</td><td>Trabalho em sala, com revisão por pares na Aula 27 e ensaio da apresentação na Aula 29</td></tr><tr><td>Aula 30</td><td>Vitrine: cada pessoa responde a uma pergunta escrita; depois, 3 ou 4 grupos sorteados apresentam no computador da sala</td></tr></table><div class="prose"><p>Em grupo. A entrega, no Classroom, é o painel no Power BI (arquivo e PDF), uma nota técnica de duas páginas para um gestor, a declaração de uso de IA e uma apresentação curta. <strong>Comecem a reparar em perguntas de gestão que vocês gostariam de responder com dados.</strong></p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">13 · ONDE ESTÁ TUDO</div><h2 class="bloco-title">Tudo no <em>Classroom</em></h2></div>
+<div class="prose"><p>Como funciona a disciplina, calendário da turma, materiais de preparo, roteiros dos laboratórios, bases de dados, checagens e avisos.</p><p>Hoje saem dois documentos: <strong>como funciona a disciplina</strong> (como a nota funciona) e <strong>o calendário da turma</strong>. Leiam com calma em casa.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">14 · DE ONDE VOCÊS PARTEM</div><h2 class="bloco-title">Diagnóstico: <em class="orange">sem nota</em>, sem pegadinha</h2></div>
+<div class="prose"><p>No computador, abram o aviso de hoje no Classroom e respondam ao diagnóstico. São cerca de 10 minutos.</p><p>Não vale nota. Serve para eu calibrar o ritmo da turma e planejar as ferramentas do semestre. <strong>"Não sei" é uma resposta útil</strong>: marque sem medo.</p><p>A primeira pergunta é sobre o computador que você usa fora daqui: ela decide o plano B do Power BI.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">15 · ANTES DE SAIR</div><h2 class="bloco-title">Confira se você <em>consegue entrar</em></h2></div>
+<div class="prose"><p>Neste computador, entre com a sua conta institucional, abra o Classroom da disciplina e abra uma planilha em branco nas Planilhas Google. Se algo não funcionar, avise agora: na próxima aula, o laboratório depende disso.</p><p><strong>Na próxima aula:</strong> a planilha essencial (dado bem estruturado, fórmulas e referências) e o Laboratório 1.</p></div><p class="bigline">O dado não responde por quê. <em>Ele mostra onde perguntar.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 1 · Abertura · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

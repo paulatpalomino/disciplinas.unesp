@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 4 - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A planilha como base de dados - Aula 4 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 4 · A planilha como base de dados</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 4</span><span>·</span><span>Unidade 1 · Planilhas</span></div>
+  <h1>A planilha como <em>base de dados</em></h1>
+  <p class="hero-lede">Quando a tabela tem centenas de linhas, ninguém lê tudo. Hoje: pôr em ordem, mostrar só o que interessa, impedir o erro de digitação e coletar dados que já chegam organizados.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Duas partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:2"><div><b>Quatro verbos · 45 min</b><span>classificar, filtrar, validar e coletar, com demonstração na planilha da merenda</span></div><div><b>Laboratório 3 · 50 min</b><span>os protocolos da ouvidoria municipal, com números de controle</span></div></div><div class="prose"><p>O Laboratório 2 mostrou onde a turma tropeçou. A aula começa por aí.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · QUATRO VERBOS</div><h2 class="bloco-title">O que o gestor pede, e <em class="orange">onde isso fica</em></h2></div>
+<table class="tab"><tr><th>O gestor pede</th><th>O verbo</th><th>Onde fica nas Planilhas Google</th></tr><tr><td>Qual foi o maior? Qual é o mais antigo?</td><td class="n">Classificar</td><td>Dados › Classificar intervalo</td></tr><tr><td>Quero ver só os casos da Saúde.</td><td class="n">Filtrar</td><td>Dados › Criar um filtro</td></tr><tr><td>Como impedir que alguém digite "Escola 03"?</td><td class="n">Validar</td><td>Dados › Validação de dados</td></tr><tr><td>Como receber os dados já organizados?</td><td class="n">Coletar</td><td>um formulário ligado à planilha</td></tr></table><div class="prose"><p>No Excel, os três primeiros ficam na guia <strong>Dados</strong>, com nomes parecidos: Classificar, Filtro e Validação de Dados.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · CLASSIFICAR</div><h2 class="bloco-title">O registro anda <em class="orange">inteiro</em></h2></div>
+<div class="aposta">Antes de avançar: se eu classificar só a coluna dos dias, o que acontece com as outras colunas?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a04-classificar-sem-desalinhar.html?embed=1" title="Animação: classificar sem desalinhar" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · o jeito errado e o estrago · o jeito certo · o filtro · a SOMA que enxerga o que está escondido · o SUBTOTAL. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · qual protocolo demorou mais para ser respondido?</li><li><b>A TABELA</b> · uma linha por protocolo: protocolo, secretaria e dias</li><li><b>O JEITO ERRADO</b> · selecionar só a coluna dias e classificar</li><li><b>O ESTRAGO</b> · "P-01, da Saúde, levou 97 dias": falso</li><li><b>O JEITO CERTO</b> · selecionar a tabela inteira e classificar pela coluna dias</li><li><b>A RESPOSTA</b> · P-02, de Obras: 97 dias</li><li><b>FILTRAR</b> · mostrar só os protocolos da Saúde</li><li><b>O FILTRO ESCONDE, NÃO APAGA</b> · =SOMA(C2:C6) continua dando 125</li><li><b>SOMAR SÓ O QUE ESTÁ VISÍVEL</b> · =SUBTOTAL(109; C2:C6) dá 8</li><li><b>LEITURA DE GESTÃO</b> · classificar e filtrar são jeitos de olhar: o dado continua o mesmo</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Só <em class="orange">uma coluna</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Nas Planilhas Google, uma colega selecionou só a coluna do gasto e classificou do maior para o menor. O que aconteceu com a tabela?</p>
+    <ol><li>Ficou certa: a planilha ajusta as outras colunas sozinha.</li><li>Cada gasto ficou ao lado da escola e do mês errados, sem nenhum aviso.</li><li>A planilha mostrou uma mensagem de erro e não classificou.</li><li>As outras colunas foram apagadas.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · CLASSIFICAR POR DUAS COLUNAS</div><h2 class="bloco-title">Primeiro a escola, depois <em>o custo</em></h2></div>
+<div class="passo" style="--n:4"><div><b>1 · Selecionar</b><span>clique numa célula da tabela e use Ctrl + A: a tabela inteira</span></div><div><b>2 · Abrir</b><span>Dados › Classificar intervalo › Opções avançadas de classificação do intervalo</span></div><div><b>3 · Cabeçalho</b><span>marque "Os dados têm linha de cabeçalho"</span></div><div><b>4 · Regras</b><span>escola, de A a Z; depois "Adicionar outra coluna de classificação": custo, de Z a A</span></div></div><div class="prose"><p><strong>Resultado na demonstração:</strong> as escolas em ordem alfabética e, dentro de cada escola, do mês mais caro para o mais barato. A primeira linha da Escola 5 é julho, com R$ 4,30 por refeição: o mês que saiu do padrão.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · FILTRAR</div><h2 class="bloco-title">Mostrar só <em class="orange">o que interessa</em></h2></div>
+<table class="tab"><tr><th>O que fazer</th><th>Como</th><th>Na demonstração</th></tr><tr><td>Ligar o filtro</td><td class="n">Dados › Criar um filtro</td><td>aparece um botão em cada título de coluna</td></tr><tr><td>Filtrar por valor</td><td class="n">no botão da coluna escola, deixe marcada só a Escola 5</td><td>ficam 10 linhas visíveis</td></tr><tr><td>Filtrar por condição</td><td class="n">no botão do custo: Filtrar por condição › Maior que › 4</td><td>ficam 11 linhas visíveis</td></tr><tr><td>Somar só o visível</td><td class="n">=SUBTOTAL(109; D2:D51)</td><td>com a Escola 5 filtrada: R$ 170.472,25</td></tr></table><div class="prose"><p><strong>Os códigos do SUBTOTAL:</strong> 109 soma, 103 conta e 101 calcula a média, sempre só das linhas visíveis. A SOMA comum daria R$ 1.269.579,00, o gasto das cinco escolas.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O filtro <em class="orange">esconde</em> ou apaga?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Você filtrou a tabela para mostrar só a Escola 5 e escreveu =SOMA(D2:D51) embaixo dela. O resultado é o gasto:</p>
+    <ol><li>só da Escola 5, porque as outras linhas sumiram.</li><li>de todas as escolas, porque a SOMA também enxerga as linhas escondidas.</li><li>zero, porque o filtro bloqueia a fórmula.</li><li>só de julho da Escola 5.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · VALIDAR</div><h2 class="bloco-title">Impedir o erro <em>antes</em> que ele entre</h2></div>
+<div class="compara tres"><div class="card errado"><span class="rot">Sem validação</span><h4>Cada um digita de um jeito</h4><ul><li>Escola 3 · Escola 03 · Esc. 3</li><li>para a planilha, são três escolas diferentes</li><li>CONT.SES, SOMASES e PROCX erram, sem aviso</li></ul></div><div class="card certo"><span class="rot">Com validação</span><h4>Só entra o que está na lista</h4><ul><li>Dados › Validação de dados › Adicionar regra</li><li>critério: menu suspenso de um intervalo</li><li>a lista vem da aba escolas</li></ul></div><div class="card pergunta"><span class="rot">Se o valor for inválido</span><h4>Duas opções</h4><ul><li>mostrar um aviso</li><li>ou rejeitar a entrada</li><li>para a chave de uma tabela: rejeitar</li></ul></div></div><div class="prose"><p>É o mesmo cuidado do PROCX da aula passada: a chave precisa estar escrita <strong>exatamente igual</strong> nas duas tabelas.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · COLETAR</div><h2 class="bloco-title">O formulário é uma validação <em class="orange">na porta de entrada</em></h2></div>
+<table class="tab"><tr><th>No formulário</th><th>Na planilha de respostas</th></tr><tr><td>cada pergunta</td><td>vira uma coluna, com título</td></tr><tr><td>cada resposta enviada</td><td>vira uma linha: um registro</td></tr><tr><td>pergunta de múltipla escolha</td><td>só entram os valores previstos</td></tr><tr><td>data e hora do envio</td><td>são gravadas sozinhas</td></tr></table><div class="prose"><p>O dado já nasce bem estruturado: uma linha por registro, uma coluna por atributo, um valor por célula.</p><p><strong>Um cuidado:</strong> colete só o que a decisão precisa. Nome, CPF, endereço e telefone são dados pessoais, protegidos pela lei de proteção de dados (a LGPD).</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · LABORATÓRIO 3</div><h2 class="bloco-title">Os protocolos da <em class="orange">ouvidoria</em></h2></div>
+<table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa no formulário</th></tr><tr><td class="n">1</td><td>Classificar pelo tempo de resposta</td><td>a secretaria do protocolo mais demorado</td></tr><tr><td class="n">2</td><td>Classificar por duas colunas</td><td>a resposta mais demorada da Assistência Social</td></tr><tr><td class="n">3</td><td>Filtrar por dois critérios e contar o que está visível</td><td>os protocolos em aberto da Educação</td></tr><tr><td class="n">4</td><td>Filtrar por canal e calcular a média do que está visível</td><td>o tempo médio de resposta pelo aplicativo</td></tr><tr><td class="n">5</td><td>Encontrar e corrigir as grafias diferentes</td><td>os protocolos da Saúde depois da correção</td></tr><tr><td class="n">6</td><td>Criar a validação para os próximos registros</td><td>(sem número: fica na sua planilha)</td></tr></table><div class="prose"><p>O roteiro está no Classroom. <strong>Prazo do formulário: até o início da Aula 5 (21/10).</strong></p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · ATÉ A PRÓXIMA AULA</div><h2 class="bloco-title">Para quarta-feira, <em>duas entregas</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Para entregar</span><h4>Laboratório 3</h4><ul><li>Formulário até o início da Aula 5</li><li>Duas tentativas; vale a melhor</li><li>Com o link da sua planilha</li></ul></div><div class="card pergunta"><span class="rot">Para preparar</span><h4>Checagem de preparo 2</h4><ul><li>Leitura de 15 minutos no Classroom</li><li>Seis perguntas, com consulta</li><li>Prazo: 21/10, às 14h</li></ul></div><div class="card certo"><span class="rot">Aula 5 · 21/10</span><h4>Tabelas dinâmicas e gráficos</h4><ul><li>Resumir centenas de linhas sem fórmula</li><li>Escolher o gráfico pela pergunta</li></ul></div></div><p class="bigline">Classificar e filtrar são jeitos de olhar. <em>O dado continua o mesmo.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 4 · A planilha como base de dados · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

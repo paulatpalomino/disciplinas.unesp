@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 6 - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oficina de revisão de planilhas e treino da Missão prática 1 - Aula 6 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 6 · Oficina de revisão de planilhas</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 6</span><span>·</span><span>Unidade 1 · Planilhas</span></div>
+  <h1>Oficina de revisão: <em>o treino da missão</em></h1>
+  <p class="hero-lede">Hoje você faz um treino no formato da Missão prática 1, com outra base de dados e sem nota. A gente corrige na hora, e o resto da aula é para o que o treino mostrar que ainda trava.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Cinco partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:5"><div><b>Orientações · 8 min</b><span>como funciona o treino</span></div><div><b>Treino · 40 min</b><span>individual, como na missão</span></div><div><b>Correção · 12 min</b><span>as respostas na tela e a contagem das mãos</span></div><div><b>Revisão · 30 min</b><span>as especificações que mais travaram</span></div><div><b>A missão · 10 min</b><span>como vai ser na quarta-feira</span></div></div><div class="prose"><p>O formulário do Laboratório 4 fechou no início desta aula.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · O TREINO</div><h2 class="bloco-title">Igual à missão, <em class="orange">menos na nota</em></h2></div>
+<div class="compara tres"><div class="card certo"><span class="rot">Igual à missão</span><h4>O formato</h4><ul><li>oito especificações</li><li>individual e em silêncio</li><li>com consulta aos seus materiais</li><li>sem inteligência artificial</li></ul></div><div class="card olho"><span class="rot">Diferente da missão</span><h4>O que muda hoje</h4><ul><li>não vale nota</li><li>nada é entregue</li><li>40 minutos, e não 50</li><li>as respostas aparecem na tela</li></ul></div><div class="card pergunta"><span class="rot">Para que serve</span><h4>Descobrir onde você trava</h4><ul><li>anote cada resultado na folha</li><li>travou? anote onde, pule e volte depois</li><li>o que travar hoje, a gente revê hoje</li></ul></div></div><p class="bigline">Hoje, errar <em>não custa nada</em>. Aproveite.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · A SITUAÇÃO</div><h2 class="bloco-title">O transporte de pacientes <em>para outras cidades</em></h2></div>
+<div class="prose"><p>A Secretaria de Saúde leva pacientes para atendimento em outras cidades, em veículos de uma empresa contratada. A prefeitura paga um valor por quilômetro rodado, mais o pedágio. O secretário quer saber <strong>para onde vai o dinheiro do transporte</strong>.</p></div><table class="tab"><tr><th>Aba</th><th>O que tem</th></tr><tr><td class="n">viagens</td><td>240 viagens de julho a setembro de 2026: código, data, destino, veículo, km e pedágio. Três colunas vazias, para você preencher: custo_total, faixa e polo</td></tr><tr><td class="n">destinos</td><td>10 destinos, com o polo de cada um (Vizinho, Regional ou Capital), o tipo de serviço e a distância</td></tr><tr><td class="n">célula L1</td><td>o valor do quilômetro: R$ 3,20</td></tr></table><div class="prose"><p>Cada linha é <strong>uma viagem de um veículo</strong>. Não há nenhum dado de paciente.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · AS OITO ESPECIFICAÇÕES</div><h2 class="bloco-title">O que a sua planilha <em class="orange">precisa mostrar</em></h2></div>
+<table class="tab"><tr><th>Nº</th><th>O que fazer</th><th>O que você anota na folha</th></tr><tr><td class="n">1</td><td>Calcular o custo total de cada viagem, com o valor do quilômetro em uma célula fixa</td><td>o custo total da viagem V-0100</td></tr><tr><td class="n">2</td><td>Marcar cada viagem como cara ou comum, por uma regra</td><td>quantas viagens são "cara"</td></tr><tr><td class="n">3</td><td>Contar com duas condições</td><td>as viagens de van para o Hospital Regional</td></tr><tr><td class="n">4</td><td>Somar com uma condição</td><td>o custo total das viagens de ambulância</td></tr><tr><td class="n">5</td><td>Trazer o polo de cada destino, da outra aba</td><td>quantas viagens foram para o polo Capital</td></tr><tr><td class="n">6</td><td>Classificar a tabela inteira pelo custo</td><td>o código da viagem mais cara</td></tr><tr><td class="n">7</td><td>Resumir com uma tabela dinâmica</td><td>a média de km das viagens de van, com uma casa decimal</td></tr><tr><td class="n">8</td><td>Fazer um gráfico com título que diz a conclusão</td><td>o título e uma frase para o secretário</td></tr></table><div class="prose"><p>A folha do treino, no Classroom, traz os detalhes. <strong>Comece pela especificação 1:</strong> as especificações 2, 4, 6 e 8 usam a coluna criada nela.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · TREINO EM ANDAMENTO</div><h2 class="bloco-title">Quarenta minutos, <em>cada um na sua planilha</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Agora</span><h4>Em silêncio</h4><ul><li>com consulta aos seus materiais</li><li>sem inteligência artificial</li><li>dúvida sobre o enunciado: levante a mão</li></ul></div><div class="card pergunta"><span class="rot">Travou?</span><h4>Anote e siga</h4><ul><li>escreva na folha onde travou</li><li>pule e volte depois</li><li>cada especificação vale sozinha</li></ul></div><div class="card certo"><span class="rot">Antes de seguir</span><h4>Confira a célula K6</h4><ul><li>o custo da viagem V-0010 tem de dar R$ 1.154,30</li><li>se não der, a sua fórmula do custo ainda não está certa</li></ul></div></div><p class="bigline">Saber onde você trava é <em>o resultado do treino</em>.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · CONFIRA</div><h2 class="bloco-title">As respostas: <em class="orange">atingiu ou ainda não?</em></h2></div>
+<table class="tab"><tr><th>Nº</th><th>O que foi pedido</th><th>Resultado</th></tr><tr><td class="n">1</td><td>Custo total da viagem V-0100</td><td class="n">R$ 339,60</td></tr><tr><td class="n">2</td><td>Viagens na faixa "cara"</td><td class="n">64</td></tr><tr><td class="n">3</td><td>Viagens de van para o Hospital Regional</td><td class="n">22</td></tr><tr><td class="n">4</td><td>Custo total das viagens de ambulância</td><td class="n">R$ 62.647,20</td></tr><tr><td class="n">5</td><td>Viagens para o polo Capital</td><td class="n">53</td></tr><tr><td class="n">6</td><td>Código da viagem mais cara</td><td class="n">V-0090 (R$ 2.398,20)</td></tr><tr><td class="n">7</td><td>Média de km das viagens de van</td><td class="n">269,8</td></tr><tr><td class="n">8</td><td>Custo total por tipo de veículo</td><td class="n">van: R$ 78.672,50, o maior (33,6% do total)</td></tr></table><div class="prose"><p>Marque na sua folha, em cada linha: <strong>atingiu</strong> ou <strong>ainda não</strong>. Na especificação 8, você atingiu se o gráfico compara os quatro veículos e o título diz uma conclusão.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA LEVANTAR A MÃO</div><h2 class="bloco-title">O que <em class="orange">ainda não</em> saiu?</h2></div>
+<table class="tab"><tr><th>Nº</th><th>A habilidade</th><th>Onde você praticou</th></tr><tr><td class="n">1</td><td>Fórmula com uma célula fixa (os cifrões)</td><td>Laboratório 1</td></tr><tr><td class="n">2</td><td>SE: uma regra que classifica cada linha</td><td>Laboratório 2</td></tr><tr><td class="n">3</td><td>CONT.SES com duas condições</td><td>Laboratório 2</td></tr><tr><td class="n">4</td><td>SOMASES</td><td>Laboratório 2</td></tr><tr><td class="n">5</td><td>PROCX: buscar na outra aba</td><td>Laboratório 2</td></tr><tr><td class="n">6</td><td>Classificar a tabela inteira</td><td>Laboratório 3</td></tr><tr><td class="n">7</td><td>Tabela dinâmica com média</td><td>Laboratório 4</td></tr><tr><td class="n">8</td><td>Gráfico com título que diz a conclusão</td><td>Laboratório 4</td></tr></table><div class="prose"><p>Eu chamo um número por vez. <strong>Levante a mão nas especificações que você ainda não atingiu.</strong> As três com mais mãos são as que a gente refaz agora, juntos.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · SE O SEU NÚMERO FOI ESTE</div><h2 class="bloco-title">Cada erro <em>deixa uma pista</em></h2></div>
+<table class="tab"><tr><th>Nº</th><th>O seu resultado</th><th>O que provavelmente aconteceu</th></tr><tr><td class="n">1</td><td class="n">R$ 10,00</td><td>a fórmula foi copiada sem fixar a L1: da segunda viagem em diante, o custo ficou igual ao pedágio</td></tr><tr><td class="n">3</td><td class="n">87 ou 55</td><td>você contou uma condição só: todas as viagens de van, ou todas as viagens ao Hospital Regional</td></tr><tr><td class="n">4</td><td class="n">R$ 2.932,00</td><td>você somou o pedágio, e não o custo total</td></tr><tr><td class="n">6</td><td class="n">V-0194</td><td>você classificou do menor para o maior: essa é a viagem mais barata</td></tr><tr><td class="n">7</td><td class="n">23.475 ou 87</td><td>o resumo ficou em SUM (a soma dos km) ou em COUNTA (o número de viagens)</td></tr><tr><td class="n">7</td><td class="n">291,0</td><td>essa é a média de todas as viagens, e não só das de van</td></tr></table><div class="prose"><p>A resolução comentada, que fica no Classroom depois da aula, traz essa tabela completa.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · REVISÃO</div><h2 class="bloco-title">As cinco fórmulas, <em class="orange">uma por especificação</em></h2></div>
+<table class="tab"><tr><th>Nº</th><th>Um caminho</th><th>O cuidado</th></tr><tr><td class="n">1</td><td><code>=E2*$L$1+F2</code></td><td>os cifrões fixam a L1 quando a fórmula é copiada</td></tr><tr><td class="n">2</td><td><code>=SE(G2&gt;=1200; "cara"; "comum")</code></td><td>"ou mais" é &gt;=, e não &gt;</td></tr><tr><td class="n">3</td><td><code>=CONT.SES(D2:D241; "van"; C2:C241; "Hospital Regional")</code></td><td>cada condição é um par: onde olhar e o que procurar</td></tr><tr><td class="n">4</td><td><code>=SOMASES(G2:G241; D2:D241; "ambulância")</code></td><td>primeiro, a coluna que vai ser somada</td></tr><tr><td class="n">5</td><td><code>=PROCX(C2; destinos!$A$2:$A$11; destinos!$B$2:$B$11)</code></td><td>os cifrões impedem que o intervalo escorregue</td></tr></table><div class="prose"><p>Qualquer caminho que chegue ao resultado atinge a especificação. <strong>O que conta é o que a planilha mostra.</strong></p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · REVISÃO</div><h2 class="bloco-title">Classificar, resumir e <em>mostrar</em></h2></div>
+<table class="tab"><tr><th>Nº</th><th>O caminho, nas Planilhas Google</th><th>O cuidado</th></tr><tr><td class="n">6</td><td>Clique na tabela, Ctrl + A. Dados › Classificar intervalo › Opções avançadas de classificação do intervalo. Marque a linha de cabeçalho; custo_total, de Z a A</td><td>a tabela inteira, nunca uma coluna só</td></tr><tr><td class="n">7</td><td>Inserir › Tabela dinâmica. Linhas: veículo. Valores: km, resumido por AVERAGE</td><td>o resumo começa em SUM: troque para a média</td></tr><tr><td class="n">8</td><td>Tabela dinâmica com veículo e a soma do custo_total. Selecione sem o total geral. Inserir › Gráfico, de colunas</td><td>o título diz a conclusão, e não o assunto</td></tr></table><div class="prose"><p><strong>Um título que diz a conclusão:</strong> "A van responde por um terço do custo do transporte de pacientes". <strong>Um que só diz o assunto:</strong> "Custo por veículo".</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · QUARTA-FEIRA, A MISSÃO</div><h2 class="bloco-title">Missão prática 1: <em class="orange">como vai ser</em></h2></div>
+<div class="compara tres"><div class="card certo"><span class="rot">Igual a hoje</span><h4>O formato</h4><ul><li>oito especificações, as mesmas habilidades</li><li>individual, com consulta e sem IA</li><li>outra base de dados</li></ul></div><div class="card olho"><span class="rot">Diferente de hoje</span><h4>Vale nota</h4><ul><li>50 minutos</li><li>a versão da planilha muda conforme o seu lugar</li><li>os resultados vão para um formulário, com nome completo, RA e turma</li><li>vale um envio só</li></ul></div><div class="card pergunta"><span class="rot">E se não der?</span><h4>Nada é definitivo</h4><ul><li>cada especificação vale sozinha</li><li>nota = atingidas ÷ 8 × 10</li><li>o que faltar pode ser refeito na Aula 29</li></ul></div></div><div class="prose"><p><strong>Chegue no horário:</strong> a missão começa dez minutos depois do início da aula.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · ATÉ QUARTA</div><h2 class="bloco-title">Três coisas que <em>fazem diferença</em></h2></div>
+<div class="compara tres"><div class="card certo"><span class="rot">1</span><h4>Refaça o treino</h4><ul><li>sozinho, sem olhar a resolução</li><li>depois, compare com ela</li><li>ler dá a sensação de saber; refazer mostra se você sabe</li></ul></div><div class="card pergunta"><span class="rot">2</span><h4>Reveja o que travou</h4><ul><li>especificação 1: Laboratório 1</li><li>especificações 2 a 5: Laboratório 2</li><li>especificação 6: Laboratório 3</li><li>especificações 7 e 8: Laboratório 4</li></ul></div><div class="card olho"><span class="rot">3</span><h4>Organize a consulta</h4><ul><li>os roteiros dos laboratórios e as leituras</li><li>a resolução do treino</li><li>as planilhas que você fez, abertas antes de começar</li></ul></div></div><p class="bigline">A missão pergunta o que você <em>já praticou</em>.</p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 6 · Oficina de revisão de planilhas · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

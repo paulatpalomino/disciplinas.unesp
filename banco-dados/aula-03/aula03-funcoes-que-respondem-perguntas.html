@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 3 - Funcoes para perguntas de gestao - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funções que respondem perguntas - Aula 3 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 3 · Funções para perguntas de gestão</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 3</span><span>·</span><span>Unidade 1 · Planilhas</span></div>
+  <h1>Funções que <em>respondem perguntas</em></h1>
+  <p class="hero-lede">Na Aula 1, a Escola 3 teve o custo por refeição mais alto das cinco, e surgiram suspeitas: erro de digitação, desvio ou o frete de uma escola rural. Hoje, a planilha responde às perguntas do gestor: quanto, quantos, quem precisa de atenção, e o que está em outra tabela.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Duas partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:2"><div><b>Quatro funções · </b><span>SE, CONT.SES, SOMASES e PROCX, com demonstração na planilha da merenda</span></div><div><b>Laboratório 2 · </b><span>os atendimentos das unidades de saúde, com números de controle</span></div></div><div class="prose"><p>A checagem de preparo mostrou o que travou. A explicação de hoje começa por aí.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · AS PERGUNTAS DO GESTOR</div><h2 class="bloco-title">Cada pergunta tem <em class="orange">uma função</em></h2></div>
+<table class="tab"><tr><th>A pergunta</th><th>A função</th><th>O que ela faz</th></tr><tr><td>Cada mês está normal ou precisa de atenção?</td><td class="n">SE</td><td>testa uma condição e escolhe entre duas respostas</td></tr><tr><td>Quantas vezes o custo por refeição passou de R$ 4?</td><td class="n">CONT.SES</td><td>conta as linhas que atendem a critérios</td></tr><tr><td>Quanto a Escola 3 gastou de fevereiro a novembro?</td><td class="n">SOMASES</td><td>soma só as linhas que atendem a critérios</td></tr><tr><td>A Escola 3 é urbana ou rural?</td><td class="n">PROCX</td><td>busca numa outra tabela pela chave e traz o dado</td></tr></table><div class="prose"><p>A planilha da demonstração é a da merenda: cinco escolas, de fevereiro a novembro, com uma segunda aba que descreve cada escola.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · SE</div><h2 class="bloco-title">Testar e <em>escolher</em></h2></div>
+<p class="mono-eq">=SE(teste; valor se verdadeiro; valor se falso)</p><div class="prose"><p><strong>Exemplo:</strong> =SE(E2&gt;4; "verificar"; "ok") escreve "verificar" quando o custo por refeição passa de R$ 4, e "ok" nos outros casos.</p></div><table class="tab"><tr><th>Sinal</th><th>Quer dizer</th></tr><tr><td class="n">&gt; &nbsp; &lt;</td><td>maior que · menor que</td></tr><tr><td class="n">&gt;= &nbsp; &lt;=</td><td>maior ou igual · menor ou igual</td></tr><tr><td class="n">= &nbsp; &lt;&gt;</td><td>igual · diferente</td></tr></table><div class="prose"><p>Texto dentro da fórmula vai entre aspas. Número, não.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Bateu a meta <em class="orange">em cima</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · </span>
+    <p class="pergunta-ct">A meta de uma unidade é de 300 atendimentos no mês, e ela fez exatamente 300. Na planilha, a fórmula é =SE(B2&gt;300; "atingiu"; "abaixo"). O que aparece?</p>
+    <ol><li>atingiu</li><li>abaixo</li><li>Uma mensagem de erro</li><li>300</li></ol></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · CONT.SES</div><h2 class="bloco-title">Contar <em>só o que interessa</em></h2></div>
+<p class="mono-eq">=CONT.SES(onde olhar; critério; [onde olhar 2; critério 2] ...)</p><table class="tab"><tr><th>Fórmula</th><th>Pergunta</th><th>Resposta</th></tr><tr><td>=CONT.SES(E2:E51; "&gt;4")</td><td>Quantas vezes, contando cada escola em cada mês, o custo passou de R$ 4?</td><td class="n">11</td></tr><tr><td>=CONT.SES(A2:A51; "Escola 3"; E2:E51; "&gt;4")</td><td>Quantas dessas vezes são da Escola 3?</td><td class="n">10</td></tr></table><div class="prose"><p>Cada par "onde olhar; critério" é uma condição a mais, e a linha só conta se atender a todas. Critério com sinal vai entre aspas: "&gt;4".</p><p>Das 11 vezes, 10 são da Escola 3. A outra é da Escola 5, em julho: vale uma pergunta também.</p></div><p class="fonte">Na demonstração: escola na coluna A, custo por refeição na coluna E. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · SOMASES</div><h2 class="bloco-title">Somar <em class="orange">só as linhas certas</em></h2></div>
+<p class="mono-eq">=SOMASES(o que somar; onde olhar; critério; ...)</p><div class="prose"><p><strong>A ordem importa:</strong> primeiro a coluna que vai ser somada; depois, os pares "onde olhar; critério".</p></div><p class="mono-eq">=SOMASES(D2:D51; A2:A51; "Escola 3") &nbsp;→&nbsp; R$ 253.071,00</p><div class="prose"><p>Gasto da Escola 3 de fevereiro a novembro. Com mais pares, dá para somar, por exemplo, só o segundo semestre.</p></div><p class="fonte">Na demonstração: gasto na coluna D. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Qual fórmula <em class="orange">soma certo</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · </span>
+    <p class="pergunta-ct">O gasto está na coluna D e o nome da escola na coluna A (linhas 2 a 51). Qual fórmula soma o gasto só da Escola 3?</p>
+    <ol><li>=SOMASES(A2:A51; D2:D51; "Escola 3")</li><li>=SOMASES(D2:D51; A2:A51; "Escola 3")</li><li>=CONT.SES(A2:A51; "Escola 3")</li><li>=SOMA(D2:D51)</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · PROCX</div><h2 class="bloco-title">A resposta está <em class="orange">em outra tabela</em></h2></div>
+<div class="aposta">Antes de avançar: onde está a informação de que a Escola 3 é rural? Na tabela de gastos?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a03-buscar-pela-chave.html?embed=1" title="Animação: buscar em outra tabela pela chave" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · as duas tabelas e a chave · as três partes da fórmula · procurar, achar e devolver · quando a chave não bate · o PROCV do Excel mais antigo. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · a Escola 3 é urbana ou rural?</li><li><b>DUAS TABELAS</b> · gastos: uma linha por escola e mês &nbsp;·&nbsp; escolas: uma linha por escola</li><li><b>A FÓRMULA</b> · =PROCX("Escola 3"; escolas!A2:A6; escolas!B2:B6)</li><li><b>PROCURAR</b> · percorre a coluna escola da tabela escolas</li><li><b>ACHAR A LINHA</b> · Escola 3 está na terceira linha de dados</li><li><b>DEVOLVER</b> · na mesma linha, a coluna zona: rural</li><li><b>RESULTADO</b> · rural</li><li><b>QUANDO NÃO ACHA</b> · =PROCX("Escola 03"; ...) &nbsp;→&nbsp; #N/D</li><li><b>NO EXCEL MAIS ANTIGO: PROCV</b> · =PROCV("Escola 3"; escolas!A2:D6; 2; FALSO)</li><li><b>LEITURA DE GESTÃO</b> · tabelas ligadas por uma chave</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · O QUE A PLANILHA RESPONDEU</div><h2 class="bloco-title">Da suspeita à <em>próxima pergunta</em></h2></div>
+<table class="tab"><tr><th>Pergunta</th><th>Resposta da planilha</th></tr><tr><td>A Escola 3 é caso isolado?</td><td>10 dos 10 meses acima de R$ 4 por refeição</td></tr><tr><td>Quanto isso pesa?</td><td>R$ 253.071,00 no período</td></tr><tr><td>Por que ela pode ser diferente?</td><td>é a única escola rural</td></tr><tr><td>Há outro caso?</td><td>a Escola 5, só em julho</td></tr></table><div class="prose"><p>A planilha não prova que o frete explica o custo. Ela transforma uma suspeita em uma pergunta bem feita para quem cuida dos contratos.</p><p><strong>Próximo passo do gestor:</strong> comparar o custo do frete da Escola 3 com o das outras. É assim que o dado apoia a decisão.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · LABORATÓRIO 2</div><h2 class="bloco-title">Os atendimentos das <em class="orange">unidades de saúde</em></h2></div>
+<table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa no formulário</th></tr><tr><td class="n">1</td><td>Contar os atendimentos de uma unidade (CONT.SES)</td><td>o total da UBS Norte</td></tr><tr><td class="n">2</td><td>Contar com dois critérios (CONT.SES)</td><td>as vacinas da UBS Rural</td></tr><tr><td class="n">3</td><td>Somar o custo de um tipo de atendimento (SOMASES)</td><td>o custo da odontologia</td></tr><tr><td class="n">4</td><td>Trazer a meta de cada unidade da outra aba (PROCX)</td><td>a meta da UBS Leste</td></tr><tr><td class="n">5</td><td>Dizer se cada unidade atingiu a meta (SE)</td><td>quantas ficaram abaixo</td></tr></table><div class="prose"><p>O roteiro completo está no Classroom. Ao terminar, responda ao <strong>formulário do Laboratório 2</strong> com os números da sua planilha, o link dela e a declaração de uso de IA. <strong>Prazo: até o início da Aula 4 (19/10).</strong></p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · ATÉ A PRÓXIMA AULA</div><h2 class="bloco-title">Uma planilha que <em>responde sozinha</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Para rever</span><h4>As quatro funções</h4><ul><li>SE: testar e escolher</li><li>CONT.SES e SOMASES: contar e somar com critério</li><li>PROCX: buscar pela chave</li></ul></div><div class="card pergunta"><span class="rot">Para entregar</span><h4>Laboratório 2</h4><ul><li>Formulário até o início da Aula 4</li><li>Duas tentativas; vale a melhor</li><li>Com o link da sua planilha</li></ul></div><div class="card certo"><span class="rot">Aula 4 · 19/10</span><h4>A planilha como base de dados</h4><ul><li>Classificar, filtrar e validar</li><li>Formulários de coleta</li></ul></div></div><p class="bigline">A chave que liga duas tabelas é <em>a porta dos bancos de dados</em>.</p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 3 · Funções para perguntas de gestão · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

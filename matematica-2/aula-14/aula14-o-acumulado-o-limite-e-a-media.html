@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 14 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O acumulado, o limite e a média - Aula 14 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 14 · Aplicações da integral definida I</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 14</span><span>·</span><span>Unidade 2 · Quanto se acumulou</span></div>
+  <h1>Aplicações da integral definida: <em>o acumulado, o limite e a média</em></h1>
+  <p class="hero-lede">O teorema da semana passada calcula totais. Hoje ele responde a mais duas perguntas de gestão: quando o acumulado encosta num limite, e qual é o ritmo médio. São as perguntas da Parte 1 do projeto.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Quatro partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:4"><div><b>De volta · 8 min</b><span>a Missão 3 e o Miniteste 3</span></div><div><b>Quando acaba? · 27 min</b><span>o momento em que o acumulado atinge um limite</span></div><div><b>Qual é a média? · 27 min</b><span>o valor médio de um ritmo</span></div><div><b>Em dupla, e o projeto · 35 min</b><span>dois problemas, e o que usar na Parte 1</span></div></div><div class="prose"><p>A Checagem 8 abre hoje. Amanhã, na Aula 15: o saldo entre receita e despesa, e o acompanhamento do projeto.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · DE VOLTA</div><h2 class="bloco-title">A Missão 3, <em>em três números</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Tarefa 2</span><h4>Por baixo e por cima</h4><ul><li>por baixo: 30 + 40 + 46 = 116</li><li>por cima: 40 + 46 + 48 = 134</li><li>o valor exato fica entre as duas</li></ul></div><div class="card pergunta"><span class="rot">Tarefa 3</span><h4>A primitiva de −2t²</h4><ul><li>é −2t³ ÷ 3, e não −2t³</li><li>o resultado fora da faixa de 116 a 134 denuncia o erro</li></ul></div><div class="card certo"><span class="rot">O total do mutirão</span><h4>252 pessoas em 6 horas</h4><ul><li>252 ÷ 6 = 42 pessoas por hora</li><li>hoje essa conta ganha nome</li></ul></div></div><div class="prose"><p>As folhas voltam hoje. Quem ainda não atingiu algum objetivo tem a repescagem da Aula 17 (11/12), sem desconto.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · TRÊS PERGUNTAS</div><h2 class="bloco-title">O que a integral definida <em>responde</em></h2></div>
+<table class="tab"><tr><th>A pergunta de gestão</th><th>A conta</th><th>No projeto</th></tr><tr><td>Quanto se acumulou no período?</td><td class="n">o total: F(b) − F(a)</td><td>pergunta 1</td></tr><tr><td>Quando o acumulado atinge um limite?</td><td class="n">igualar o acumulado ao limite, e resolver para o tempo</td><td>pergunta 3</td></tr><tr><td>Qual é o ritmo médio?</td><td class="n">o total, dividido pela duração</td><td>pergunta 2</td></tr></table><div class="prose"><p>A primeira você já sabe. As outras duas são de hoje.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · QUANDO ACABA?</div><h2 class="bloco-title">O contrato que acaba <em class="orange">antes da hora</em></h2></div>
+<div class="aposta">Antes de avançar: 600 mil litros, 30 mil por mês no começo. Quantos meses dura o contrato? Anote.</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a14-i1-o-contrato-que-acaba-antes-da-hora.html?embed=1" title="Animação: o contrato que acaba antes da hora" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a situação · a conta rápida · o acumulado até T · um ano · procurar o mês · a equação · resolver · a resposta · se nada mudar · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · c(t) = 30 + 2t mil litros por mês &nbsp;·&nbsp; contrato: 600 mil litros</li><li><b>A CONTA RÁPIDA</b> · 600 ÷ 30 = 20 meses</li><li><b>O ACUMULADO ATÉ T</b> · C(T) = ∫<sub>0</sub><sup>T</sup> (30 + 2t) dt = 30T + T²</li><li><b>UM ANO</b> · C(12) = 360 + 144 = 504</li><li><b>PROCURAR O MÊS</b> · C(13) = 390 + 169 = 559 &nbsp;·&nbsp; C(14) = 420 + 196 = 616</li><li><b>A EQUAÇÃO</b> · 30T + T² = 600</li><li><b>RESOLVER</b> · T² + 30T − 600 = 0 &nbsp;→&nbsp; T = (−30 + √3.300) ÷ 2 ≈ 13,7</li><li><b>A RESPOSTA</b> · o contrato acaba perto do mês 13,7</li><li><b>SE NADA MUDAR</b> · C(20) = 600 + 400 = 1.000</li><li><b>LEITURA DE GESTÃO</b> · a pergunta é: quando o acumulado encosta no limite?</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A RECEITA</div><h2 class="bloco-title">Acumulado igual ao limite: <em>três passos</em></h2></div>
+<p class="mono-eq">F(T) − F(0) = limite</p><div class="passo" style="--n:3"><div><b>1 · O acumulado até T</b><span>a primitiva em T, menos a primitiva no começo</span></div><div><b>2 · A equação</b><span>o acumulado até T, igualado ao limite</span></div><div><b>3 · Resolver e conferir</b><span>descarte a solução sem sentido, e teste o resultado</span></div></div><div class="prose"><p>Com o ritmo em linha reta, a equação é do segundo grau. Com exponencial, quem resolve é o logaritmo.</p><p><strong>No projeto:</strong> a coluna do acumulado, na planilha, mostra em qual linha o limite é ultrapassado.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Quando o orçamento <em class="orange">acaba</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">O gasto de um programa cresce no ritmo g(t) = 10 + 2t, em mil reais por mês. O orçamento é de 200 mil reais. Em quantos meses ele acaba?</p>
+    <ol><li>20 meses</li><li>10 meses</li><li>95 meses</li><li>cerca de 14 meses</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · COM EXPONENCIAL</div><h2 class="bloco-title">O mesmo caminho, <em>com o logaritmo no fim</em></h2></div>
+<div class="prose"><p>A demanda cresce no ritmo d(t) = 200 · e<sup>0,1t</sup>, em pedidos por mês. O contrato cobre <strong>3.000 pedidos</strong>. Quando ele acaba?</p></div><table class="tab"><tr><th>Passo</th><th>Conta</th></tr><tr><td>1 · O acumulado até T</td><td class="n">D(T) = 2.000 · e<sup>0,1T</sup> − 2.000</td></tr><tr><td>2 · A equação</td><td class="n">2.000 · e<sup>0,1T</sup> − 2.000 = 3.000 &nbsp;→&nbsp; e<sup>0,1T</sup> = 2,5</td></tr><tr><td>3 · Resolver</td><td class="n">0,1T = ln 2,5 ≈ 0,9163 &nbsp;→&nbsp; T ≈ 9,2 meses</td></tr><tr><td>Conferir</td><td class="n">D(9) ≈ 2.919 e D(10) ≈ 3.437: o limite de 3.000 fica entre os dois</td></tr></table><div class="prose"><p>A conta rápida, com o ritmo parado em 200, daria 3.000 ÷ 200 = 15 meses. O contrato acaba quase seis meses antes.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · QUAL É A MÉDIA?</div><h2 class="bloco-title">O total, <em class="orange">dividido pelo tempo</em></h2></div>
+<div class="aposta">Antes de avançar: o ritmo vai de 0 a 36 e volta a 0. Qual é o ritmo médio do ano? Anote um número.</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a14-i2-o-ritmo-medio.html?embed=1" title="Animação: o ritmo médio" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a situação · a pergunta · duas tentações · a ideia · a conta · o retângulo · a fórmula · acima e abaixo da média · outro período · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · r(t) = 12t − t² mil atendimentos por mês &nbsp;·&nbsp; no ano: 288 mil</li><li><b>A PERGUNTA</b> · qual é o ritmo médio do ano?</li><li><b>TENTAÇÃO 1</b> · média das pontas: (0 + 0) ÷ 2 = 0</li><li><b>TENTAÇÃO 2</b> · metade do pico: 36 ÷ 2 = 18</li><li><b>A IDEIA</b> · ritmo médio = total ÷ duração</li><li><b>A CONTA</b> · 288 ÷ 12 = 24 mil atendimentos por mês</li><li><b>O RETÂNGULO</b> · 24 × 12 = 288: a mesma área</li><li><b>A FÓRMULA</b> · valor médio = (1 ÷ (b − a)) · ∫<sub>a</sub><sup>b</sup> f(t) dt</li><li><b>ACIMA E ABAIXO DA MÉDIA</b> · 12t − t² = 24 &nbsp;→&nbsp; t ≈ 2,5 e t ≈ 9,5</li><li><b>OUTRO PERÍODO</b> · do mês 3 ao mês 9: 198 ÷ 6 = 33</li><li><b>LEITURA DE GESTÃO</b> · a média resume o total; o pico mostra o aperto</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · O VALOR MÉDIO</div><h2 class="bloco-title">O ritmo constante que <em>daria o mesmo total</em></h2></div>
+<p class="mono-eq">valor médio de f, de a até b = (1 ÷ (b − a)) · ∫<sub>a</sub><sup>b</sup> f(t) dt</p><table class="tab"><tr><th></th><th></th></tr><tr><td class="n">O que é</td><td>o ritmo constante que, no mesmo período, acumularia o mesmo total</td></tr><tr><td class="n">Como calcular</td><td>o total do período (a integral definida), dividido pela duração</td></tr><tr><td class="n">A unidade</td><td>a mesma do ritmo: pessoas por hora, mil reais por mês</td></tr><tr><td class="n">Cuidado</td><td>não é a média das duas pontas, a não ser que o ritmo seja uma reta</td></tr></table><div class="prose"><p>Na Missão 3: 252 pessoas em 6 horas, 42 pessoas por hora. Era o valor médio do ritmo de atendimento.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O primeiro <em class="orange">valor médio</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Qual é o valor médio de f(x) = 2x, de x = 0 até x = 4?</p>
+    <ol><li>8</li><li>16</li><li>4</li><li>2</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O que a média <em class="orange">garante</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 3 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">O ritmo médio de atendimento de um serviço, no ano, foi de 24 mil atendimentos por mês. O que se pode afirmar?</p>
+    <ol><li>O ritmo foi de 24 mil em todos os meses.</li><li>O ritmo nunca passou de 24 mil por mês.</li><li>Um ritmo constante de 24 mil por mês daria o mesmo total do ano.</li><li>Em metade dos meses, o ritmo ficou acima de 24 mil.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · EM DUPLA</div><h2 class="bloco-title">Dois problemas, <em class="orange">vinte minutos</em></h2></div>
+<table class="tab"><tr><th></th><th>A situação</th><th>Perguntas</th></tr><tr><td class="n">1</td><td>O gasto com a merenda cresce no ritmo g(t) = 40 + 6t, em mil reais por mês (t em meses).</td><td>a) Quanto se gasta em 10 meses? b) Qual é o gasto médio por mês nesse período? c) O orçamento é de 1.000 mil reais. Em que mês ele acaba?</td></tr><tr><td class="n">2</td><td>Um serviço novo atende no ritmo v(t) = 3t², em atendimentos por dia, nos 10 primeiros dias.</td><td>a) Quantos atendimentos nos 10 dias? b) Qual é o ritmo médio? c) Em que dia o ritmo é igual à média? d) A média das pontas daria 150. Por que ela erra para cima?</td></tr></table><p class="fonte">Em cada item, escreva a primitiva, as duas pontas e a unidade. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · RESPOSTAS</div><h2 class="bloco-title">Confira <em>com a sua dupla</em></h2></div>
+<table class="tab"><tr><th></th><th>Resposta</th></tr><tr><td class="n">1a</td><td>[40t + 3t²] de 0 a 10: 400 + 300 = 700 mil reais</td></tr><tr><td class="n">1b</td><td>700 ÷ 10 = 70 mil reais por mês</td></tr><tr><td class="n">1c</td><td>40T + 3T² = 1.000 &nbsp;→&nbsp; T = (−40 + √13.600) ÷ 6 ≈ 12,8: no décimo terceiro mês (G(12) = 912; G(13) = 1.027)</td></tr><tr><td class="n">2a</td><td>[t³] de 0 a 10: 1.000 atendimentos</td></tr><tr><td class="n">2b</td><td>1.000 ÷ 10 = 100 atendimentos por dia</td></tr><tr><td class="n">2c</td><td>3t² = 100 &nbsp;→&nbsp; t = √33,3 ≈ 5,8: perto do dia 6</td></tr><tr><td class="n">2d</td><td>A curva passa a maior parte do tempo com ritmo baixo, e só no fim chega a 300. A média das pontas dá o mesmo peso ao começo e ao fim.</td></tr></table>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · NO PROJETO</div><h2 class="bloco-title">A Parte 1, <em class="orange">pergunta por pergunta</em></h2></div>
+<table class="tab"><tr><th>Pergunta da Parte 1</th><th>Ferramenta</th><th>De qual aula</th></tr><tr><td class="n">1 · Quanto se acumula no período?</td><td>as fatias, na planilha, e a integral definida pelo teorema</td><td>Aulas 9, 11 e 12</td></tr><tr><td class="n">2 · Qual é o valor médio do ritmo?</td><td>o total, dividido pela duração</td><td>hoje</td></tr><tr><td class="n">3 · Em que momento o acumulado atinge o limite?</td><td>a coluna do acumulado, na planilha (e a equação, se a equipe quiser)</td><td>hoje</td></tr><tr><td class="n">4 · O que a equipe recomenda?</td><td>os três números, lidos para quem decide</td><td>todas</td></tr></table><div class="prose"><p><strong>Amanhã, na Aula 15:</strong> tragam a planilha do tema, no notebook, no celular ou impressa. Cada equipe tem três minutos comigo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">12 · ATÉ AMANHÃ</div><h2 class="bloco-title">O que vem <em>agora</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Hoje</span><h4>Checagem 8</h4><ul><li>abre hoje no Classroom</li><li>sete dias, duas tentativas</li><li>o limite e o valor médio</li></ul></div><div class="card pergunta"><span class="rot">Aula 15 · amanhã</span><h4>Saldo e projeto</h4><ul><li>receita menos despesa: a área com sinal</li><li>ateliê do projeto: tragam a planilha</li></ul></div><div class="card certo"><span class="rot">Aula 17 · 11/12</span><h4>Fecha o cálculo</h4><ul><li>Missão 4 e Miniteste 4</li><li>repescagem dos objetivos 1 a 5</li><li>entrega da Parte 1 do projeto</li></ul></div></div><p class="bigline">O limite se atinge no acumulado. <em>A média é o total dividido pelo tempo.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 14 · Aplicações da integral definida I · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

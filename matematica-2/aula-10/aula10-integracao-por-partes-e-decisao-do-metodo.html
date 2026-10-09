@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 10 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integração por partes e a decisão do método - Aula 10 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 10 · Integração por partes e decisão do método</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 10</span><span>·</span><span>Unidade 1 · Da taxa ao total</span></div>
+  <h1>Integração por partes, e <em>a decisão do método</em></h1>
+  <p class="hero-lede">A substituição desfaz a regra da cadeia. Hoje, o método que desfaz a regra do produto. Com ele, fecha a caixa de ferramentas da integral indefinida. E a aula termina com a pergunta que vem antes de qualquer conta: qual método?</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O QUE FICOU</div><h2 class="bloco-title">Duas atividades no Classroom, <em class="orange">duas ideias</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Aula 8</span><h4>Tabela ou substituição</h4><ul><li>duas perguntas, nessa ordem</li><li>olhar o que está dentro e o que está ao lado</li><li>e uma integral que ficou sem resposta</li></ul></div><div class="card pergunta"><span class="rot">Aula 9</span><h4>Fatiar e somar</h4><ul><li>sem fórmula, o total ainda existe</li><li>fatias mais finas, estimativa melhor</li><li>volta na Aula 11, com nome e símbolo</li></ul></div><div class="card certo"><span class="rot">Hoje</span><h4>O método que faltava</h4><ul><li>integração por partes</li><li>a decisão entre os três métodos</li><li>a Checagem 6 abre no fim da aula</li></ul></div></div><div class="prose"><p>A explicação começa pelas perguntas das Checagens 4 e 5 em que a turma mais errou.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · ONDE A SUBSTITUIÇÃO PARA</div><h2 class="bloco-title">Em dupla, <em class="orange">dois minutos</em></h2></div>
+<p class="mono-eq">∫ x · e<sup>x</sup> dx</p><div class="prose"><p>Na Aula 6 e no treino da Aula 8, esta foi a integral que ficou sem resposta: nem tabela, nem substituição. Tentem de novo: qual seria o u? O que sobra depois da troca?</p><p><strong>Uma pista:</strong> a função é um produto. Qual regra da Aula 2 deriva um produto?</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O PRODUTO AO CONTRÁRIO</div><h2 class="bloco-title">Trocar uma integral difícil por <em class="orange">outra mais fácil</em></h2></div>
+<div class="aposta">Antes de avançar: a derivada de um produto é o produto das derivadas?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a10-i1-o-produto-ao-contrario.html?embed=1" title="Animação: a regra do produto ao contrário" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: o problema · a regra do produto · a fórmula das partes · escolher · derivar e integrar · montar · resolver o que sobrou · conferir. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>O PROBLEMA</b> · ∫ x · e<sup>x</sup> dx</li><li><b>LEMBRETE · A REGRA DO PRODUTO</b> · (u · v)′ = u′ · v + u · v′</li><li><b>DE TRÁS PARA FRENTE</b> · ∫ u dv = u · v − ∫ v du</li><li><b>PASSO 1 · ESCOLHER u E dv</b> · u = x &nbsp;&nbsp;·&nbsp;&nbsp; dv = e<sup>x</sup> dx</li><li><b>PASSO 2 · DERIVAR u, INTEGRAR dv</b> · du = dx &nbsp;&nbsp;·&nbsp;&nbsp; v = e<sup>x</sup></li><li><b>PASSO 3 · MONTAR</b> · ∫ x · e<sup>x</sup> dx = x · e<sup>x</sup> − ∫ e<sup>x</sup> dx</li><li><b>PASSO 4 · RESOLVER O QUE SOBROU</b> · x · e<sup>x</sup> − e<sup>x</sup> + C</li><li><b>O RESULTADO</b> · (x − 1) · e<sup>x</sup> + C</li><li><b>CONFERIR DERIVANDO</b> · [(x − 1) · e<sup>x</sup>]′ = e<sup>x</sup> + (x − 1) · e<sup>x</sup> = x · e<sup>x</sup> &nbsp;✓</li><li><b>O MÉTODO</b> · escolher · derivar e integrar · montar · resolver o que sobrou e conferir</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · A FÓRMULA E O MÉTODO</div><h2 class="bloco-title">Integração por partes em <em>quatro passos</em></h2></div>
+<p class="mono-eq">∫ u dv = u · v − ∫ v du</p><div class="passo" style="--n:4"><div><b>1 · Escolher</b><span>u é o que simplifica ao derivar; dv é o que você sabe integrar</span></div><div><b>2 · Derivar e integrar</b><span>du é a derivada de u; v é uma primitiva de dv</span></div><div><b>3 · Montar</b><span>u vezes v, menos a integral de v du</span></div><div><b>4 · Resolver e conferir</b><span>resolva a integral que sobrou e derive o resultado</span></div></div><div class="prose"><p><strong>O teste da escolha:</strong> a integral que sobra tem de ser mais fácil que a primeira. Se ficou pior, troque os papéis.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Quem é <em class="orange">u</em>, quem é <em>dv</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Em ∫ x · e<sup>3x</sup> dx, qual é a melhor escolha?</p>
+    <ol><li>u = e<sup>3x</sup> e dv = x dx</li><li>u = x e dv = e<sup>3x</sup> dx</li><li>u = x · e<sup>3x</sup> e dv = dx</li><li>u = 3x e dv = e<sup>x</sup> dx</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A ESCOLHA</div><h2 class="bloco-title">A certa <em class="orange">simplifica</em>; a errada <em>complica</em></h2></div>
+<div class="aposta">Antes de avançar: em ∫ x · e<sup>2x</sup> dx, o que acontece com o x quando ele é derivado? E quando é integrado?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a10-i2-quem-e-u-quem-e-dv.html?embed=1" title="Animação: quem é u, quem é dv" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: as duas escolhas · a que piora · a que simplifica · montar · resolver · conferir · a regra da escolha. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>O PROBLEMA</b> · ∫ x · e<sup>2x</sup> dx</li><li><b>UMA ESCOLHA</b> · u = e<sup>2x</sup> &nbsp;·&nbsp; dv = x dx &nbsp;→&nbsp; du = 2 · e<sup>2x</sup> dx &nbsp;·&nbsp; v = x² ÷ 2</li><li><b>O QUE SOBROU FICOU PIOR</b> · ∫ v du = ∫ x² · e<sup>2x</sup> dx</li><li><b>A OUTRA ESCOLHA</b> · u = x &nbsp;&nbsp;·&nbsp;&nbsp; dv = e<sup>2x</sup> dx</li><li><b>DERIVAR u, INTEGRAR dv</b> · du = dx &nbsp;&nbsp;·&nbsp;&nbsp; v = e<sup>2x</sup> ÷ 2</li><li><b>MONTAR</b> · x · e<sup>2x</sup> ÷ 2 − ∫ (e<sup>2x</sup> ÷ 2) dx</li><li><b>RESOLVER O QUE SOBROU</b> · x · e<sup>2x</sup> ÷ 2 − e<sup>2x</sup> ÷ 4 + C</li><li><b>CONFERIR DERIVANDO</b> · e<sup>2x</sup> ÷ 2 + x · e<sup>2x</sup> − e<sup>2x</sup> ÷ 2 = x · e<sup>2x</sup> &nbsp;✓</li><li><b>A REGRA DA ESCOLHA</b> · u: o que simplifica ao derivar (x, ln x) &nbsp;·&nbsp; dv: o que você sabe integrar</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O <em class="orange">resultado</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">A integral ∫ x · e<sup>3x</sup> dx é igual a:</p>
+    <ol><li>x² · e<sup>3x</sup> ÷ 6 + C</li><li>x · e<sup>3x</sup> ÷ 3 + C</li><li>x · e<sup>3x</sup> ÷ 3 − e<sup>3x</sup> ÷ 9 + C</li><li>x · e<sup>3x</sup> − e<sup>3x</sup> + C</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · O CASO DO LOGARITMO</div><h2 class="bloco-title">Um produto <em>escondido</em></h2></div>
+<p class="mono-eq">∫ ln x dx = x · ln x − x + C</p><table class="tab"><tr><th>Passo</th><th>Conta</th></tr><tr><td>1 · Escolher</td><td class="n">u = ln x &nbsp;·&nbsp; dv = dx (o produto é ln x vezes 1)</td></tr><tr><td>2 · Derivar e integrar</td><td class="n">du = (1 ÷ x) dx &nbsp;·&nbsp; v = x</td></tr><tr><td>3 · Montar</td><td class="n">x · ln x − ∫ x · (1 ÷ x) dx = x · ln x − ∫ 1 dx</td></tr><tr><td>4 · Resolver e conferir</td><td class="n">x · ln x − x + C. Derivando: ln x + x · (1 ÷ x) − 1 = ln x. Voltou.</td></tr></table><div class="prose"><p>O ln x não está na tabela de primitivas, mas simplifica ao derivar: vira 1 ÷ x. Por isso ele é o u.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · NA GESTÃO</div><h2 class="bloco-title">Metade do prazo, <em class="orange">bem menos da metade</em> do gasto</h2></div>
+<div class="aposta">Antes de avançar: um programa gasta 100 mil reais em 10 meses. No mês 5, ele gastou 50 mil?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a10-i3-o-gasto-do-programa.html?embed=1" title="Animação: o gasto do programa que se expande" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: o ritmo · por que partes · escolher · derivar e integrar · montar · resolver · o ponto de partida · conferir · cinco e dez meses. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · ritmo: g(t) = t · e<sup>0,1t</sup> mil reais por mês &nbsp;·&nbsp; gasto acumulado zero no início</li><li><b>POR QUE PARTES</b> · a função de dentro é 0,1t, e a derivada dela é 0,1</li><li><b>PASSO 1 · ESCOLHER</b> · u = t &nbsp;&nbsp;·&nbsp;&nbsp; dv = e<sup>0,1t</sup> dt</li><li><b>PASSO 2 · DERIVAR E INTEGRAR</b> · du = dt &nbsp;&nbsp;·&nbsp;&nbsp; v = 10 · e<sup>0,1t</sup></li><li><b>PASSO 3 · MONTAR</b> · 10t · e<sup>0,1t</sup> − ∫ 10 · e<sup>0,1t</sup> dt</li><li><b>PASSO 4 · RESOLVER O QUE SOBROU</b> · G(t) = 10t · e<sup>0,1t</sup> − 100 · e<sup>0,1t</sup> + K</li><li><b>O PONTO DE PARTIDA</b> · G(0) = 0 − 100 + K = 0 &nbsp;→&nbsp; K = 100</li><li><b>O GASTO ACUMULADO</b> · G(t) = (10t − 100) · e<sup>0,1t</sup> + 100</li><li><b>USAR · CINCO MESES</b> · G(5) = −50 × 1,6487 + 100 ≈ 17,6</li><li><b>DEZ MESES</b> · G(10) = 0 × e + 100 = 100</li><li><b>LEITURA DE GESTÃO</b> · na metade do prazo, menos de um quinto do gasto</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Qual <em class="orange">método</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 3 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">Duas integrais parecidas: (I) ∫ x · e<sup>x²</sup> dx e (II) ∫ x · e<sup>x</sup> dx. Qual método resolve cada uma?</p>
+    <ol><li>(I) por partes e (II) por substituição.</li><li>(I) por substituição e (II) por partes.</li><li>As duas por substituição.</li><li>As duas por partes.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · COMO DECIDIR</div><h2 class="bloco-title">Três perguntas, <em>nessa ordem</em></h2></div>
+<table class="tab"><tr><th>Pergunta</th><th>Se a resposta for sim</th><th>Exemplo</th></tr><tr><td>1. Está na tabela de primitivas?</td><td>use a tabela (termo a termo)</td><td class="n">∫ (6x² + e<sup>0,1x</sup>) dx</td></tr><tr><td>2. Há uma função de dentro, com a derivada dela ao lado?</td><td>substituição</td><td class="n">∫ x · e<sup>x²</sup> dx</td></tr><tr><td>3. É um produto de x (ou ln x) por algo que sei integrar?</td><td>partes</td><td class="n">∫ x · e<sup>x</sup> dx</td></tr></table><div class="prose"><p>As duas primeiras perguntas são as da Aula 8. A terceira é a de hoje, e fecha a lista.</p><p>E se nenhuma das três servir? Algumas integrais não têm fórmula. Nesses casos, o total se estima com fatias, como na planilha da Aula 9.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · PARECIDAS, MAS DIFERENTES</div><h2 class="bloco-title">Um detalhe muda <em class="orange">o método inteiro</em></h2></div>
+<div class="aposta">Antes de avançar: ∫ (ln x) ÷ x dx e ∫ ln x dx saem pelo mesmo método?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a10-i4-parecidas-mas-diferentes.html?embed=1" title="Animação: três pares que confundem" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: três pares de integrais quase iguais · o que está dentro · o que está ao lado · o método e o resultado de cada uma. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>PAR 1</b> · ∫ x · e<sup>x²</sup> dx &nbsp;&nbsp;e&nbsp;&nbsp; ∫ x · e<sup>x</sup> dx</li><li><b>PAR 1 · O QUE ESTÁ DENTRO</b> · dentro: x², derivada 2x (está ao lado, falta o 2) &nbsp;·&nbsp; dentro: x, derivada 1</li><li><b>PAR 1 · RESULTADOS</b> · e<sup>x²</sup> ÷ 2 + C &nbsp;&nbsp;e&nbsp;&nbsp; (x − 1) · e<sup>x</sup> + C</li><li><b>PAR 2</b> · ∫ (ln x) ÷ x dx &nbsp;&nbsp;e&nbsp;&nbsp; ∫ ln x dx</li><li><b>PAR 2 · O QUE ESTÁ AO LADO</b> · (ln x) · (1 ÷ x): a derivada de ln x está ao lado &nbsp;·&nbsp; ln x sozinho: nada ao lado</li><li><b>PAR 2 · RESULTADOS</b> · (ln x)² ÷ 2 + C &nbsp;&nbsp;e&nbsp;&nbsp; x · ln x − x + C</li><li><b>PAR 3</b> · ∫ x · (x² + 1)² dx &nbsp;&nbsp;e&nbsp;&nbsp; ∫ (x² + 1)² dx</li><li><b>PAR 3 · QUANDO FALTA O x</b> · com o x ao lado: substituição &nbsp;·&nbsp; sem o x: abra o quadrado e use a tabela</li><li><b>PAR 3 · RESULTADOS</b> · (x² + 1)³ ÷ 6 + C &nbsp;&nbsp;e&nbsp;&nbsp; x⁵ ÷ 5 + 2x³ ÷ 3 + x + C</li><li><b>O QUE DECIDE</b> · o que está dentro, e o que está ao lado</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · PARA CASA</div><h2 class="bloco-title">O treino da decisão, e <em>a Checagem 6</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Hoje</span><h4>Checagem 6</h4><ul><li>abre hoje no Classroom</li><li>oito perguntas: partes e decisão do método</li><li>sete dias, duas tentativas</li></ul></div><div class="card pergunta"><span class="rot">Para treinar</span><h4>Decidir o método</h4><ul><li>a folha de treino, com exemplos e respostas</li><li>duas animações para rever em casa</li><li>não vale nota: prepara o Miniteste 3</li></ul></div><div class="card certo"><span class="rot">Aula 11 · 19/11</span><h4>Integral definida</h4><ul><li>a soma das fatias da Aula 9 ganha nome e símbolo</li><li>a ficha de estudo de hoje está no Classroom</li></ul></div></div><p class="bigline">Produto de x por algo que sei integrar: <em>partes.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 10 · Integração por partes e decisão do método · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 10 - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O modelo relacional - Aula 10 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 10 · O modelo relacional</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 10</span><span>·</span><span>Unidade 2 · Do arquivo ao banco de dados</span></div>
+  <h1>O modelo relacional: <em>do desenho às tabelas</em></h1>
+  <p class="hero-lede">O desenho da aula passada vira tabelas, com três regras. E as tabelas ganham duas proteções que a planilha nunca teve: uma chave que não se repete, e uma seta que nunca aponta para o nada.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Quatro partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:4"><div><b>De volta · 5 min</b><span>o que a checagem e o Laboratório 5 mostraram</span></div><div><b>Três regras · 25 min</b><span>do desenho às tabelas, com as chaves</span></div><div><b>A tabela do meio · 15 min</b><span>a ligação de muitos para muitos</span></div><div><b>Laboratório 6 · 50 min</b><span>conferir as chaves do transporte escolar</span></div></div><div class="prose"><p>Na quarta-feira, começa o SQL: as tabelas de hoje vão receber perguntas.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · TRÊS REGRAS</div><h2 class="bloco-title">Do desenho <em>às tabelas</em></h2></div>
+<table class="tab"><tr><th>No desenho</th><th>Nas tabelas</th><th>No exemplo</th></tr><tr><td>Uma entidade</td><td>vira uma tabela; a chave vira a <strong>chave primária</strong></td><td>unidades, ordens, técnicos</td></tr><tr><td>Uma ligação de um para muitos</td><td>a chave do lado 1 entra como coluna no lado N: é a <strong>chave estrangeira</strong></td><td>a tabela ordens ganha a coluna id_unidade</td></tr><tr><td>Uma ligação de muitos para muitos</td><td>vira uma <strong>tabela do meio</strong>, com duas chaves estrangeiras</td><td>execuções: qual técnico, em qual ordem</td></tr></table><div class="prose"><p>A checagem de preparo tratou dessas três regras. A animação mostra cada uma acontecendo.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · DO DESENHO ÀS TABELAS</div><h2 class="bloco-title">Cada regra, <em class="orange">nos dados</em></h2></div>
+<div class="aposta">Antes de avançar: na ligação entre unidade e ordem, em qual das duas tabelas deve ficar a coluna que faz a ligação?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a10-i1-do-desenho-as-tabelas.html?embed=1" title="Animação: do desenho às tabelas" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: o modelo · entidade vira tabela · a chave estrangeira · a seta nos dados · a tabela do meio · o banco recusa · as três regras. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>O MODELO</b> · unidade 1 : N ordem &nbsp;·&nbsp; ordem N : N técnico</li><li><b>REGRA 1 · ENTIDADE VIRA TABELA</b> · unidades(id_unidade, nome, região, telefone)</li><li><b>REGRA 1, DE NOVO</b> · ordens(id_ordem, data, serviço) &nbsp;·&nbsp; técnicos(matrícula, especialidade)</li><li><b>REGRA 2 · UM PARA MUITOS</b> · ordens(id_ordem, data, serviço, id_unidade)</li><li><b>A SETA, NOS DADOS</b> · a ordem OS-3 aponta para a unidade U2</li><li><b>REGRA 3 · MUITOS PARA MUITOS</b> · execuções(id_ordem, matrícula)</li><li><b>A REGRA QUE PROTEGE · AO INCLUIR</b> · ordem para a unidade U9, que não existe: o banco recusa</li><li><b>A REGRA QUE PROTEGE · AO EXCLUIR</b> · apagar a unidade U2, que tem ordens: o banco recusa</li><li><b>O QUE SE REPETE QUER VIRAR TABELA</b> · se uma coluna repete dados de outra coisa, essa coisa pede a sua própria tabela</li><li><b>AS TRÊS REGRAS</b> · entidade → tabela &nbsp;·&nbsp; 1 : N → chave estrangeira &nbsp;·&nbsp; N : N → tabela do meio</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Onde fica <em class="orange">a seta</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Cada secretaria tem muitos servidores, e cada servidor trabalha em uma secretaria só. Onde fica a chave estrangeira?</p>
+    <ol><li>Na tabela secretarias, numa coluna com a matrícula do servidor.</li><li>Na tabela servidores, numa coluna com o código da secretaria.</li><li>Numa terceira tabela, com as duas chaves.</li><li>Em nenhuma: a ligação não precisa de coluna.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · DUAS CHAVES</div><h2 class="bloco-title">O RG da linha, e <em>a seta</em></h2></div>
+<table class="tab"><tr><th></th><th>Chave primária</th><th>Chave estrangeira</th></tr><tr><td class="n">O que faz</td><td>identifica a linha</td><td>aponta para uma linha de outra tabela</td></tr><tr><td class="n">Pode se repetir?</td><td>nunca</td><td>sim: várias ordens da mesma unidade</td></tr><tr><td class="n">Pode ficar vazia?</td><td>nunca</td><td>em geral, não</td></tr><tr><td class="n">O que o banco garante</td><td>não entram duas linhas com a mesma chave</td><td>a seta sempre aponta para uma linha que existe</td></tr><tr><td class="n">Uma imagem</td><td>o RG da linha</td><td>uma seta que aponta para a ficha certa em outro arquivo</td></tr></table><div class="prose"><p>A garantia da direita tem nome: <strong>integridade referencial</strong>. É a resposta à pergunta da Aula 7: num banco de dados, ninguém apaga uma unidade que tem ordens de serviço.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A TABELA DO MEIO</div><h2 class="bloco-title">Muitos para muitos: <em class="orange">a ligação ganha uma tabela</em></h2></div>
+<div class="aposta">Antes de avançar: se um aluno usa duas rotas, dá para guardar a rota numa coluna da tabela alunos?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a10-i2-a-tabela-do-meio.html?embed=1" title="Animação: a tabela do meio" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: aluno e rota · duas tentativas que não funcionam · a tabela do meio · as duas setas · duas perguntas · o dado da ligação · a chave composta. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A LIGAÇÃO</b> · aluno N : N rota</li><li><b>TENTATIVA 1</b> · guardar a rota na tabela alunos</li><li><b>TENTATIVA 2</b> · guardar o aluno na tabela rotas</li><li><b>A SAÍDA</b> · alocações(mês, código_do_aluno, id_rota)</li><li><b>AS DUAS SETAS</b> · código_do_aluno → alunos &nbsp;·&nbsp; id_rota → rotas</li><li><b>PERGUNTA 1</b> · quais rotas o aluno A002 usou em agosto? R1 e R2</li><li><b>PERGUNTA 2</b> · quais alunos usaram a rota R1 em agosto? A001 e A002</li><li><b>O DADO DA LIGAÇÃO</b> · o mês não é do aluno nem da rota: é da alocação</li><li><b>A CHAVE DA TABELA DO MEIO</b> · o trio (mês, código_do_aluno, id_rota) não se repete</li><li><b>O QUE O LABORATÓRIO 6 CONFERE</b> · chaves que não se repetem; setas que apontam para algo que existe</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Quantas <em class="orange">tabelas</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Servidores fazem cursos de capacitação. Um servidor pode fazer vários cursos, e cada curso tem vários servidores. De quantas tabelas o modelo relacional precisa?</p>
+    <ol><li>Uma</li><li>Duas</li><li>Três</li><li>Quatro</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · O QUE SE REPETE QUER VIRAR TABELA</div><h2 class="bloco-title">Três sinais de <em>tabela mal separada</em></h2></div>
+<div class="compara tres"><div class="card errado"><span class="rot">Sinal 1</span><h4>Dados de outra coisa</h4><ul><li>a região da unidade, escrita em cada ordem</li><li>muda num lugar e fica errada nos outros</li></ul></div><div class="card errado"><span class="rot">Sinal 2</span><h4>Colunas numeradas</h4><ul><li>rota_1, rota_2, telefone_1, telefone_2</li><li>sempre falta mais uma coluna</li></ul></div><div class="card errado"><span class="rot">Sinal 3</span><h4>Dois valores numa célula</h4><ul><li>"R1 e R2" na mesma célula</li><li>ninguém consegue contar nem filtrar</li></ul></div></div><div class="prose"><p>A correção é sempre a mesma: dar uma tabela própria ao que se repete, e apontar para ela com uma chave. Esse cuidado tem um nome técnico, <strong>normalização</strong>.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · LABORATÓRIO 6</div><h2 class="bloco-title">Conferir as chaves do <em class="orange">transporte escolar</em></h2></div>
+<table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa no formulário</th></tr><tr><td class="n">1</td><td>Conferir se a chave primária de alunos se repete</td><td>quantos códigos aparecem mais de uma vez</td></tr><tr><td class="n">2</td><td>Conferir a seta de alunos para escolas</td><td>os alunos em escola que não existe</td></tr><tr><td class="n">3</td><td>Conferir as duas setas da tabela alocações</td><td>as alocações sem aluno, e as sem rota</td></tr><tr><td class="n">4</td><td>Marcar as alocações válidas</td><td>quantas são válidas</td></tr><tr><td class="n">5</td><td>Calcular o custo fixo por aluno de uma rota</td><td>o custo, em reais, com duas casas</td></tr></table><div class="prose"><p>O roteiro está no Classroom. <strong>Prazo do formulário: até o início da Aula 11 (18/11).</strong></p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · ATÉ SEGUNDA-FEIRA</div><h2 class="bloco-title">As tabelas vão <em>receber perguntas</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Para entregar</span><h4>Laboratório 6</h4><ul><li>formulário até o início da Aula 11</li><li>duas tentativas; vale a melhor</li></ul></div><div class="card certo"><span class="rot">Aula 11 · 18/11</span><h4>SQL essencial</h4><ul><li>selecionar, filtrar, ordenar e agregar</li><li>no programa DB Browser for SQLite</li></ul></div><div class="card pergunta"><span class="rot">Sem leitura desta vez</span><h4>A próxima checagem</h4><ul><li>é a Checagem de preparo 5</li><li>antes da Aula 12 (23/11)</li></ul></div></div><p class="bigline">Chave que não se repete. <em>Seta que não aponta para o nada.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 10 · O modelo relacional · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>

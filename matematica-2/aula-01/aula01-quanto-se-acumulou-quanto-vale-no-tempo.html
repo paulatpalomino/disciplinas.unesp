@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 1 - Abertura - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quanto se acumulou? Quanto vale no tempo? - Aula 1 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 1 · Abertura</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 1</span><span>·</span><span>Abertura da disciplina</span></div>
+  <h1>Quanto <em>se acumulou</em>? Quanto <em class="teal">vale no tempo</em>?</h1>
+  <p class="hero-lede">Matemática II é a matemática de duas perguntas que a gestão pública faz todos os dias. Hoje: por que elas importam, como a disciplina vai funcionar e de onde cada um de vocês está partindo.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · QUEM SOU</div><h2 class="bloco-title">Uma professora que aprendeu matemática <em class="orange">pelo problema</em></h2></div>
+<div class="prose"><p>Sou a Paula. Minha área não é a matemática pura: é tecnologia, dados e políticas públicas. Coordeno projetos ligados ao Ministério da Educação e estudo governança de dados no setor público.</p><p>Aprendi matemática pelo lado de fora: <strong>primeiro o problema, depois a fórmula</strong>. É por esse lado que a gente vai conversar o semestre inteiro.</p><p>Parte de vocês já me conheceu nas duas últimas aulas de Matemática I. Para quem está chegando agora: seja bem-vindo, e ninguém aqui começa atrasado.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · O QUE VOCÊS DISSERAM</div><h2 class="bloco-title">Vocês pediram. A disciplina <em>responde</em>.</h2></div>
+<table class="tab"><tr><th>O que vocês disseram no formulário</th><th>Como Matemática II vai funcionar</th></tr><tr><td>Cerca de 8 em cada 10: <strong>não fica claro para que serve</strong> o que se ensina</td><td>Toda aula começa por uma situação real de gestão pública</td></tr><tr><td>Cerca de 8 em cada 10: <strong>consultar o material</strong> foi o que mais funcionou</td><td>Toda atividade avaliativa é com consulta</td></tr><tr><td>4 em cada 10 pediram <strong>exercícios resolvidos passo a passo</strong></td><td>Cada tema tem resoluções passo a passo, na tela, em PDF e no Classroom</td></tr><tr><td>3 em cada 10 pediram <strong>avaliações menores e mais frequentes</strong> (4 em cada 10 entre quem já cursou)</td><td>Não há provas grandes: há atividades curtas, frequentes e com nova chance</td></tr><tr><td>1 em cada 4, no noturno, pediu <strong>vídeos curtos</strong> para rever em casa</td><td>Materiais curtos para rever no Classroom</td></tr></table><p class="fonte">Fonte: formulário anônimo aplicado em 01/09/2026 na Aula 18 de Matemática I; 67 respostas com autorização de uso agregado.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · AS DUAS PERGUNTAS</div><h2 class="bloco-title">A disciplina inteira cabe em <em class="orange">duas perguntas</em></h2></div>
+<div class="compara"><div class="card olho"><span class="rot">Cálculo integral</span><h4>Quanto se acumulou?</h4><ul><li>Atendimentos por dia numa unidade de saúde: quantos no mês?</li><li>Gasto por dia de um programa: quanto no ano?</li><li>Processos que chegam por semana: quantos parados na fila?</li></ul></div><div class="card pergunta"><span class="rot">Matemática financeira</span><h4>Quanto vale no tempo?</h4><ul><li>Pagar à vista ou em 10 parcelas?</li><li>Financiar uma obra: prestação fixa ou decrescente?</li><li>R$ 1.000 de 2020 equivalem a quanto hoje?</li></ul></div></div><div class="prose"><p>As duas perguntas aparecem em orçamento, contratos, dívida pública e avaliação de políticas. Quem administra o público responde a elas o tempo todo, com ou sem matemática. Com matemática, responde melhor.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A IMAGEM DO SEMESTRE</div><h2 class="bloco-title">A <em>torneira</em> e a <em class="orange">caixa d'água</em></h2></div>
+<div class="passo" style="--n:2"><div><b>A torneira · o ritmo</b><span>litros por minuto · gasto por mês · atendimentos por dia. É o que a derivada mede (Matemática I).</span></div><div><b>A caixa · o total acumulado</b><span>litros na caixa · gasto do ano · atendimentos do mês. É o que a integral descobre (Matemática II).</span></div></div><div class="prose"><p>Confundir a torneira com a caixa é o erro que mais vamos combater. E depois de saber quanto se acumulou, a segunda metade do semestre pergunta: quanto vale o que está na caixa em cada momento?</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Torneira ou <em class="orange">caixa</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · </span>
+    <p class="pergunta-ct">Uma secretaria sabe quanto gastou em cada mês do ano. Para saber o gasto do ano inteiro, ela precisa:</p>
+    <ol><li>Olhar o gasto do último mês.</li><li>Somar o gasto de todos os meses.</li><li>Calcular a média dos meses.</li><li>Subtrair o gasto de janeiro do gasto de dezembro.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · O MAPA</div><h2 class="bloco-title">Quatro unidades, uma <em class="orange">história</em></h2></div>
+<table class="tab"><tr><th>Unidade</th><th>Aulas</th><th>A pergunta</th></tr><tr><td>1 · Da taxa ao total: a integral indefinida</td><td class="n">1 a 10</td><td>Como recuperar um total a partir do seu ritmo?</td></tr><tr><td>2 · Quanto se acumulou: a integral definida</td><td class="n">11 a 17</td><td>Quanto de demanda, gasto ou saldo se acumulou num período?</td></tr><tr><td>3 · Quanto vale no tempo: matemática financeira</td><td class="n">18 a 23</td><td>Quanto vale hoje um valor de amanhã?</td></tr><tr><td>4 · Decidir com pagamentos no tempo</td><td class="n">24 a 31</td><td>Como financiar e pagar uma decisão pública?</td></tr><tr><td>Fechamento</td><td class="n">32 e 33</td><td>Repescagem, devolutiva e orientação para o exame</td></tr></table><div class="prose"><p><strong>Três avisos do calendário:</strong> as Aulas 8 e 9 (05 e 06/11) são atividades no Classroom; não há aula na sexta, 30/10 (feriado), nem na quinta, 12/11 (Semana Acadêmica), mas <strong>há aula na sexta, 13/11</strong>; o projeto fecha na Aula 31, com a vitrine das equipes sorteadas. As datas estão no calendário da turma, no Classroom.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · COMO VOCÊ SERÁ AVALIADO</div><h2 class="bloco-title">Sem provas grandes. Seis peças pequenas, <em>todas com consulta</em>.</h2></div>
+<table class="tab"><tr><th>Peça</th><th>O que é</th><th>Peso</th></tr><tr><td>Checagens semanais</td><td>Formulário curto no Classroom, com correção automática e duas tentativas. Valem as 10 melhores de 13.</td><td class="n">15%</td></tr><tr><td>Missões em sala</td><td>Um problema de gestão resolvido em trio, com consulta ao material impresso. Valem as 5 melhores de 6.</td><td class="n">20%</td></tr><tr><td>Minitestes individuais</td><td>Ao fim de cada missão, 1 a 3 perguntas curtas, sozinho, com a sua folha de consulta.</td><td class="n">25%</td></tr><tr><td>Projeto integrador</td><td>Em equipe de 4 ou 5: nota técnica, planilha e apresentação curta, entregues no Classroom.</td><td class="n">25%</td></tr><tr><td>Pergunta individual</td><td>Na Aula 31, escrita, sozinho, sobre uma escolha do seu próprio grupo.</td><td class="n">5%</td></tr><tr><td>Duas escritas curtas</td><td>Hoje e na última aula: onde a matemática aparece na carreira que você quer.</td><td class="n">10%</td></tr></table><div class="prose"><p>Mais da metade da nota (55%) é individual. O detalhe está no documento "Como funciona a disciplina", no Classroom.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · NADA É DEFINITIVO</div><h2 class="bloco-title">Errar faz parte. Por isso, quase tudo tem <em class="orange">nova chance</em>.</h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Checagem</span><h4>Foi mal numa checagem?</h4><ul><li>Tem segunda tentativa</li><li>As três piores não contam</li></ul></div><div class="card pergunta"><span class="rot">Miniteste</span><h4>Não atingiu um objetivo?</h4><ul><li>Refaz na missão seguinte</li><li>Ou na aula de repescagem (Aula 32)</li><li>Sem desconto nenhum</li></ul></div><div class="card certo"><span class="rot">Missão</span><h4>Faltou a uma missão?</h4><ul><li>A pior missão não conta</li><li>Quem entrou depois não é prejudicado</li></ul></div></div><div class="prose"><p><strong>Folha de consulta:</strong> uma folha A4, frente e verso, feita por você à mão. Montar essa folha já é estudar.</p><p><strong>Regras da universidade:</strong> frequência mínima de 70% e média 5,0. Com frequência e sem média, há exame final de 22 a 26/02/2027; a nota final é a média entre a nota do semestre e a do exame.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · COMO É UMA AULA</div><h2 class="bloco-title">Sempre na mesma <em>ordem</em></h2></div>
+<div class="passo"><div><b>1 · Problema</b><span>uma situação real de gestão pública</span></div><div><b>2 · Intuição</b><span>tabela, gráfico ou animação, antes da fórmula</span></div><div><b>3 · Fórmula</b><span>o nome do que a gente já viu</span></div><div><b>4 · Aplicação</b><span>em dupla ou trio, com votação e discussão</span></div></div><div class="prose"><p>Durante a explicação, o celular fica guardado. Nas missões e nos minitestes, ele pode ficar sobre a mesa, com a tela para cima, <strong>só como calculadora</strong>. Nas aulas de planilha e calculadora financeira, a gente usa o celular em duplas.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · E A INTELIGÊNCIA ARTIFICIAL?</div><h2 class="bloco-title">A IA propõe, <em>você verifica</em>, você responde</h2></div>
+<div class="compara tres"><div class="card errado"><span class="rot">Sem IA</span><h4>Onde você mostra o que sabe</h4><ul><li>Missões em sala</li><li>Minitestes individuais</li><li>Pergunta individual sobre o projeto</li></ul></div><div class="card pergunta"><span class="rot">IA livre</span><h4>Para estudar</h4><ul><li>Tirar dúvida, pedir outro exemplo</li><li>Inclusive o tutor da disciplina no NotebookLM</li><li>Não precisa declarar</li></ul></div><div class="card certo"><span class="rot">IA declarada</span><h4>No projeto</h4><ul><li>Permitida, com declaração de uso</li><li>O grupo confere e corrige o que a IA propõe</li><li>A pergunta individual mostra quem entendeu</li></ul></div></div><div class="prose"><p>Declarar que usou IA nunca tira nota. Esconder, quando a atividade pede declaração, é problema de integridade.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · ONDE ESTÁ TUDO</div><h2 class="bloco-title">Tudo no <em>Classroom</em></h2></div>
+<div class="prose"><p>Calendário da turma, o documento "Como funciona a disciplina", fichas de estudo, resoluções passo a passo, animações das aulas e as checagens semanais.</p><p>Hoje saem dois documentos: <strong>como funciona a disciplina</strong> (como a nota funciona) e <strong>o calendário da turma</strong> (o que acontece em cada data). Leiam com calma em casa.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">12 · DE ONDE VOCÊS PARTEM</div><h2 class="bloco-title">Diagnóstico: <em class="orange">sem nota</em>, sem pegadinha</h2></div>
+<div class="prose"><p>Abram o aviso de hoje no Classroom e respondam ao formulário do diagnóstico.</p><p>Não vale nota. Serve para eu saber por onde começar a revisão da próxima aula e como organizar o ritmo das turmas. <strong>"Não sei" é uma resposta útil</strong>: marque sem medo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">13 · A PRIMEIRA ESCRITA</div><h2 class="bloco-title">Onde a matemática aparece na <em>carreira que você quer</em>?</h2></div>
+<div class="prose"><p>Um parágrafo que responda a três coisas:</p><p><strong>1.</strong> Uma decisão real, do trabalho que você quer fazer (ou já faz), que envolve valores que se acumulam ou que mudam de valor com o tempo.</p><p><strong>2.</strong> O que poderia dar errado se essa conta fosse mal feita.</p><p><strong>3.</strong> Uma pergunta que você gostaria de saber responder ao fim da disciplina.</p><p>Conta como a primeira escrita (5% da nota). O que vale é ter feito com cuidado, não ter acertado alguma coisa.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">14 · A CAIXA DE FERRAMENTAS</div><h2 class="bloco-title">De Matemática I, a gente precisa de <em class="orange">três ideias</em></h2></div>
+<div class="passo" style="--n:3"><div><b>Função</b><span>uma regra: entra um número, sai outro. C(x) = 45 + 120x.</span></div><div><b>Limite</b><span>para onde o resultado vai quando x chega perto de um número.</span></div><div><b>Derivada</b><span>o ritmo: quanto o resultado muda quando x aumenta um pouco.</span></div></div><div class="ct"><span class="rot">Pergunta 2 · </span>
+    <p class="pergunta-ct">O custo mensal do transporte escolar é C(x) = 45 + 120x, em mil reais, para x mil alunos (valores simulados). Quanto custa atender o próximo grupo de mil alunos?</p>
+    <ol><li>45 mil reais.</li><li>120 mil reais.</li><li>165 mil reais.</li><li>285 mil reais.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">15 · ATÉ A PRÓXIMA AULA</div><h2 class="bloco-title">Vocês já sabem medir a <em>torneira</em></h2></div>
+<div class="prose"><p>Na próxima aula: revisão de limites e derivadas, só o que Matemática II vai usar, com as resoluções passo a passo.</p><p>Antes dela, nada obrigatório. </p></div><p class="bigline">A partir de agora, a gente aprende a descobrir <em>a caixa</em>.</p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 1 · Abertura · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
