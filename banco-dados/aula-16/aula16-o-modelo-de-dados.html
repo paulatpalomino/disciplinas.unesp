@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 16 - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O modelo de dados: as relações e o calendário - Aula 16 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 16 · Modelo de dados</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 16</span><span>·</span><span>Unidade 3 · Inteligência de negócios com Power BI</span></div>
+  <h1>O modelo de dados: <em>as relações e o calendário</em></h1>
+  <p class="hero-lede">Na Aula 13, a estrela era uma ideia. Hoje ela vira o seu arquivo: o fato no centro, as dimensões em volta, ligadas por relações, e uma tabela com todos os dias do período.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Quatro partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:4"><div><b>De volta · 5 min</b><span>a checagem de preparo e o Laboratório 11</span></div><div><b>A relação · 25 min</b><span>um para muitos, e o filtro que atravessa</span></div><div><b>O calendário · 15 min</b><span>a demonstração, com as ordens de serviço</span></div><div><b>Laboratório 12 · 50 min</b><span>a ouvidoria em estrela</span></div></div><div class="prose"><p>É a terceira habilidade da Missão prática 2: ligar as tabelas para que todo filtro chegue ao fato.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · DE VOLTA</div><h2 class="bloco-title">O Laboratório 11: <em>três tropeços previstos</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Tarefa 2</span><h4>Onze colunas</h4><ul><li>a coluna horas, de 2025, entrou à parte</li><li>a soma das horas ficou em 5.866,5, só 2024</li></ul></div><div class="card pergunta"><span class="rot">Tarefa 3</span><h4>A secretaria sem prazo</h4><ul><li>Assistencia, sem acento, na tabela das metas</li><li>444 protocolos com o prazo vazio</li></ul></div><div class="card pergunta"><span class="rot">Tarefa 3</span><h4>A junção que esconde</h4><ul><li>com a Interna, sobram 4.256 linhas</li><li>o problema some junto com os protocolos</li></ul></div></div><div class="prose"><p>E o que a combinação mostrou: Obras respondeu no prazo 75% dos protocolos em 2024, e 60% em 2025.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · POR QUE SEPARAR DE NOVO?</div><h2 class="bloco-title">Uma tabela só <em>repete demais</em></h2></div>
+<table class="tab"><tr><th>Numa tabela só, com tudo junto...</th><th>No modelo em estrela...</th></tr><tr><td>o nome de cada secretaria se repete em 4.700 linhas</td><td>cada secretaria aparece uma vez, na dimensão</td></tr><tr><td>a população do bairro se repete em cada protocolo, e a soma da população sai errada</td><td>a população fica no bairro, e é somada uma vez por bairro</td></tr><tr><td>mudar o prazo-meta de uma secretaria é mudar centenas de linhas</td><td>muda-se uma linha da dimensão</td></tr><tr><td>o ano e o mês precisam ser criados em cada tabela de fatos</td><td>um calendário serve a todas as tabelas de fatos</td></tr></table><div class="prose"><p>É o mesmo raciocínio das Aulas 9 e 10, com outro objetivo: lá, registrar sem repetir; aqui, filtrar e somar sem errar.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · O FILTRO QUE ATRAVESSA A RELAÇÃO</div><h2 class="bloco-title">O clique na dimensão <em class="orange">filtra o fato</em></h2></div>
+<div class="aposta">Antes de avançar: cada protocolo tem uma secretaria. Uma secretaria tem quantos protocolos?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a16-i1-o-filtro-que-atravessa-a-relacao.html?embed=1" title="Animação: o filtro que atravessa a relação" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: as três tabelas · a relação · quem cria · o filtro atravessa · falta o tempo · criar o calendário · ligar ao fato · sem a relação · com a relação · a ordem dos meses · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>AS TRÊS TABELAS</b> · protocolos (fato) · secretarias · bairros (dimensões)</li><li><b>A RELAÇÃO</b> · secretarias[id_secretaria] 1 ─── N protocolos[id_secretaria]</li><li><b>QUEM CRIA</b> · o programa propõe; você confere na Exibição de Modelo</li><li><b>O FILTRO ATRAVESSA</b> · clique em Obras (dimensão) → só os protocolos de Obras (fato)</li><li><b>FALTA O TEMPO</b> · o calendário: uma linha por dia</li><li><b>CRIAR O CALENDÁRIO</b> · calendario = CALENDAR(DATE(2024, 1, 1), DATE(2025, 12, 31))</li><li><b>LIGAR AO FATO</b> · calendario[Date] 1 ─── N protocolos[data_abertura]</li><li><b>SEM A RELAÇÃO</b> · 2024: 4.700 · 2025: 4.700</li><li><b>COM A RELAÇÃO</b> · 2024: 2.211 · 2025: 2.489</li><li><b>A ORDEM DOS MESES</b> · abril, agosto, dezembro, fevereiro...</li><li><b>LEITURA DE GESTÃO</b> · um modelo, todas as perguntas</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · UM PARA MUITOS</div><h2 class="bloco-title">Como ler <em>uma relação</em></h2></div>
+<table class="tab"><tr><th>No diagrama</th><th>O que quer dizer</th><th>Na ouvidoria</th></tr><tr><td class="n">o lado 1</td><td>na dimensão, cada código aparece uma vez só</td><td>secretarias: S1 a S6, sem repetição</td></tr><tr><td class="n">o lado N (o programa mostra *)</td><td>no fato, o mesmo código aparece muitas vezes</td><td>protocolos: S1 em centenas de linhas</td></tr><tr><td class="n">a seta da direção</td><td>o filtro sai do lado 1 e vai para o lado N</td><td>clicar em Obras filtra os protocolos</td></tr><tr><td class="n">a linha tracejada</td><td>a relação existe, mas está inativa: o filtro não passa</td><td>evite; se aparecer, chame a professora</td></tr></table><div class="prose"><p>Na dúvida, pergunte: a coluna que liga as tabelas tem valores repetidos dos dois lados? Se tiver, alguma coisa está errada no modelo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O número <em class="orange">repetido</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Uma tabela com o ano do calendário e a contagem de protocolos mostra 4.700 em 2024, 4.700 em 2025 e 4.700 no Total. O que aconteceu?</p>
+    <ol><li>falta a relação entre o calendário e os protocolos</li><li>os dados de 2024 e de 2025 são iguais</li><li>a contagem deveria ser uma soma</li><li>o calendário tem dias repetidos</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · A TABELA CALENDÁRIO</div><h2 class="bloco-title">A dimensão <em class="orange">do tempo</em></h2></div>
+<p class="mono-eq">calendario = CALENDAR(DATE(2024, 1, 1), DATE(2025, 12, 31))</p><table class="tab"><tr><th></th><th></th></tr><tr><td class="n">O que é</td><td>uma tabela com uma linha por dia do período, sem buracos e com os anos completos</td></tr><tr><td class="n">Onde se cria</td><td>Nova tabela (no programa instalado e no Modo de edição do navegador)</td></tr><tr><td class="n">As colunas</td><td>Date, criada pela fórmula; ano = YEAR(...), mes = MONTH(...) e nome_mes, criadas com Nova coluna</td></tr><tr><td class="n">A ordem dos meses</td><td>nome_mes é texto e se ordena pelo alfabeto: Classificar por coluna › mes</td></tr><tr><td class="n">A ligação</td><td>calendario[Date] com protocolos[data_abertura]: um para muitos</td></tr></table><p class="fonte">DATE(ano, mês, dia) monta uma data. Os nomes das funções do Power BI são em inglês, em qualquer idioma do programa.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Quantos <em class="orange">dias</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">Quantas linhas tem a tabela criada por CALENDAR(DATE(2024, 1, 1), DATE(2025, 12, 31))?</p>
+    <ol><li>730</li><li>24</li><li>4.700, uma para cada protocolo</li><li>731</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · A DEMONSTRAÇÃO</div><h2 class="bloco-title">As ordens de serviço, <em>em estrela</em></h2></div>
+<table class="tab"><tr><th>#</th><th>O que eu faço</th><th>O que conferir</th></tr><tr><td class="n">1</td><td>Carrego ordens e unidades, do arquivo demo-manutencao-modelo.xlsx</td><td>280 ordens, 13 unidades</td></tr><tr><td class="n">2</td><td>Abro a Exibição de Modelo</td><td>a relação por id_unidade, criada pelo programa: confiro o 1 e o *</td></tr><tr><td class="n">3</td><td>Nova tabela: CALENDAR(DATE(2026, 7, 1), DATE(2026, 9, 30))</td><td>92 dias, de julho a setembro</td></tr><tr><td class="n">4</td><td>Nova coluna: mes e nome_mes</td><td>o nome sai em ordem alfabética: agosto, julho, setembro</td></tr><tr><td class="n">5</td><td>Classifico nome_mes pela coluna mes</td><td>julho, agosto, setembro</td></tr><tr><td class="n">6</td><td>Ligo calendario[Date] a ordens[data]</td><td>julho R$ 137.260,50 · agosto R$ 177.599,50 · setembro R$ 179.746,50</td></tr></table><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · TRÊS EXIBIÇÕES</div><h2 class="bloco-title">Onde fica <em>cada coisa</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Relatório</span><h4>As páginas</h4><ul><li>os visuais: tabela, gráfico, segmentação</li><li>é o que o gestor vê</li></ul></div><div class="card pergunta"><span class="rot">Tabela</span><h4>Os dados</h4><ul><li>as linhas de cada tabela carregada</li><li>é onde se confere uma coluna nova</li></ul></div><div class="card certo"><span class="rot">Modelo</span><h4>O diagrama</h4><ul><li>as tabelas e as relações</li><li>é onde se cria e se confere a estrela</li></ul></div></div><div class="prose"><p>No programa instalado, os três ícones ficam na barra da esquerda. No navegador, o modelo semântico abre no diagrama, e o relatório é criado à parte.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · LABORATÓRIO 12</div><h2 class="bloco-title">A ouvidoria <em class="orange">em estrela</em></h2></div>
+<table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa no formulário</th></tr><tr><td class="n">1</td><td>Carregar as três tabelas do arquivo</td><td></td></tr><tr><td class="n">2</td><td>Conferir as relações na Exibição de Modelo</td><td>quantas relações o modelo tem</td></tr><tr><td class="n">3</td><td>Criar o calendário e as colunas ano, mes e nome_mes</td><td>quantos dias ele tem</td></tr><tr><td class="n">4</td><td>Ver o erro: uma tabela por ano, antes de ligar o calendário</td><td></td></tr><tr><td class="n">5</td><td>Ligar o calendário e ordenar os meses</td><td>o primeiro mês da lista, antes e depois</td></tr><tr><td class="n">6</td><td>Perguntas que cruzam as dimensões</td><td>março, Obras em 2024, a Saúde no Norte em 2025</td></tr><tr><td class="n">7</td><td>Ler para a gestão</td><td></td></tr></table><div class="prose"><p>O roteiro e o arquivo ouvidoria-modelo.xlsx estão no Classroom. <strong>Prazo do formulário: até o início da Aula 17 (09/12).</strong> Salve o seu arquivo: ele serve de ponto de partida na Aula 17.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · ATÉ QUARTA-FEIRA</div><h2 class="bloco-title">Uma entrega, e <em>a missão chegando</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Para entregar</span><h4>Laboratório 12</h4><ul><li>formulário até o início da Aula 17</li><li>duas tentativas; vale a melhor</li></ul></div><div class="card certo"><span class="rot">Aula 17 · 09/12</span><h4>Medidas</h4><ul><li>a conta que você escreve uma vez</li><li>e que responde em cada recorte</li></ul></div><div class="card pergunta"><span class="rot">Aulas 18 e 19</span><h4>Oficina e Missão 2</h4><ul><li>14/12: o treino, sem nota</li><li>16/12: a Missão prática 2</li></ul></div></div><p class="bigline">O número vem do fato. <em>O filtro chega pela relação.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 16 · Modelo de dados · Banco de Dados · CED7651 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
