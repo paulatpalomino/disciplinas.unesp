@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 16 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizontes longos: integrais impróprias - Aula 16 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 16 · Integrais impróprias</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 16</span><span>·</span><span>Unidade 2 · Quanto se acumulou</span></div>
+  <h1>Horizontes longos: <em>quando o período não tem fim</em></h1>
+  <p class="hero-lede">Até aqui, todo total tinha começo e fim. Algumas perguntas de gestão não têm data para acabar: quanto uma área contaminada ainda vai liberar, ao todo? Quanto soma um custo que não para? Hoje: as integrais impróprias.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Cinco partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:5"><div><b>Tentem antes · 8 min</b><span>um ritmo que cai, em dupla</span></div><div><b>O total sem data · 27 min</b><span>o acumulado quando T cresce sem parar</span></div><div><b>Converge ou diverge · 20 min</b><span>cair até zero não basta</span></div><div><b>Em dupla · 25 min</b><span>três problemas, com as respostas</span></div><div><b>Amanhã · 5 min</b><span>a Missão 4, a repescagem e a Parte 1</span></div></div><div class="prose"><p>A Checagem 8 fecha hoje. Amanhã, na Aula 17, fecha o bloco do cálculo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · TENTEM ANTES</div><h2 class="bloco-title">Em dupla, <em class="orange">seis minutos</em></h2></div>
+<div class="prose"><p>Um lixão foi desativado e ainda libera chorume, que precisa ser tratado. O ritmo cai a cada ano: c(t) = 40 · e<sup>−0,2t</sup>, em mil litros por ano (t em anos, desde o fechamento).</p><p><strong>a)</strong> A primitiva de 40 · e<sup>−0,2t</sup> é −200 · e<sup>−0,2t</sup>. Quanto chorume sai em 5 anos? E em 10? E em 20? Use e<sup>−1</sup> ≈ 0,3679, e<sup>−2</sup> ≈ 0,1353 e e<sup>−4</sup> ≈ 0,0183.</p><p><strong>b)</strong> O ritmo nunca chega exatamente a zero. Então o total, somando todos os anos futuros, é infinito?</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · UM TOTAL SEM DATA PARA ACABAR</div><h2 class="bloco-title">O período não tem fim, <em class="orange">e o total tem</em></h2></div>
+<div class="aposta">Antes de avançar: o total, para sempre, é infinito ou é um número? Anote um palpite.</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a16-i1-um-total-sem-data-para-acabar.html?embed=1" title="Animação: um total sem data para acabar" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a situação · a pergunta · a tentação · o acumulado até T · 5 anos · 10 anos · 20 anos · o que falta encolhe · o limite · o nome · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · c(t) = 40 · e<sup>−0,2t</sup> mil litros por ano</li><li><b>A PERGUNTA</b> · quanto chorume vai sair, ao todo, se nada mudar?</li><li><b>A TENTAÇÃO</b> · 40 por ano, para sempre: infinito</li><li><b>O ACUMULADO ATÉ T</b> · C(T) = ∫<sub>0</sub><sup>T</sup> c(t) dt = 200 − 200 · e<sup>−0,2T</sup></li><li><b>5 ANOS</b> · C(5) = 200 − 200 · e<sup>−1</sup> ≈ 200 − 73,6 = 126,4</li><li><b>10 ANOS</b> · C(10) = 200 − 200 · e<sup>−2</sup> ≈ 200 − 27,1 = 172,9</li><li><b>20 ANOS</b> · C(20) = 200 − 200 · e<sup>−4</sup> ≈ 200 − 3,7 = 196,3</li><li><b>O QUE FALTA ENCOLHE</b> · 200 · e<sup>−0,2T</sup>: 73,6 · 27,1 · 3,7 · ...</li><li><b>O LIMITE</b> · quando T cresce sem parar, C(T) se aproxima de 200</li><li><b>O NOME</b> · ∫<sub>0</sub><sup>∞</sup> c(t) dt = limite de ∫<sub>0</sub><sup>T</sup> c(t) dt, com T crescendo = 200</li><li><b>LEITURA DE GESTÃO</b> · 200 mil litros ao todo; 63% nos 5 primeiros anos</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · A INTEGRAL IMPRÓPRIA</div><h2 class="bloco-title">O infinito no lugar <em>de um dos limites</em></h2></div>
+<p class="mono-eq">∫<sub>a</sub><sup>∞</sup> f(t) dt = limite de ∫<sub>a</sub><sup>T</sup> f(t) dt, quando T cresce sem parar</p><table class="tab"><tr><th>Palavra</th><th>O que quer dizer</th></tr><tr><td class="n">integral imprópria</td><td>uma integral em que um dos limites é o infinito: o período não tem fim</td></tr><tr><td class="n">converge</td><td>o acumulado se aproxima de um número: o total para sempre existe</td></tr><tr><td class="n">diverge</td><td>o acumulado cresce sem parar: não há total para sempre</td></tr><tr><td class="n">como calcular</td><td>o acumulado até T, pelo teorema, e depois o que acontece com ele quando T cresce</td></tr></table><div class="prose"><p>É o limite da Matemática I, usado na Aula 2 para o custo médio no longo prazo, agora aplicado ao acumulado.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A REGRA DA EXPONENCIAL</div><h2 class="bloco-title">Quando o ritmo cai <em class="orange">em exponencial</em></h2></div>
+<p class="mono-eq">∫<sub>0</sub><sup>∞</sup> c · e<sup>−kt</sup> dt = c ÷ k &nbsp;&nbsp;(c e k positivos)</p><table class="tab"><tr><th>Passo</th><th>Conta</th></tr><tr><td class="n">1 · A primitiva</td><td>−(c ÷ k) · e<sup>−kt</sup></td></tr><tr><td class="n">2 · O acumulado até T</td><td>(c ÷ k) − (c ÷ k) · e<sup>−kT</sup></td></tr><tr><td class="n">3 · Quando T cresce</td><td>e<sup>−kT</sup> se aproxima de zero, e sobra c ÷ k</td></tr><tr><td class="n">No lixão</td><td>c = 40 e k = 0,2: 40 ÷ 0,2 = 200 mil litros</td></tr></table><div class="prose"><p>A conta rápida fica assim: o ritmo inicial, dividido pela velocidade da queda. Quanto mais devagar o ritmo cai, maior o total.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O primeiro <em class="orange">total para sempre</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Quanto vale ∫<sub>0</sub><sup>∞</sup> 6 · e<sup>−3t</sup> dt?</p>
+    <ol><li>18</li><li>infinito, porque o período não tem fim</li><li>2</li><li>0</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · CAIR ATÉ ZERO NÃO BASTA</div><h2 class="bloco-title">Quando o infinito <em class="orange">dá infinito</em></h2></div>
+<div class="aposta">Antes de avançar: 100 ÷ t e 100 ÷ t² caem até perto de zero. Os dois têm total finito?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a16-i2-quando-o-infinito-da-infinito.html?embed=1" title="Animação: quando o infinito dá infinito" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: três ritmos · o ritmo que não cai · o que cai depressa · o que cai devagar · a surpresa · por quê · a regra prática · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>TRÊS RITMOS</b> · 30 · 100 ÷ t · 100 ÷ t² &nbsp;(t ≥ 1, em meses)</li><li><b>O RITMO QUE NÃO CAI</b> · ∫<sub>1</sub><sup>T</sup> 30 dt = 30 · (T − 1): 270 · 2.970 · 29.970</li><li><b>O QUE CAI DEPRESSA</b> · ∫<sub>1</sub><sup>T</sup> (100 ÷ t²) dt = 100 − 100 ÷ T: 90 · 99 · 99,9</li><li><b>O QUE CAI DEVAGAR</b> · ∫<sub>1</sub><sup>T</sup> (100 ÷ t) dt = 100 · ln T: 230 · 461 · 691</li><li><b>A SURPRESA</b> · os dois ritmos chegam perto de zero; só um tem total finito</li><li><b>POR QUÊ</b> · no mês 100: 100 ÷ t = 1 · 100 ÷ t² = 0,01</li><li><b>A REGRA PRÁTICA</b> · convergem: c · e<sup>−kt</sup> e c ÷ t² &nbsp;·&nbsp; divergem: constante e c ÷ t</li><li><b>LEITURA DE GESTÃO</b> · custo que não cai, ou cai devagar, não tem teto</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · AS QUATRO QUE O SEMESTRE USA</div><h2 class="bloco-title">Converge <em>ou</em> diverge</h2></div>
+<table class="tab"><tr><th>O ritmo, a partir de t = 1</th><th>O acumulado até T</th><th>Para sempre</th></tr><tr><td class="n">constante: 30</td><td>30 · (T − 1)</td><td>diverge: cresce sem parar</td></tr><tr><td class="n">exponencial que cai: c · e<sup>−kt</sup></td><td>se aproxima de um número</td><td>converge</td></tr><tr><td class="n">c ÷ t²</td><td>c − c ÷ T</td><td>converge: o total é c</td></tr><tr><td class="n">c ÷ t</td><td>c · ln T</td><td>diverge: cresce devagar, mas sempre</td></tr></table><div class="prose"><p>Se o ritmo não cai, ou cai devagar, não existe um total para sempre: nenhuma reserva única cobre esse custo.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Qual tem <em class="orange">total finito</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote a sua letra e levante a mão</span>
+    <p class="pergunta-ct">Somando do mês 1 para sempre, qual destes ritmos tem um total finito?</p>
+    <ol><li>50 ÷ t²</li><li>50 ÷ t</li><li>50 por mês, constante</li><li>50 + 1 ÷ t</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O que o ritmo <em class="orange">garante</em>?</h2></div>
+<div class="ct"><span class="rot">Pergunta 3 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">O ritmo de um gasto cai a cada ano e se aproxima de zero. Somando todos os anos, para sempre, o gasto total:</p>
+    <ol><li>é sempre um número finito.</li><li>é zero, porque o ritmo chega a zero.</li><li>é sempre infinito, porque o tempo não acaba.</li><li>pode ser finito ou infinito: depende de quão depressa o ritmo cai.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · EM DUPLA</div><h2 class="bloco-title">Três problemas, <em class="orange">vinte minutos</em></h2></div>
+<table class="tab"><tr><th></th><th>A situação</th><th>Perguntas</th></tr><tr><td class="n">1</td><td>Depois de uma campanha de vacinação, os casos de uma doença caem no ritmo d(t) = 120 · e<sup>−0,4t</sup>, em casos por semana (t em semanas).</td><td>a) Quantos casos nas 5 primeiras semanas? Use e<sup>−2</sup> ≈ 0,1353. b) Quantos casos ao todo, se nada mudar? c) Que parte do total acontece nas 5 primeiras semanas?</td></tr><tr><td class="n">2</td><td>A manutenção de um parque custa 50 mil reais por ano, sem prazo para acabar.</td><td>a) Somando todos os anos, para sempre, qual é o custo? b) Com uma reforma, o custo passa a cair: m(t) = 50 · e<sup>−0,1t</sup> mil reais por ano. E agora? c) Uma frase para o gestor.</td></tr><tr><td class="n">3</td><td>Compare ∫<sub>1</sub><sup>∞</sup> (1 ÷ t²) dt e ∫<sub>1</sub><sup>∞</sup> (1 ÷ t) dt.</td><td>Cada uma converge ou diverge? Se convergir, quanto vale?</td></tr></table><p class="fonte">Em cada item: o acumulado até T, e depois o que acontece quando T cresce. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · RESPOSTAS</div><h2 class="bloco-title">Confira <em>com a sua dupla</em></h2></div>
+<table class="tab"><tr><th></th><th>Resposta</th></tr><tr><td class="n">1a</td><td>300 − 300 · e<sup>−2</sup> ≈ 300 − 40,6 = 259,4: cerca de 259 casos</td></tr><tr><td class="n">1b</td><td>120 ÷ 0,4 = 300 casos</td></tr><tr><td class="n">1c</td><td>259,4 ÷ 300 ≈ 86%: a maior parte, nas 5 primeiras semanas</td></tr><tr><td class="n">2a</td><td>o acumulado é 50 · T, e cresce sem parar: diverge. Não há total para sempre</td></tr><tr><td class="n">2b</td><td>50 ÷ 0,1 = 500 mil reais: converge</td></tr><tr><td class="n">2c</td><td>Sem a reforma, o custo não tem teto: um custo permanente pede uma receita permanente. Com ela, todos os anos futuros somam 500 mil reais.</td></tr><tr><td class="n">3</td><td>1 ÷ t²: o acumulado é 1 − 1 ÷ T, e converge para 1. 1 ÷ t: o acumulado é ln T, e diverge</td></tr></table>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · AMANHÃ, NA AULA 17</div><h2 class="bloco-title">O cálculo <em>fecha</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Missão 4</span><h4>Em trio, 45 minutos</h4><ul><li>uma situação com acumulado, limite, média, saldo e horizonte longo</li><li>a mesma regra das outras missões</li></ul></div><div class="card pergunta"><span class="rot">Miniteste 4</span><h4>Duas partes</h4><ul><li>parte 1, para todos: o objetivo 6</li><li>parte 2: nova chance dos objetivos 1 a 5, para quem ainda não atingiu</li></ul></div><div class="card certo"><span class="rot">Projeto</span><h4>A Parte 1</h4><ul><li>entrega amanhã, no Classroom, até as 23h59</li><li>a planilha e uma página de nota técnica</li></ul></div></div><div class="prose"><p>No Classroom: a <strong>ficha de revisão dos objetivos 1 a 6</strong>, para preparar a repescagem. Confiram nas folhas devolvidas quais objetivos vocês ainda não atingiram. A Checagem 8 fecha hoje.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · PARA LEVAR</div><h2 class="bloco-title">O total para sempre <em>depende da queda</em></h2></div>
+<p class="bigline">Se o ritmo cai depressa, o total tem teto. <em>Se não cai, nenhuma reserva cobre.</em></p><div class="prose"><p>E uma pergunta para o próximo bloco, que começa na Aula 18: uma receita que continua para sempre vale infinito hoje? Não, porque o tempo também tem preço. É o "quanto vale no tempo".</p></div>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 16 · Integrais impróprias · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
