@@ -129,7 +129,7 @@ table.tab td.n{font-size:18px}
 <section class="hero slide">
   <div class="hero-meta"><span>Aula 9</span><span>·</span><span>Unidade 2 · Do arquivo ao banco de dados</span></div>
   <h1>O modelo conceitual: <em>desenhar antes de construir</em></h1>
-  <p class="hero-lede">Na atividade a distância, você separou as unidades das ordens de serviço. Hoje essa separação ganha método: um desenho que diz quais são as coisas, quais são os dados de cada coisa e como elas se ligam.</p>
+  <p class="hero-lede">Na Aula 8, a distância, você viu por que separar as unidades das ordens de serviço. Hoje essa separação ganha método: um desenho que diz quais são as coisas, quais são os dados de cada coisa e como elas se ligam.</p>
 </section>
 
 <section class="bloco slide">
@@ -140,13 +140,13 @@ table.tab td.n{font-size:18px}
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · DE VOLTA</div><h2 class="bloco-title">A Missão prática 1: <em>três tropeços previstos</em></h2></div>
-<div class="compara tres"><div class="card pergunta"><span class="rot">Especificação 1</span><h4>A célula que escorrega</h4><ul><li>a fórmula do custo sem fixar o valor da hora</li><li>da segunda linha em diante, o custo vira só o material</li></ul></div><div class="card pergunta"><span class="rot">Especificação 5</span><h4>A busca que escorrega</h4><ul><li>o intervalo da busca sem os cifrões</li><li>as últimas linhas ficam sem região</li></ul></div><div class="card pergunta"><span class="rot">Especificação 7</span><h4>Somar no lugar da média</h4><ul><li>a tabela dinâmica começa somando</li><li>a média pede a troca do tipo de resumo</li></ul></div></div><div class="prose"><p><strong>O que ainda não foi atingido pode ser refeito na Aula 29.</strong> Vale o melhor resultado de cada especificação.</p></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Especificação 1</span><h4>A célula que escorrega</h4><ul><li>a fórmula do custo sem fixar o valor da hora</li><li>da segunda linha em diante, o custo vira só o material</li></ul></div><div class="card pergunta"><span class="rot">Especificação 5</span><h4>A busca que escorrega</h4><ul><li>o intervalo da busca sem os cifrões</li><li>as últimas linhas ficam sem região</li></ul></div><div class="card pergunta"><span class="rot">Especificação 4</span><h4>Somar a coluna errada</h4><ul><li>o material no lugar do custo total</li><li>o custo total já inclui as horas de trabalho</li></ul></div></div><div class="prose"><p><strong>O que ainda não foi atingido pode ser refeito na Aula 29.</strong> Vale o melhor resultado de cada especificação.</p></div>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O QUE VOCÊ JÁ FEZ</div><h2 class="bloco-title">A aba unidades <em>era um modelo</em></h2></div>
-<table class="tab"><tr><th>Na atividade da Aula 8</th><th>O nome disso</th></tr><tr><td>Você separou as unidades das ordens de serviço</td><td>duas <strong>entidades</strong></td></tr><tr><td>A aba unidades ficou com região, tipo e telefone</td><td>os <strong>atributos</strong> da unidade</td></tr><tr><td>O nome da unidade não se repetia na aba unidades</td><td>a <strong>chave</strong></td></tr><tr><td>Cada ordem apontava para uma unidade</td><td>um <strong>relacionamento</strong></td></tr></table><div class="prose"><p>E uma pergunta ficou sem resposta: qual das duas regiões do Centro Esportivo era a certa? Num banco de dados bem modelado, essa pergunta nem chega a existir.</p></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O QUE VOCÊ JÁ VIU</div><h2 class="bloco-title">A tabela das unidades <em>era um modelo</em></h2></div>
+<table class="tab"><tr><th>Na leitura e na animação da Aula 8</th><th>O nome disso</th></tr><tr><td>As unidades foram separadas das ordens de serviço</td><td>duas <strong>entidades</strong></td></tr><tr><td>A tabela das unidades ficou com região, tipo e telefone</td><td>os <strong>atributos</strong> da unidade</td></tr><tr><td>O nome da unidade não se repetia na tabela das unidades</td><td>a <strong>chave</strong></td></tr><tr><td>Cada ordem apontava para uma unidade</td><td>um <strong>relacionamento</strong></td></tr></table><div class="prose"><p>E ficou uma pergunta sem resposta: na tabela única, qual dos dois telefones da UBS Leste era o certo? Num banco de dados bem modelado, essa pergunta nem chega a existir.</p></div>
   </div>
 </section>
 
@@ -196,7 +196,7 @@ table.tab td.n{font-size:18px}
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · A BOA CHAVE</div><h2 class="bloco-title">O que identifica <em>sem dar problema</em></h2></div>
-<div class="compara tres"><div class="card certo"><span class="rot">Uma boa chave</span><h4>Um código próprio</h4><ul><li>não se repete</li><li>não muda com o tempo</li><li>nunca fica vazio</li></ul></div><div class="card errado"><span class="rot">Uma chave ruim</span><h4>O nome</h4><ul><li>nomes mudam: a escola é rebatizada</li><li>nomes se repetem: duas pessoas, o mesmo nome</li><li>nomes são digitados de vários jeitos</li></ul></div><div class="card pergunta"><span class="rot">E o CPF?</span><h4>Identifica, mas é dado pessoal</h4><ul><li>prefira um código interno, como a matrícula</li><li>quanto menos tabelas guardarem o CPF, melhor</li><li>é o cuidado que a LGPD pede</li></ul></div></div><div class="prose"><p>Foi o que a Aula 8 mostrou: com o nome da unidade como chave, bastou uma grafia diferente para a planilha contar 16 unidades onde havia 12.</p></div>
+<div class="compara tres"><div class="card certo"><span class="rot">Uma boa chave</span><h4>Um código próprio</h4><ul><li>não se repete</li><li>não muda com o tempo</li><li>nunca fica vazio</li></ul></div><div class="card errado"><span class="rot">Uma chave ruim</span><h4>O nome</h4><ul><li>nomes mudam: a escola é rebatizada</li><li>nomes se repetem: duas pessoas, o mesmo nome</li><li>nomes são digitados de vários jeitos</li></ul></div><div class="card pergunta"><span class="rot">E o CPF?</span><h4>Identifica, mas é dado pessoal</h4><ul><li>prefira um código interno, como a matrícula</li><li>quanto menos tabelas guardarem o CPF, melhor</li><li>é o cuidado que a LGPD pede</li></ul></div></div><div class="prose"><p>Foi o que a leitura da Aula 8 avisou: com o nome da unidade como chave, basta escrever "UBS - Norte" numa linha e "UBS Norte" em outra para a planilha contar duas unidades. Quem fez a tarefa opcional viu a planilha contar 16 unidades onde havia 12.</p></div>
   </div>
 </section>
 
