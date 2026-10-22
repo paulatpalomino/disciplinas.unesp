@@ -82,7 +82,7 @@ svg{width:100%;height:auto;display:block}
   <div class="eyebrow">Unidade 2 · quanto se acumulou · a integral definida</div>
   <h1>A área sob o ritmo <em class="o">é o total</em></h1>
   <p class="lede">Quando o gráfico do ritmo é uma figura conhecida, a integral definida sai por geometria. E o resultado bate com um número que você já calculou de outro jeito.</p>
-  <div class="caso"><span class="rot">Situação · valores simulados</span><p>Da Aula 5: a arrecadação de um município entra no ritmo a(t) = 8 + 0,5t, em milhões de reais por mês, com t em meses desde o início do ano. Quanto se arrecadou no ano? (valores simulados)</p></div>
+  <div class="caso"><span class="rot">Situação · valores simulados</span><p>Da Aula 7: a arrecadação de um município entra no ritmo a(t) = 8 + 0,5t, em milhões de reais por mês, com t em meses desde o início do ano. Quanto se arrecadou no ano? (valores simulados)</p></div>
 
   <div class="stage">
     <div>
@@ -106,7 +106,7 @@ svg{width:100%;height:auto;display:block}
     <span class="counter" id="counter">passo 1 de 1</span>
   </div>
 
-  <div class="pergunta">A área do trapézio deu 132, o mesmo número que a primitiva deu na Aula 5. Isso acontece só com retas?</div>
+  <div class="pergunta">A área do trapézio deu 132, o mesmo número que a primitiva deu na Aula 7. Isso acontece só com retas?</div>
 </main>
 
 <footer class="signoff">
@@ -168,8 +168,8 @@ var nf=function(v,d){return Number(v).toLocaleString('pt-BR',{minimumFractionDig
 
 
 /* ---- dados dos passos ---- */
-var STEPS=[{"r": "A SITUAÇÃO", "k": "ctx", "m": "ritmo: a(t) = 8 + 0,5t milhões de reais por mês &nbsp;·&nbsp; quanto em 12 meses?", "n": "A mesma pergunta da Aula 5, agora olhando para o gráfico do ritmo."}, {"r": "O GRÁFICO DO RITMO", "m": "uma reta: começa em 8 e chega a 14", "n": "a(0) = 8 e a(12) = 8 + 6 = 14. O ritmo sobe meio milhão por mês a cada mês."}, {"r": "FATIAR", "m": "12 fatias de um mês, cada uma um trapézio", "n": "Como o ritmo é uma reta, o trapézio de cada fatia não é uma aproximação: é exato."}, {"r": "SEM FATIAS", "k": "formal", "m": "a região inteira é um trapézio só", "n": "Os lados paralelos medem 8 e 14, e a largura é de 12 meses."}, {"r": "A ÁREA", "m": "(8 + 14) ÷ 2 × 12 = 132", "n": "Média dos dois lados, vezes a largura: 11 × 12."}, {"r": "A UNIDADE", "m": "(milhões de reais por mês) × meses = milhões de reais", "n": "A altura é um ritmo, a base é um tempo. A área é um total."}, {"r": "O SÍMBOLO", "k": "formal", "m": "∫<sub>0</sub><sup>12</sup> (8 + 0,5t) dt = 132", "n": "A integral definida do ritmo, de 0 a 12, é a área sob o gráfico: 132 milhões de reais."}, {"r": "VOCÊ JÁ VIU ESSE NÚMERO", "k": "correct", "m": "Aula 5: A(t) = 8t + 0,25t² &nbsp;→&nbsp; A(12) = 96 + 36 = 132", "n": "Pela primitiva, com o ponto de partida zero, o total do ano também deu 132."}, {"r": "OUTRO PEDAÇO", "m": "de 6 a 12: (11 + 14) ÷ 2 × 6 = 75 &nbsp;·&nbsp; A(12) − A(6) = 132 − 57 = 75", "n": "No segundo semestre, a área dá 75. A diferença entre os valores da primitiva também dá 75."}, {"r": "COINCIDÊNCIA?", "k": "ctx", "m": "área sob o ritmo = diferença entre dois valores da primitiva", "n": "Não é coincidência, e não vale só para retas. É o Teorema Fundamental do Cálculo, o assunto da Aula 12."}];
-var FIGCAPS=["O ritmo de arrecadação.", "O gráfico do ritmo é uma reta.", "Doze fatias, cada uma um trapézio.", "A região inteira é um trapézio.", "A área do trapézio.", "A unidade da área.", "A integral definida de 0 a 12.", "O mesmo número da Aula 5.", "O segundo semestre, dos dois jeitos.", "Área e primitiva dão o mesmo número."];
+var STEPS=[{"r": "A SITUAÇÃO", "k": "ctx", "m": "ritmo: a(t) = 8 + 0,5t milhões de reais por mês &nbsp;·&nbsp; quanto em 12 meses?", "n": "A mesma pergunta da Aula 7, agora olhando para o gráfico do ritmo."}, {"r": "O GRÁFICO DO RITMO", "m": "uma reta: começa em 8 e chega a 14", "n": "a(0) = 8 e a(12) = 8 + 6 = 14. O ritmo sobe meio milhão por mês a cada mês."}, {"r": "FATIAR", "m": "12 fatias de um mês, cada uma um trapézio", "n": "Como o ritmo é uma reta, o trapézio de cada fatia não é uma aproximação: é exato."}, {"r": "SEM FATIAS", "k": "formal", "m": "a região inteira é um trapézio só", "n": "Os lados paralelos medem 8 e 14, e a largura é de 12 meses."}, {"r": "A ÁREA", "m": "(8 + 14) ÷ 2 × 12 = 132", "n": "Média dos dois lados, vezes a largura: 11 × 12."}, {"r": "A UNIDADE", "m": "(milhões de reais por mês) × meses = milhões de reais", "n": "A altura é um ritmo, a base é um tempo. A área é um total."}, {"r": "O SÍMBOLO", "k": "formal", "m": "∫<sub>0</sub><sup>12</sup> (8 + 0,5t) dt = 132", "n": "A integral definida do ritmo, de 0 a 12, é a área sob o gráfico: 132 milhões de reais."}, {"r": "VOCÊ JÁ VIU ESSE NÚMERO", "k": "correct", "m": "Aula 7: A(t) = 8t + 0,25t² &nbsp;→&nbsp; A(12) = 96 + 36 = 132", "n": "Pela primitiva, com o ponto de partida zero, o total do ano também deu 132."}, {"r": "OUTRO PEDAÇO", "m": "de 6 a 12: (11 + 14) ÷ 2 × 6 = 75 &nbsp;·&nbsp; A(12) − A(6) = 132 − 57 = 75", "n": "No segundo semestre, a área dá 75. A diferença entre os valores da primitiva também dá 75."}, {"r": "COINCIDÊNCIA?", "k": "ctx", "m": "área sob o ritmo = diferença entre dois valores da primitiva", "n": "Não é coincidência, e não vale só para retas. É o Teorema Fundamental do Cálculo, o assunto da Aula 12."}];
+var FIGCAPS=["O ritmo de arrecadação.", "O gráfico do ritmo é uma reta.", "Doze fatias, cada uma um trapézio.", "A região inteira é um trapézio.", "A área do trapézio.", "A unidade da área.", "A integral definida de 0 a 12.", "O mesmo número da Aula 7.", "O segundo semestre, dos dois jeitos.", "Área e primitiva dão o mesmo número."];
 
 /* ---- figura por passo (especifica desta animacao) ---- */
 function drawStep(i){
@@ -190,7 +190,7 @@ function drawStep(i){
   if(i===4) p.px(96,40,'(8 + 14) ÷ 2 × 12 = 132',PAL.correct,12,'start',600);
   if(i===5) p.px(96,40,'(milhões por mês) × meses = milhões',PAL.ink,12,'start',600);
   if(i===6) p.px(96,40,'integral de 0 a 12 = 132',PAL.correct,12,'start',600);
-  if(i===7){ p.px(96,40,'área: 132',PAL.correct,12,'start',600); p.px(96,58,'primitiva (Aula 5): A(12) = 132',PAL.ink,12,'start',600); }
+  if(i===7){ p.px(96,40,'área: 132',PAL.correct,12,'start',600); p.px(96,58,'primitiva (Aula 7): A(12) = 132',PAL.ink,12,'start',600); }
   if(i>=8){ p.dot(6,11,PAL.ink,4.4); p.lab(6,11,'11',PAL.ink,11,'end',-8,-8); p.px(96,40,'de 6 a 12: (11 + 14) ÷ 2 × 6 = 75',PAL.correct,12,'start',600); p.px(96,58,'A(12) − A(6) = 132 − 57 = 75',PAL.ink,12,'start',600); }
   return p.out();
 
