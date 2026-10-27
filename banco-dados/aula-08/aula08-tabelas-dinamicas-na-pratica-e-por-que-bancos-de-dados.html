@@ -129,12 +129,12 @@ table.tab td.n{font-size:18px}
 <section class="hero slide">
   <div class="hero-meta"><span>Aula 8</span><span>·</span><span>Atividade a distância</span></div>
   <h1>Tabelas dinâmicas na prática, e <em>por que bancos de dados</em></h1>
-  <p class="hero-lede">Esta aula não tem encontro presencial. Você faz no seu horário, até o prazo. Ao fim dela, você usa a tabela dinâmica sozinho, sabe até onde a planilha vai e o que muda quando cada informação passa a morar em um só lugar.</p>
+  <p class="hero-lede">Esta aula não tem encontro presencial, mas tem atividade: você pratica a tabela dinâmica no Laboratório 4 e lê o texto de preparo da Aula 9, sobre por que bancos de dados. Tudo no seu horário, até o prazo.</p>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · COMO FAZER ESTA AULA</div><h2 class="bloco-title">Quatro partes, <em class="orange">no seu ritmo</em></h2></div>
-<div class="passo" style="--n:4"><div><b>Parte 1</b><span>o Laboratório 4: tabelas dinâmicas, na prática</span></div><div><b>Parte 2</b><span>até onde a planilha vai: a macro e os cinco sinais</span></div><div><b>Parte 3</b><span>por que bancos de dados: a leitura e duas animações</span></div><div><b>Parte 4</b><span>a Checagem de preparo 3; a tarefa na planilha é opcional</span></div></div><div class="prose"><p><strong>Prazo das duas entregas, o formulário do Laboratório 4 e a Checagem de preparo 3: segunda-feira, 09/11/2026, às 16h.</strong> A Aula 9 começa por elas.</p><p><strong>As animações estão no Classroom de dois jeitos:</strong> o arquivo da animação, para abrir no navegador do computador e avançar com a seta, e o PDF com um passo por página, que funciona no celular.</p></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O QUE FAZER NESTA AULA</div><h2 class="bloco-title">Um laboratório e uma leitura, <em class="orange">no seu ritmo</em></h2></div>
+<div class="passo" style="--n:3"><div><b>Parte 1</b><span>o Laboratório 4: tabelas dinâmicas, na prática, com o roteiro e a planilha do Classroom</span></div><div><b>Parte 2</b><span>a leitura de preparo "Por que bancos de dados" (PDF no Classroom), com as perguntas-guia das próximas telas</span></div><div><b>Parte 3</b><span>a Checagem de preparo 3: quatro perguntas sobre a leitura, com consulta</span></div></div><div class="prose"><p><strong>Prazo das duas entregas, o formulário do Laboratório 4 e a Checagem de preparo 3: segunda-feira, 09/11/2026, às 16h.</strong></p><p>Não precisa decorar nada da leitura: a Aula 9 começa por ela, em sala.</p></div>
   </div>
 </section>
 
@@ -144,115 +144,35 @@ table.tab td.n{font-size:18px}
   </div>
 </section>
 
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · AUTOMAÇÃO</div><h2 class="bloco-title">A tarefa que se repete <em class="orange">toda segunda-feira</em></h2></div>
-<div class="prose"><p>Toda semana chega uma base nova da manutenção, e toda semana alguém repete os mesmos cliques: destacar o cabeçalho, congelar a primeira linha, classificar pelo custo. Uma <strong>macro</strong> grava esses passos uma vez e os repete quando você mandar. Se quiser experimentar, use uma cópia da sua planilha do Laboratório 4.</p></div><table class="tab"><tr><th>Passo</th><th>Nas Planilhas Google</th></tr><tr><td class="n">1 · Gravar</td><td>Extensões › Macros › Gravar macro</td></tr><tr><td class="n">2 · Escolher</td><td>"Usar referências absolutas" (as mesmas células) ou "Usar referências relativas" (a partir da célula selecionada)</td></tr><tr><td class="n">3 · Fazer</td><td>a tarefa, com calma: cada clique é gravado</td></tr><tr><td class="n">4 · Salvar</td><td>dê um nome à macro e, se quiser, um atalho de teclado</td></tr><tr><td class="n">5 · Repetir</td><td>Extensões › Macros › o nome da macro</td></tr></table><div class="prose"><p>No Excel: guia <strong>Desenvolvedor › Gravar Macro</strong> e, ao terminar, <strong>Parar Gravação</strong>. A guia Desenvolvedor vem oculta e precisa ser habilitada.</p></div>
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O QUE PROCURAR NA LEITURA (1)</div><h2 class="bloco-title">O problema <em class="orange">da tabela única</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Começo da leitura</span><h4>A planilha que se contradiz</h4><ul><li>por que a região e o telefone não são dados da ordem?</li><li>o que acontece com esses dados com o passar do tempo?</li></ul></div><div class="card pergunta"><span class="rot">Seção 1 da leitura</span><h4>Três problemas</h4><ul><li>ao atualizar, ao incluir e ao excluir: o que dá errado em cada um?</li><li>qual é a causa que os três têm em comum?</li></ul></div></div>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA RESPONDER</div><h2 class="bloco-title">O que a macro <em class="orange">repete</em>?</h2></div>
-<div class="ct"><span class="rot">Pergunta 1 · responda antes de avançar</span>
-    <p class="pergunta-ct">Você gravou uma macro que classifica o intervalo A1:I261 pelo custo, com referências absolutas. No mês seguinte, a base chegou com 300 ordens, até a linha 301. Ao executar a macro, ela:</p>
-    <ol><li>percebe o tamanho novo e classifica as 300 ordens</li><li>apaga as 40 ordens novas</li><li>mostra uma mensagem de erro e não faz nada</li><li>classifica só até a linha 261</li></ol></div>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">RESPOSTA DA PERGUNTA 1</div><h2 class="bloco-title">Ela <em>classifica só até a linha 261</em></h2></div>
-<div class="prose"><p>A macro não entende a tarefa: ela repete os passos gravados, nas mesmas células. Se a base cresceu, as 40 ordens novas ficam de fora, e ninguém avisa.</p><p>Por isso, macro se testa numa cópia, e o resultado se confere. <strong>A macro repete também os erros.</strong></p></div>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · O MÉTODO, E NÃO O RESULTADO</div><h2 class="bloco-title">Quatro jeitos de <em>não refazer</em></h2></div>
-<table class="tab"><tr><th>Jeito</th><th>O que ele guarda</th><th>Onde você viu, ou vai ver</th></tr><tr><td class="n">Fórmula</td><td>a conta, que se refaz sozinha quando o dado muda</td><td>o SOMASES e o PROCX da Aula 3</td></tr><tr><td class="n">Tabela dinâmica</td><td>o resumo, que acompanha a tabela de origem</td><td>a Aula 7</td></tr><tr><td class="n">Macro</td><td>uma sequência de cliques</td><td>nesta aula</td></tr><tr><td class="n">Passos de transformação</td><td>a limpeza inteira de uma base, passo a passo</td><td>o Power BI, a partir da Aula 13</td></tr></table><div class="prose"><p>Os quatro guardam <strong>o método</strong>, e não o resultado. Quem guarda só o resultado refaz tudo quando o dado muda.</p></div>
-  </div>
-</section>
-
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · ATÉ ONDE A PLANILHA VAI</div><h2 class="bloco-title">Cinco sinais de que <em class="orange">a planilha não basta</em></h2></div>
-<table class="tab"><tr><th>O sinal</th><th>O que acontece</th><th>Onde você viu</th></tr><tr><td>A mesma informação escrita em muitas linhas</td><td>mudou o nome de uma unidade: é preciso corrigir em todas as ordens dela</td><td>as 260 ordens da Missão prática 1</td></tr><tr><td>Grafias diferentes para a mesma coisa</td><td>a contagem erra, sem aviso</td><td>Saúde escrita de quatro jeitos, no Laboratório 3</td></tr><tr><td>Tabelas ligadas só por uma fórmula</td><td>nada impede uma ordem para uma unidade que não existe</td><td>o PROCX da missão</td></tr><tr><td>Muita gente lançando ao mesmo tempo</td><td>ninguém sabe qual é a versão certa, nem quem mudou o quê</td><td>o arquivo "final_v3_corrigido"</td></tr><tr><td>Muito dado</td><td>o arquivo fica lento, e existe um teto</td><td>10 milhões de células nas Planilhas Google; 1.048.576 linhas no Excel</td></tr></table><p class="fonte">Limites de tamanho: ajuda do Google Drive e suporte da Microsoft, consultados em 02/10/2026.</p>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · O QUE PROCURAR NA LEITURA (2)</div><h2 class="bloco-title">A saída, os nomes <em class="orange">e os limites</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Seções 2 e 3 da leitura</span><h4>Uma tabela para cada coisa</h4><ul><li>o que fica em cada tabela, e o que liga as duas?</li><li>tabela, registro, campo e chave: qual é qual no exemplo?</li></ul></div><div class="card pergunta"><span class="rot">Seção 4 da leitura</span><h4>Até onde a planilha vai</h4><ul><li>dos cinco sinais, quais você já viu nas aulas?</li><li>o que o sistema gerenciador faz que a planilha não faz?</li></ul></div><div class="card pergunta"><span class="rot">Seção 5 da leitura</span><h4>Planilha ou banco de dados?</h4><ul><li>onde o dado mora, e onde ele é analisado?</li></ul></div></div><p class="bigline">No fim da leitura, a parte <em>"Em uma frase cada"</em> é um bom resumo para guardar.</p>
   </div>
 </section>
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA RESPONDER</div><h2 class="bloco-title">Uma unidade <em class="orange">que sumiu</em></h2></div>
-<div class="ct"><span class="rot">Pergunta 2 · responda antes de avançar</span>
-    <p class="pergunta-ct">Na aba unidades da missão, alguém apagou por engano a linha da UBS Norte. O que acontece com as ordens de serviço dessa unidade, na aba ordens?</p>
+<div class="ct"><span class="rot">Pergunta 1 · responda antes de avançar</span>
+    <p class="pergunta-ct">Na aba unidades da Missão prática 1, alguém apagou por engano a linha da UBS Norte. O que acontece com as ordens de serviço dessa unidade, na aba ordens?</p>
     <ol><li>São apagadas junto.</li><li>Continuam lá, e a coluna da região passa a mostrar erro.</li><li>A planilha impede a exclusão, porque há ordens ligadas à unidade.</li><li>Passam automaticamente para outra unidade.</li></ol></div>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">RESPOSTA DA PERGUNTA 2</div><h2 class="bloco-title">Continuam lá, e a coluna da região <em>passa a mostrar erro</em></h2></div>
-<div class="prose"><p>A busca não encontra mais a unidade, e a coluna da região mostra erro. A planilha deixou alguém apagar uma unidade que tinha ordens de serviço ligadas a ela.</p><p>Num banco de dados, a resposta seria a terceira: o banco impede a exclusão, porque existem ordens que apontam para aquela unidade. Essa regra tem nome, e você vai conhecê-la na Aula 10.</p></div>
-  </div>
-</section>
-
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · TUDO NUMA TABELA SÓ</div><h2 class="bloco-title">Três problemas <em class="orange">à espera</em></h2></div>
-<div class="aposta">Antes de avançar: se o telefone de uma unidade aparece em três linhas e ele muda, quantas células precisam ser corrigidas?</div>
-  <div class="embedwrap">
-    <iframe src="../animacoes/bd-a08-i1-a-mesma-informacao-em-muitas-linhas.html?embed=1" title="Animação: a mesma informação em muitas linhas" loading="lazy"></iframe>
-    <div class="embed-nota">Caminho: a tabela única · a repetição · o telefone que mudou · a correção pela metade · a unidade sem ordem · a ordem apagada · a causa. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
-  </div>
-  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A TABELA ÚNICA</b> · uma linha por ordem de serviço, com os dados da unidade em cada linha</li><li><b>A REPETIÇÃO</b> · a UBS Leste aparece em três ordens: região e telefone repetidos três vezes</li><li><b>O TELEFONE MUDOU</b> · de 3300-0109 para 3300-0199: três células para corrigir</li><li><b>PROBLEMA 1 · AO ATUALIZAR</b> · alguém corrigiu duas linhas e esqueceu a terceira</li><li><b>A PERGUNTA SEM RESPOSTA</b> · qual é o telefone da UBS Leste? A tabela dá duas respostas</li><li><b>PROBLEMA 2 · AO INCLUIR</b> · a UBS Oeste foi inaugurada e ainda não tem ordem de serviço</li><li><b>PROBLEMA 3 · AO EXCLUIR</b> · a Biblioteca só tem a ordem OS-04; se a ordem for apagada, a Biblioteca some</li><li><b>A CAUSA</b> · duas coisas diferentes na mesma tabela: unidades e ordens</li><li><b>OS TRÊS PROBLEMAS</b> · ao atualizar · ao incluir · ao excluir</li><li><b>A SAÍDA</b> · uma tabela para cada coisa, ligadas por uma chave</li></ol></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">RESPOSTA DA PERGUNTA 1</div><h2 class="bloco-title">Continuam lá, e a coluna da região <em>passa a mostrar erro</em></h2></div>
+<div class="prose"><p>A busca não encontra mais a unidade, e a coluna da região mostra erro. A planilha deixou alguém apagar uma unidade que tinha ordens de serviço ligadas a ela: é o sinal das tabelas ligadas só por uma fórmula, na seção 4 da leitura.</p><p>Num banco de dados, a resposta seria a terceira: o banco impede a exclusão, porque existem ordens que apontam para aquela unidade. Essa regra tem nome, e você vai conhecê-la na Aula 10.</p></div>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · OS TRÊS PROBLEMAS</div><h2 class="bloco-title">O que a tabela única <em>deixa acontecer</em></h2></div>
-<div class="compara tres"><div class="card errado"><span class="rot">Ao atualizar</span><h4>Corrigir em vários lugares</h4><ul><li>uma mudança vira muitas correções</li><li>basta esquecer uma linha</li><li>e a tabela passa a se contradizer</li></ul></div><div class="card errado"><span class="rot">Ao incluir</span><h4>Não há onde guardar</h4><ul><li>a unidade nova ainda não tem ordem</li><li>a tabela só aceita unidade junto com ordem</li></ul></div><div class="card errado"><span class="rot">Ao excluir</span><h4>Vai embora o que não devia</h4><ul><li>apagar a única ordem de uma unidade</li><li>apaga também os dados da unidade</li></ul></div></div><div class="prose"><p>Os três têm a mesma causa: <strong>duas coisas diferentes, unidades e ordens, guardadas na mesma tabela.</strong></p></div>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA RESPONDER</div><h2 class="bloco-title">Quantas <em class="orange">células</em>?</h2></div>
-<div class="ct"><span class="rot">Pergunta 3 · responda antes de avançar</span>
-    <p class="pergunta-ct">Numa tabela única, a EMEF Centro aparece em 35 ordens de serviço, sempre com o telefone ao lado. A escola mudou de telefone. Quantas células precisam ser corrigidas?</p>
-    <ol><li>35</li><li>1</li><li>4</li><li>Nenhuma: a planilha atualiza sozinha.</li></ol></div><p class="fonte">Valores simulados.</p>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">RESPOSTA DA PERGUNTA 3</div><h2 class="bloco-title"><em>35</em>: uma em cada ordem</h2></div>
-<div class="prose"><p>O telefone foi digitado em cada uma das 35 linhas, e a planilha não sabe que as 35 células falam da mesma escola.</p><p>Basta esquecer uma, e a tabela passa a mostrar dois telefones para a mesma unidade. Quem consulta não tem como saber qual é o certo.</p><p><strong>Com as tabelas separadas, a resposta seria 1:</strong> o telefone existiria em um só lugar. É o que a próxima animação mostra.</p></div>
-  </div>
-</section>
-
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · UMA TABELA PARA CADA COISA</div><h2 class="bloco-title">Cada informação em <em class="orange">um só lugar</em></h2></div>
-<div class="aposta">Antes de avançar: com as unidades numa tabela só delas, o que precisa ficar na tabela das ordens?</div>
-  <div class="embedwrap">
-    <iframe src="../animacoes/bd-a08-i2-de-uma-tabela-a-duas.html?embed=1" title="Animação: de uma tabela a duas" loading="lazy"></iframe>
-    <div class="embed-nota">Caminho: a tabela única · a tabela unidades · a tabela ordens · a chave · atualizar, incluir e excluir sem problema · a pergunta que segue a chave. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
-  </div>
-  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A TABELA ÚNICA</b> · seis ordens, com a região e o telefone da unidade em cada linha</li><li><b>A TABELA UNIDADES</b> · uma linha por unidade: unidade, região e telefone</li><li><b>A TABELA ORDENS</b> · uma linha por ordem: código, unidade e serviço</li><li><b>A CHAVE</b> · a coluna unidade identifica cada linha da tabela unidades, sem repetição</li><li><b>O TELEFONE MUDOU</b> · uma célula para corrigir, em um lugar só</li><li><b>UMA UNIDADE NOVA</b> · a UBS Oeste entra na tabela unidades, mesmo sem ordem nenhuma</li><li><b>APAGAR UMA ORDEM</b> · a OS-04 sai da tabela ordens; a Biblioteca continua cadastrada</li><li><b>PERGUNTAR ÀS DUAS TABELAS</b> · qual é a região da OS-05? &nbsp;→&nbsp; UBS Leste &nbsp;→&nbsp; Leste</li><li><b>OS NOMES</b> · tabela · registro (a linha) · campo (a coluna) · chave</li><li><b>LEITURA DE GESTÃO</b> · um dado, um lugar: é isso que torna a base confiável</li></ol></div>
-  </div>
-</section>
-
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · OS NOMES</div><h2 class="bloco-title">O vocabulário que <em>começa hoje</em></h2></div>
-<table class="tab"><tr><th>Nome</th><th>O que é</th><th>No exemplo</th></tr><tr><td class="n">Tabela</td><td>os dados de um assunto só</td><td>unidades; ordens</td></tr><tr><td class="n">Registro</td><td>uma linha da tabela</td><td>uma unidade; uma ordem de serviço</td></tr><tr><td class="n">Campo</td><td>uma coluna da tabela</td><td>região; telefone; serviço</td></tr><tr><td class="n">Chave</td><td>o campo que identifica cada registro, sem repetição</td><td>o nome da unidade; o código da ordem</td></tr><tr><td class="n">Banco de dados</td><td>as tabelas, ligadas pelas chaves</td><td>unidades e ordens, ligadas pela unidade</td></tr><tr><td class="n">Sistema gerenciador</td><td>o programa que guarda as tabelas e aplica as regras</td><td>recusa uma ordem para unidade que não existe</td></tr></table><div class="prose"><p>O sistema gerenciador de banco de dados costuma ser chamado pela sigla SGBD. Nas Aulas 11 e 12, vamos usar um deles.</p></div>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · PLANILHA OU BANCO DE DADOS?</div><h2 class="bloco-title">Cada um <em class="orange">no seu papel</em></h2></div>
-<table class="tab"><tr><th>A planilha é o lugar de</th><th>O banco de dados é o lugar de</th></tr><tr><td>calcular, resumir e fazer gráficos</td><td>guardar o dado, cada informação uma vez só</td></tr><tr><td>explorar uma base de tamanho moderado</td><td>muitos registros, por muitos anos</td></tr><tr><td>uma pessoa, ou poucas, de cada vez</td><td>muita gente lançando e consultando ao mesmo tempo</td></tr><tr><td>o que você mesmo confere</td><td>regras que impedem o erro de entrar</td></tr></table><div class="prose"><p>Os dois trabalham juntos: o dado <strong>mora</strong> no banco e é <strong>analisado</strong> na planilha ou no Power BI. É o caminho das próximas aulas.</p></div>
-  </div>
-</section>
-
-<section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · A TAREFA OPCIONAL</div><h2 class="bloco-title">As ordens numa tabela só, <em>em cinco tarefas</em></h2></div>
-<table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa na checagem</th></tr><tr><td class="n">1</td><td>Contar quantas unidades diferentes a planilha mostra</td><td>o número de nomes diferentes</td></tr><tr><td class="n">2</td><td>Corrigir as grafias e contar de novo</td><td>as ordens da UBS Norte, depois da correção</td></tr><tr><td class="n">3</td><td>Achar a unidade que aparece em duas regiões</td><td>a unidade, e em quantas ordens isso acontece</td></tr><tr><td class="n">4</td><td>Achar o telefone que mudou</td><td>as ordens da UBS Leste com o número antigo</td></tr><tr><td class="n">5</td><td>Montar a tabela das unidades e contar células</td><td>as células ocupadas antes e depois</td></tr></table><div class="prose"><p><strong>Esta tarefa é opcional.</strong> Ela mostra os três problemas com os seus próprios olhos. Se não fizer, deixe em branco, na checagem, as cinco perguntas da planilha. A folha da atividade, no Classroom, traz o passo a passo.</p></div><p class="fonte">Valores simulados.</p>
-  </div>
-</section>
-
-<section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">12 · PARA ENTREGAR</div><h2 class="bloco-title">Duas entregas <em class="orange">fecham a atividade</em></h2></div>
-<div class="compara tres"><div class="card olho"><span class="rot">Para entregar</span><h4>Laboratório 4</h4><ul><li>o formulário, com os resultados da sua planilha</li><li>duas tentativas; vale a melhor</li><li>prazo: 09/11, às 16h</li></ul></div><div class="card olho"><span class="rot">Para entregar</span><h4>Checagem de preparo 3</h4><ul><li>quatro perguntas da leitura</li><li>e cinco da tarefa opcional</li><li>a nota é pela entrega; prazo: 09/11, às 16h</li></ul></div><div class="card certo"><span class="rot">Aula 9 · 09/11</span><h4>De volta à sala</h4><ul><li>o modelo conceitual: entidades, atributos e relacionamentos</li><li>e o resultado da Missão prática 1</li><li>dúvidas: no mural do Classroom, ou anote para a aula</li></ul></div></div><p class="bigline">Um dado, <em>um lugar.</em></p>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · E DEPOIS</div><h2 class="bloco-title">Os prazos e <em class="orange">a volta à sala</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Até segunda-feira, 09/11, às 16h</span><h4>O Laboratório 4</h4><ul><li>o formulário, com os resultados da sua planilha</li><li>duas tentativas; vale a melhor</li></ul></div><div class="card pergunta"><span class="rot">Até segunda-feira, 09/11, às 16h</span><h4>A Checagem de preparo 3</h4><ul><li>quatro perguntas sobre a leitura, com consulta</li><li>a nota é pela entrega</li></ul></div><div class="card certo"><span class="rot">Segunda-feira, 09/11</span><h4>Aula 9, de volta à sala</h4><ul><li>por que bancos de dados, e o modelo conceitual</li><li>e o resultado da Missão prática 1</li><li>dúvidas: no mural do Classroom, ou anote para a aula</li></ul></div></div><p class="bigline">Um dado, <em>um lugar.</em></p>
   </div>
 </section>
 
