@@ -189,20 +189,26 @@ table.tab td.n{font-size:18px}
   </div>
 </section>
 
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · ANTES DO POWER QUERY</div><h2 class="bloco-title">A macro grava cliques; <em class="orange">a etapa grava a decisão</em></h2></div>
+<table class="tab"><tr><th></th><th>Macro da planilha</th><th>Etapas Aplicadas do Power Query</th></tr><tr><td class="n">O que grava</td><td>uma sequência de cliques</td><td>cada transformação, com nome, na ordem</td></tr><tr><td class="n">Quando a base cresce</td><td>com referências absolutas, repete os passos nas mesmas células: as linhas novas podem ficar de fora, sem aviso</td><td>a receita se aplica de novo ao arquivo inteiro, do tamanho que ele tiver</td></tr><tr><td class="n">Como conferir</td><td>só olhando o resultado</td><td>clicando em cada etapa, na lista</td></tr><tr><td class="n">Onde fica</td><td>Planilhas Google: Extensões › Macros › Gravar macro; Excel: guia Desenvolvedor › Gravar Macro</td><td>Etapas Aplicadas, à direita do editor</td></tr></table><div class="prose"><p>Um exemplo: uma macro gravada para classificar pelo custo as ordens de serviço em A1:I261, com referências absolutas, continua classificando só até a linha 261 quando a base chega com 300 ordens (até a linha 301). As 40 novas ficam de fora, e ninguém avisa.</p><p>A fórmula (Aula 3), a tabela dinâmica (Aula 7), a macro e as Etapas Aplicadas guardam <strong>o método</strong>, e não só o resultado. A macro foi o primeiro jeito de automatizar a planilha; o Power Query é o jeito atual de automatizar a limpeza.</p></div>
+  </div>
+</section>
+
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · QUALIDADE DOS DADOS</div><h2 class="bloco-title">Antes de confiar, <em>quatro perguntas</em></h2></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · QUALIDADE DOS DADOS</div><h2 class="bloco-title">Antes de confiar, <em>quatro perguntas</em></h2></div>
 <div class="compara tres"><div class="card pergunta"><span class="rot">Completo?</span><h4>O que está faltando</h4><ul><li>quantos vazios há em cada coluna</li><li>vazio não é zero</li></ul></div><div class="card pergunta"><span class="rot">Único?</span><h4>O que está repetido</h4><ul><li>cada protocolo aparece uma vez</li><li>repetição infla o total</li></ul></div><div class="card pergunta"><span class="rot">Válido e coerente?</span><h4>O que não faz sentido</h4><ul><li>nota fora de 1 a 5, data fora do ano</li><li>a mesma coisa escrita de jeitos diferentes</li></ul></div></div><div class="prose"><p>Limpar não é enfeitar: cada decisão muda o número final. Por isso ela fica registrada, e quem lê o painel pode conferir.</p><p><strong>Um cuidado:</strong> a nota vazia quer dizer que o cidadão não respondeu. Trocar por zero derrubaria a média.</p></div>
   </div>
 </section>
 
 <section class="bloco compacta slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · LABORATÓRIO 10</div><h2 class="bloco-title">A ouvidoria de 2024, <em class="orange">como o sistema exportou</em></h2></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · LABORATÓRIO 10</div><h2 class="bloco-title">A ouvidoria de 2024, <em class="orange">como o sistema exportou</em></h2></div>
 <table class="tab"><tr><th>Tarefa</th><th>O que fazer</th><th>O que você informa no formulário</th></tr><tr><td class="n">1</td><td>Abrir o arquivo bruto no editor</td><td>quais etapas o programa já aplicou</td></tr><tr><td class="n">2</td><td>Tirar o que sobra: a coluna vazia, as linhas em branco e as repetidas</td><td>o número de protocolos</td></tr><tr><td class="n">3</td><td>Dizer o tipo e o país de origem</td><td>a soma das horas da equipe</td></tr><tr><td class="n">4</td><td>Padronizar o texto</td><td>os protocolos da Saúde</td></tr><tr><td class="n">5</td><td>Tratar o vazio disfarçado</td><td>a satisfação média</td></tr><tr><td class="n">6</td><td>Criar a coluna do mês</td><td>os protocolos de março</td></tr><tr><td class="n">7</td><td>Ler para a gestão</td><td>quanto o erro mudaria a conclusão</td></tr></table><div class="prose"><p>O roteiro e o arquivo ouvidoria-2024-bruto.csv estão no Classroom. <strong>Prazo do formulário: até o início da Aula 15 (02/12).</strong></p></div><p class="fonte">Valores simulados.</p>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · ATÉ QUARTA-FEIRA</div><h2 class="bloco-title">Uma entrega, e <em>a missão no horizonte</em></h2></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · ATÉ QUARTA-FEIRA</div><h2 class="bloco-title">Uma entrega, e <em>a missão no horizonte</em></h2></div>
 <div class="compara tres"><div class="card olho"><span class="rot">Para entregar</span><h4>Laboratório 10</h4><ul><li>formulário até o início da Aula 15</li><li>duas tentativas; vale a melhor</li></ul></div><div class="card certo"><span class="rot">Aula 15 · 02/12</span><h4>Combinar tabelas e criar colunas</h4><ul><li>juntar 2024 e 2025</li><li>trazer a região de cada bairro</li></ul></div><div class="card pergunta"><span class="rot">Aula 19 · 16/12</span><h4>Missão prática 2</h4><ul><li>do dado bruto ao modelo com medidas</li><li>o laboratório de hoje é o primeiro treino</li></ul></div></div><p class="bigline">Limpar é decidir. <em>E cada decisão fica gravada.</em></p>
   </div>
 </section>
