@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 27 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amortização com prestação fixa: e como escolher - Aula 27 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 27 · Prestação fixa</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 27</span><span>·</span><span>Unidade 3 · Quanto vale no tempo</span></div>
+  <h1>Amortização com prestação fixa: <em>e como escolher</em></h1>
+  <p class="hero-lede">Ontem, a prestação que cai. Hoje, a prestação que fica igual do começo ao fim, a tabela Price, e a comparação entre as duas: qual paga menos juros, qual cabe no orçamento, qual vale menos hoje. No fim, a oficina da Missão 6, que é na próxima aula.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Cinco partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:5"><div><b>Tentem antes</b><span>a prestação fixa</span></div><div><b>Por dentro</b><span>a tabela da prestação fixa</span></div><div><b>A comparação</b><span>SAC ou Price</span></div><div><b>Na próxima aula</b><span>a Missão 6 e o Miniteste 6</span></div><div><b>Oficina</b><span>em dupla, como a missão</span></div></div><div class="prose"><p>Calculadora e caderno.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · TENTEM ANTES</div><h2 class="bloco-title">A mesma retroescavadeira, <em class="orange">prestação fixa</em></h2></div>
+<div class="prose"><p>Os mesmos <strong>R$ 120.000,00</strong>, em <strong>4 parcelas anuais</strong>, a <strong>10% ao ano</strong>. Agora, as quatro prestações são <strong>iguais</strong>.</p><p><strong>a)</strong> Qual é a prestação? &nbsp; <strong>b)</strong> No 1º ano, quanto dela é juro, e quanto abate a dívida?</p><p>Dica: as 4 prestações, trazidas para hoje à taxa do financiamento, valem os R$ 120.000,00 (a série da Aula 24).</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · A PARCELA FIXA POR DENTRO</div><h2 class="bloco-title">Os juros caem, <em class="orange">a amortização cresce</em></h2></div>
+<div class="aposta">Antes de avançar: a prestação fixa fica acima ou abaixo de R$ 36.000,00?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a27-i1-a-parcela-fixa-por-dentro.html?embed=1" title="Animação: a parcela fixa por dentro" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · a prestação · ano 1 · ano 2 · ano 3 · ano 4 · os totais · a regra · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · R$ 120.000,00 em 4 parcelas anuais iguais, a 10% ao ano</li><li><b>A PRESTAÇÃO</b> · 120.000 = P × [1 − 1,1<sup>−4</sup>] ÷ 0,1 · P ≈ 37.856,50</li><li><b>ANO 1</b> · juros 12.000,00 · amortização 25.856,50</li><li><b>ANO 2</b> · juros 9.414,35 · amortização 28.442,15</li><li><b>ANO 3</b> · juros 6.570,14 · amortização 31.286,36</li><li><b>ANO 4</b> · juros 3.441,50 · amortização 34.414,99 · saldo zero</li><li><b>OS TOTAIS</b> · juros: 4 × 37.856,50 − 120.000 = 31.426,00</li><li><b>A REGRA</b> · amortização = prestação − juros</li><li><b>LEITURA DE GESTÃO</b> · prestação igual do começo ao fim</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">A prestação <em class="orange">fixa</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1</span>
+    <p class="pergunta-ct">Pela tabela Price, R$ 50.000,00 em 5 parcelas mensais iguais, com juros de 2% ao mês. Qual é a prestação?</p>
+    <ol><li>R$ 10.000,00</li><li>R$ 11.000,00</li><li>R$ 10.200,00</li><li>cerca de R$ 10.607,92</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · A TABELA DA PRESTAÇÃO FIXA</div><h2 class="bloco-title">A mesma tabela, <em class="orange">outra regra</em></h2></div>
+<table class="tab"><tr><th>Coluna</th><th>No SAC (Aula 26)</th><th>Na tabela Price</th></tr><tr><td class="n">Prestação</td><td>amortização + juros: cai todo período</td><td>fixa: valor × i ÷ [1 − (1 + i)<sup>−n</sup>]</td></tr><tr><td class="n">Juros</td><td>saldo × taxa</td><td>saldo × taxa</td></tr><tr><td class="n">Amortização</td><td>fixa: valor ÷ número de parcelas</td><td>prestação − juros: cresce todo período</td></tr><tr><td class="n">Saldo</td><td>cai sempre o mesmo</td><td>cai devagar no começo, depressa no fim</td></tr></table><div class="prose"><p>Na calculadora: 120.000 × 0,1 ÷ [1 − 1,1<sup>−4</sup>] ≈ 37.856,50. Na TV, a professora mostra a tabela na planilha, com =PGTO(10%; 4; −120000).</p><p>Por causa dos arredondamentos, a última prestação pode mudar alguns centavos: é ela que zera o saldo.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Linha <em class="orange">após linha</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2</span>
+    <p class="pergunta-ct">Na tabela Price, de uma linha para a seguinte:</p>
+    <ol><li>os juros e a amortização ficam iguais</li><li>os juros crescem e a amortização cai</li><li>os juros caem e a amortização cresce</li><li>a prestação cai</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · SAC OU PRICE</div><h2 class="bloco-title">A mesma dívida, <em class="orange">dois sistemas</em></h2></div>
+<div class="aposta">Antes de avançar: qual dos dois paga menos juros, no total?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a27-i2-sac-ou-price.html?embed=1" title="Animação: SAC ou Price" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · as prestações · o começo · o fim · os juros totais · por quê · em dinheiro de hoje · o orçamento · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · a mesma dívida, dois sistemas</li><li><b>AS PRESTAÇÕES</b> · SAC: 42.000 → 33.000 · Price: 37.856,50 todo ano</li><li><b>O COMEÇO</b> · 1º ano: SAC 42.000,00 · Price 37.856,50</li><li><b>O FIM</b> · 4º ano: SAC 33.000,00 · Price 37.856,49</li><li><b>OS JUROS TOTAIS</b> · SAC 30.000,00 · Price cerca de 31.426,00</li><li><b>POR QUÊ</b> · saldo depois do 1º ano: SAC 90.000,00 · Price 94.143,50</li><li><b>EM DINHEIRO DE HOJE</b> · caixa a 6%: SAC 130.697,89 · Price 131.176,76</li><li><b>O ORÇAMENTO</b> · limite de R$ 40.000,00 por ano: o SAC não cabe</li><li><b>LEITURA DE GESTÃO</b> · SAC: menos juros, começo pesado · Price: prestação estável</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Quem paga <em class="orange">menos juros?</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 3</span>
+    <p class="pergunta-ct">A mesma dívida, a mesma taxa e o mesmo prazo. Qual sistema paga menos juros, no total?</p>
+    <ol><li>a tabela Price, porque a prestação começa menor</li><li>o SAC, porque abate mais dívida no começo</li><li>os dois pagam o mesmo</li><li>depende do valor da dívida</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · COMO ESCOLHER</div><h2 class="bloco-title">Três perguntas, <em>em qualquer financiamento</em></h2></div>
+<table class="tab"><tr><th>A pergunta</th><th>SAC</th><th>Price</th></tr><tr><td class="n">A prestação mais alta cabe no orçamento?</td><td>a 1ª é a maior: 42.000,00</td><td>todas iguais: 37.856,50</td></tr><tr><td class="n">Quanto se paga de juros, ao todo?</td><td>menos: 30.000,00</td><td>mais: cerca de 31.426,00</td></tr><tr><td class="n">Quanto valem hoje as prestações, com o caixa a 6% ao ano?</td><td>R$ 130.697,89</td><td>R$ 131.176,76</td></tr></table><div class="prose"><p>Se o caixa rende menos que a taxa do financiamento, o SAC costuma valer menos hoje. Se rende o mesmo, os dois valem o valor financiado. E, se a primeira prestação do SAC não cabe no orçamento, a decisão é a Price.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · NA PRÓXIMA AULA</div><h2 class="bloco-title">Missão 6 e <em class="orange">Miniteste 6</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Aula 28 · 04/02</span><h4>Missão 6, em trio</h4><ul><li>financiar uma obra pública: valor de hoje, SAC e Price</li><li>enunciado no Classroom; respostas à mão, em folhas avulsas</li><li>só com calculadora</li></ul></div><div class="card olho"><span class="rot">Depois da missão</span><h4>Miniteste 6</h4><ul><li>sozinho, no formulário da turma</li><li>objetivos 10 e 11</li><li>com a sua folha de consulta</li></ul></div><div class="card certo"><span class="rot">Para trazer</span><h4>Na Aula 28</h4><ul><li>a folha de consulta, com as fórmulas das séries e as tabelas</li><li>calculadora ou celular carregado</li><li>folhas avulsas</li></ul></div></div><div class="prose"><p>A Checagem 13 fecha hoje, às 23h59.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · OFICINA EM DUPLA</div><h2 class="bloco-title">Oito itens, <em class="orange">como a missão</em></h2></div>
+<table class="tab"><tr><th></th><th>Item</th><th></th><th>Item</th></tr><tr><td class="n">1</td><td>Um benefício de R$ 2.500,00 por mês, 8 meses: quanto vale hoje?</td><td class="n">5</td><td>Um repasse fixo de R$ 45.000,00 por ano, com inflação: quanto vale hoje?</td></tr><tr><td class="n">2</td><td>R$ 18.500,00 à vista ou 8 parcelas de R$ 2.500,00?</td><td class="n">6</td><td>R$ 50.000,00 pelo SAC, em 5 trimestres: a tabela</td></tr><tr><td class="n">3</td><td>R$ 36.000,00 em 12 parcelas iguais: a parcela</td><td class="n">7</td><td>Os mesmos R$ 50.000,00 pela Price: a tabela</td></tr><tr><td class="n">4</td><td>Juntar R$ 90.000,00 em 30 meses: o depósito</td><td class="n">8</td><td>A reforma do mercado municipal: o convênio, o SAC, a Price e o orçamento</td></tr></table><p class="fonte">No caderno, com a calculadora e a conta inteira. A lista completa, com o item 8 por extenso, está no Classroom. O que faltar, terminem em casa: as respostas saem no Classroom, em PDF. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 27 · Prestação fixa · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
