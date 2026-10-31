@@ -74,14 +74,14 @@ svg{width:100%;height:auto;display:block}
 </head>
 <body>
 <header class="topbar">
-  <div><b>Biblioteca · Matemática II</b> &nbsp;·&nbsp; Animação de resolução &nbsp;·&nbsp; Quando o acumulado atinge um limite</div>
+  <div><b>Biblioteca · Matemática II</b> &nbsp;·&nbsp; Animação de resolução &nbsp;·&nbsp; Quando o acumulado chega ao teto</div>
   <div>Aula 14 · Aplicações da integral definida I · CED7724</div>
 </header>
 
 <main class="wrap">
   <div class="eyebrow">Unidade 2 · quanto se acumulou · aplicações da integral definida</div>
-  <h1>O limite se atinge <em class="o">no acumulado</em>, e não no ritmo</h1>
-  <p class="lede">Até aqui, a pergunta era: quanto se acumulou entre dois momentos? Agora ela se inverte: em que momento o acumulado encosta num limite? A incógnita passa a ser o fim do período.</p>
+  <h1>O teto se atinge <em class="o">no acumulado</em>, e não no ritmo</h1>
+  <p class="lede">Até aqui, a pergunta era: quanto se acumulou entre dois momentos? Agora ela se inverte: em que momento o acumulado chega a um teto, como o que um contrato cobre? A incógnita passa a ser o fim do período.</p>
   <div class="caso"><span class="rot">Situação · valores simulados</span><p>A frota de uma prefeitura cresce, e o consumo de combustível sobe: c(t) = 30 + 2t, em mil litros por mês (t em meses, desde o início do contrato). O contrato de fornecimento foi assinado para 600 mil litros (valores simulados).</p></div>
 
   <div class="stage">
@@ -168,8 +168,8 @@ var nf=function(v,d){return Number(v).toLocaleString('pt-BR',{minimumFractionDig
 
 
 /* ---- dados dos passos ---- */
-var STEPS=[{"r": "A SITUAÇÃO", "k": "ctx", "m": "c(t) = 30 + 2t mil litros por mês &nbsp;·&nbsp; contrato: 600 mil litros", "n": "O consumo começa em 30 mil litros por mês e sobe 2 mil a cada mês. A pergunta do gestor: quando o contrato acaba?"}, {"r": "A CONTA RÁPIDA", "k": "wrong", "m": "600 ÷ 30 = 20 meses", "n": "Quem planeja com o ritmo de hoje conclui que o contrato dura 20 meses. Essa conta supõe que o ritmo fica parado em 30."}, {"r": "O ACUMULADO ATÉ T", "k": "formal", "m": "C(T) = ∫<sub>0</sub><sup>T</sup> (30 + 2t) dt = 30T + T²", "n": "O consumo acumulado até o mês T é a integral do ritmo, de 0 a T. Pelo teorema: a primitiva em T, menos a primitiva em zero."}, {"r": "UM ANO", "m": "C(12) = 360 + 144 = 504", "n": "Em 12 meses, 504 mil litros: mais de 80% do contrato já foi consumido."}, {"r": "PROCURAR O MÊS", "m": "C(13) = 390 + 169 = 559 &nbsp;·&nbsp; C(14) = 420 + 196 = 616", "n": "Com 13 meses, 559. Com 14, 616. O contrato de 600 acaba entre o mês 13 e o mês 14."}, {"r": "A EQUAÇÃO", "k": "formal", "m": "30T + T² = 600", "n": "Para achar o momento exato, iguale o acumulado ao limite. A incógnita agora é o limite de cima da integral."}, {"r": "RESOLVER", "m": "T² + 30T − 600 = 0 &nbsp;→&nbsp; T = (−30 + √3.300) ÷ 2 ≈ 13,7", "n": "Equação do segundo grau. A raiz de 3.300 é cerca de 57,45. A outra solução é negativa, e não serve: o tempo não volta."}, {"r": "A RESPOSTA", "k": "correct", "m": "o contrato acaba perto do mês 13,7", "n": "Mais de seis meses antes do que a conta rápida previa. A diferença é o triângulo que o ritmo crescente acrescenta acima dos 30."}, {"r": "SE NADA MUDAR", "k": "wrong", "m": "C(20) = 600 + 400 = 1.000", "n": "Nos 20 meses planejados, o consumo seria de 1 milhão de litros: 400 mil além do contrato."}, {"r": "LEITURA DE GESTÃO", "k": "ctx", "m": "a pergunta é: quando o acumulado encosta no limite?", "n": "Olhar só o ritmo de hoje esconde o problema. É a terceira pergunta do projeto integrador: em que momento o acumulado atinge o limite."}];
-var FIGCAPS=["O consumo que cresce.", "A conta rápida: ritmo parado em 30.", "O acumulado até o mês T.", "O acumulado em 12 meses.", "Entre o mês 13 e o mês 14.", "Igualar o acumulado ao limite.", "A equação do segundo grau.", "O contrato acaba perto do mês 13,7.", "Em 20 meses, 400 mil litros a mais.", "A pergunta que importa para a gestão."];
+var STEPS=[{"r": "A SITUAÇÃO", "k": "ctx", "m": "c(t) = 30 + 2t mil litros por mês &nbsp;·&nbsp; contrato: 600 mil litros", "n": "O consumo começa em 30 mil litros por mês e sobe 2 mil a cada mês. A pergunta do gestor: quando o contrato acaba?"}, {"r": "A CONTA RÁPIDA", "k": "wrong", "m": "600 ÷ 30 = 20 meses", "n": "Quem planeja com o ritmo de hoje conclui que o contrato dura 20 meses. Essa conta supõe que o ritmo fica parado em 30."}, {"r": "O ACUMULADO ATÉ T", "k": "formal", "m": "C(T) = ∫<sub>0</sub><sup>T</sup> (30 + 2t) dt = 30T + T²", "n": "O consumo acumulado até o mês T é a integral do ritmo, de 0 a T. Pelo teorema: a primitiva em T, menos a primitiva em zero."}, {"r": "UM ANO", "m": "C(12) = 360 + 144 = 504", "n": "Em 12 meses, 504 mil litros: mais de 80% do contrato já foi consumido."}, {"r": "PROCURAR O MÊS", "m": "C(13) = 390 + 169 = 559 &nbsp;·&nbsp; C(14) = 420 + 196 = 616", "n": "Com 13 meses, 559. Com 14, 616. O contrato de 600 acaba entre o mês 13 e o mês 14."}, {"r": "A EQUAÇÃO", "k": "formal", "m": "30T + T² = 600", "n": "Para achar o momento exato, iguale o acumulado ao teto. A incógnita agora é o fim do período, o número de cima da integral."}, {"r": "RESOLVER", "m": "T² + 30T − 600 = 0 &nbsp;→&nbsp; T = (−30 + √3.300) ÷ 2 ≈ 13,7", "n": "Equação do segundo grau. A raiz de 3.300 é cerca de 57,45. A outra solução é negativa, e não serve: o tempo não volta."}, {"r": "A RESPOSTA", "k": "correct", "m": "o contrato acaba perto do mês 13,7", "n": "Mais de seis meses antes do que a conta rápida previa. A diferença é o triângulo que o ritmo crescente acrescenta acima dos 30."}, {"r": "SE NADA MUDAR", "k": "wrong", "m": "C(20) = 600 + 400 = 1.000", "n": "Nos 20 meses planejados, o consumo seria de 1 milhão de litros: 400 mil além do contrato."}, {"r": "LEITURA DE GESTÃO", "k": "ctx", "m": "a pergunta é: quando o acumulado chega ao teto?", "n": "Olhar só o ritmo de hoje esconde o problema. É a terceira pergunta do projeto integrador: em que momento o acumulado chega ao teto."}];
+var FIGCAPS=["O consumo que cresce.", "A conta rápida: ritmo parado em 30.", "O acumulado até o mês T.", "O acumulado em 12 meses.", "Entre o mês 13 e o mês 14.", "Igualar o acumulado ao teto.", "A equação do segundo grau.", "O contrato acaba perto do mês 13,7.", "Em 20 meses, 400 mil litros a mais.", "A pergunta que importa para a gestão."];
 
 /* ---- figura por passo (especifica desta animacao) ---- */
 function drawStep(i){
@@ -200,7 +200,7 @@ function drawStep(i){
   if(i===6){ p.px(96,40,'T = (−30 + 57,45) ÷ 2',PAL.ink,12,'start',600); p.px(96,58,'T ≈ 13,7',PAL.correct,12.5,'start',600); }
   if(i===7){ p.px(96,40,'acaba perto do mês 13,7',PAL.correct,12.5,'start',600); p.px(96,58,'e não no mês 20',PAL.mute,11.5,'start'); }
   if(i===8){ p.px(96,40,'C(20) = 1.000',PAL.wrong,12.5,'start',600); p.px(96,58,'400 mil litros além do contrato',PAL.wrong,12,'start',600); }
-  if(i===9){ p.px(96,40,'acumulado = limite',PAL.correct,12.5,'start',600); p.px(96,58,'resolver para o tempo',PAL.ink,12,'start',600); }
+  if(i===9){ p.px(96,40,'acumulado = teto',PAL.correct,12.5,'start',600); p.px(96,58,'resolver para o tempo',PAL.ink,12,'start',600); }
   return p.out();
 
 }
