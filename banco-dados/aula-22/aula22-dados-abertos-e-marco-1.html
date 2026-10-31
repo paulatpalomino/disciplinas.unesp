@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 22 - Banco de Dados (CED7651) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dados abertos: onde achar a base, e como saber se ela serve - Aula 22 - Banco de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Banco de Dados · CED7651</span><span>Aula 22 · Dados abertos e Marco 1</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 22</span><span>·</span><span>Unidade 4 · Dados públicos, governança e IA</span></div>
+  <h1>Dados abertos: <em>onde achar a base, e como saber se ela serve</em></h1>
+  <p class="hero-lede">Hoje o Desafio começa de verdade. Vocês trouxeram a pergunta; agora, a base. Os governos publicam milhares de bases de dados abertas. O trabalho de hoje é achar a que responde à pergunta do grupo, ler a ficha dela antes de baixar e registrar tudo no Marco 1.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Cinco partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:5"><div><b>De volta</b><span>o painel do Laboratório 15</span></div><div><b>Dados abertos</b><span>o que são, e onde estão</span></div><div><b>A ficha da base</b><span>ler antes de baixar</span></div><div><b>Licença e citação</b><span>usar e dar o crédito</span></div><div><b>Marco 1</b><span>em grupo: a pergunta e a base</span></div></div><div class="prose"><p>Hoje o computador é de busca: cada grupo procura a sua base nos portais. O formulário do Marco 1 fica aberto até as 23h59 de hoje.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · DE VOLTA</div><h2 class="bloco-title">O painel, <em>e o Desafio de verdade</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Laboratório 15</span><h4>O painel em PDF</h4><ul><li>dois títulos que dizem a conclusão</li><li>dois textos alternativos que ajudam quem não vê o gráfico</li></ul></div><div class="card pergunta"><span class="rot">Hoje</span><h4>O Desafio começa</h4><ul><li>grupos de 4 ou 5 pessoas, da mesma turma</li><li>a pergunta vocês já têm: falta a base</li></ul></div><div class="card certo"><span class="rot">No Classroom</span><h4>As regras e a rubrica</h4><ul><li>o que entregar, e como a nota é dada</li><li>leiam com o grupo</li></ul></div></div><div class="prose"><p>Os exemplos do Laboratório 15 aparecem sem o nome de quem fez.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O QUE SÃO DADOS ABERTOS</div><h2 class="bloco-title">Público, digital <em class="orange">e num formato que qualquer um abre</em></h2></div>
+<table class="tab"><tr><th>O que diz</th><th>Onde está</th></tr><tr><td><strong>Dados abertos:</strong> "dados acessíveis ao público, representados em meio digital, estruturados em formato aberto" (...)</td><td class="n">Decreto nº 8.777/2016, art. 2º, III</td></tr><tr><td><strong>Formato aberto:</strong> "formato de arquivo não proprietário, cuja especificação esteja documentada publicamente"</td><td class="n">Decreto nº 8.777/2016, art. 2º, IV</td></tr><tr><td>Os órgãos públicos divulgam, sem que ninguém peça, as informações de interesse coletivo, e devem permitir o acesso em formatos abertos e legíveis por máquina</td><td class="n">Lei de Acesso à Informação, art. 8º</td></tr></table><div class="prose"><p>Em português claro: dado aberto é o que qualquer pessoa pode baixar, abrir num programa comum e usar. Um CSV é aberto. Uma tabela presa num PDF é pública, mas dá trabalho para virar dado.</p></div><p class="fonte">Fontes: Decreto nº 8.777/2016 e Lei nº 12.527/2011, textos na página da Câmara dos Deputados, consultados em 30/10/2026.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · ONDE ESTÃO OS DADOS</div><h2 class="bloco-title">Seis portais <em>para começar</em></h2></div>
+<table class="tab"><tr><th>Portal</th><th>Quem publica</th><th>O que tem</th></tr><tr><td>Portal de Dados Abertos · dados.gov.br</td><td>governo federal</td><td>o catálogo das bases dos órgãos federais</td></tr><tr><td>Portal da Transparência · portaldatransparencia.gov.br</td><td>Controladoria-Geral da União</td><td>despesas, transferências, contratos, servidores e programas sociais, em CSV</td></tr><tr><td>SIDRA · sidra.ibge.gov.br</td><td>IBGE</td><td>tabelas do Censo, da PNAD, do IPCA e de outras pesquisas</td></tr><tr><td>TabNet · datasus.saude.gov.br</td><td>DATASUS, Ministério da Saúde</td><td>atendimentos, rede de saúde, nascimentos e óbitos, por município</td></tr><tr><td>Microdados do Inep · gov.br/inep</td><td>Inep</td><td>Censo Escolar, Enem, Saeb e Educação Superior</td></tr><tr><td>Siconfi · siconfi.tesouro.gov.br</td><td>Tesouro Nacional</td><td>contas e relatórios fiscais de estados e municípios</td></tr></table><div class="prose"><p>E a Base dos Dados (basedosdados.org), uma organização da sociedade civil que organiza bases públicas para facilitar o uso. Se usar, cite também quem produziu o dado.</p></div><p class="fonte">Endereços conferidos em 30/10/2026. Portais mudam de endereço: se um não abrir, procurem pelo nome.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A FICHA DA BASE</div><h2 class="bloco-title">Antes de baixar, <em class="orange">leia os metadados</em></h2></div>
+<div class="aposta">Antes de avançar: numa base nova, o que vocês olham primeiro?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/bd-a22-i1-a-ficha-da-base.html?embed=1" title="Animação: a ficha da base" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · buscar no portal · o conjunto · quem publica · uma linha é · período e atualização · o formato · o dicionário · a licença · as pessoas · a decisão · quando não serve · citar · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · a procura pela ouvidoria cresceu de 2021 a 2025? em que secretaria?</li><li><b>BUSCAR NO PORTAL</b> · busque pelas palavras da pergunta: ouvidoria, manifestações</li><li><b>O CONJUNTO</b> · título e descrição: Manifestações da ouvidoria municipal</li><li><b>QUEM PUBLICA</b> · Ouvidoria-Geral do Município</li><li><b>UMA LINHA É</b> · uma manifestação (um protocolo)</li><li><b>PERÍODO E ATUALIZAÇÃO</b> · jan/2019 a set/2026 · atualização mensal</li><li><b>O FORMATO</b> · CSV</li><li><b>O DICIONÁRIO</b> · o que é cada coluna e cada código</li><li><b>A LICENÇA</b> · CC BY 4.0: pode usar, citando a fonte</li><li><b>AS PESSOAS</b> · sem nome, CPF ou endereço de quem reclamou</li><li><b>A DECISÃO</b> · serve: cobre 2021 a 2025 e traz a secretaria</li><li><b>QUANDO NÃO SERVE</b> · só até 2019 · só o total do ano · nome de quem reclamou</li><li><b>CITAR</b> · quem publica · título · portal · endereço · acesso em</li><li><b>LEITURA DE GESTÃO</b> · a ficha diz se a base responde à pergunta, antes de qualquer gráfico</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">A base <em class="orange">serve?</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1</span>
+    <p class="pergunta-ct">A pergunta do grupo: o tempo de espera por uma consulta na rede municipal melhorou de 2021 a 2025? A ficha da base diz: período de 2015 a 2019, atualização anual, formato CSV, licença CC BY 4.0. Para essa pergunta, a base:</p>
+    <ol><li>serve, porque é oficial e tem licença aberta</li><li>não serve: não cobre os anos que a pergunta pede</li><li>serve, porque está em CSV</li><li>serve, se o grupo calcular a média de 2015 a 2019</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · O QUE É UMA LINHA</div><h2 class="bloco-title">A linha decide <em>o que a base responde</em></h2></div>
+<table class="tab"><tr><th>A base</th><th>Uma linha é</th><th>Dá para perguntar</th><th>Não dá</th></tr><tr><td>Manifestações da ouvidoria</td><td>uma manifestação</td><td>quantas por mês, por secretaria, por canal</td><td>o que a base não registra, como a satisfação</td></tr><tr><td>Resumo anual da ouvidoria</td><td>o total de um ano</td><td>quanto cresceu de um ano para o outro</td><td>em que secretaria, em que mês</td></tr></table><div class="prose"><p>É a tabela fato da Aula 13: antes de pensar no gráfico, descubram o que é uma linha. Se a pergunta pede a secretaria e a linha é o total do ano, a base não serve, por mais bonita que seja.</p></div><p class="fonte">Bases de exemplo, inventadas.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · LICENÇA E CITAÇÃO</div><h2 class="bloco-title">Usar <em class="orange">e dar o crédito</em></h2></div>
+<table class="tab"><tr><th>Na ficha</th><th>O que significa</th><th>O que o grupo faz</th></tr><tr><td class="n">CC BY 4.0</td><td>pode usar e adaptar, para qualquer fim, dando o crédito</td><td>cita a fonte e diz o que mudou nos dados</td></tr><tr><td class="n">ODbL</td><td>pode usar dando o crédito; uma base derivada, se for publicada, fica com a mesma licença</td><td>cita a fonte</td></tr><tr><td class="n">Licença não informada</td><td>a página não diz</td><td>procura o termo de uso do portal, anota "licença não informada" e conta à professora no Marco 1</td></tr></table><p class="mono-eq">Quem publica. Título do conjunto. Portal. Disponível em: endereço. Acesso em: dia/mês/ano.</p><p class="fonte">Fontes: página da licença CC BY 4.0 em português (creativecommons.org) e página da ODbL (opendatacommons.org), consultadas em 30/10/2026.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">A citação <em class="orange">completa</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">Qual destas citações da base está completa?</p>
+    <ol><li>Fonte: internet.</li><li>Fonte: dados.gov.br.</li><li>Fonte: Ministério da Saúde, 2025.</li><li>Ouvidoria-Geral do Município. Manifestações da ouvidoria municipal. Portal de dados abertos do município. Disponível em: (o endereço da página). Acesso em: 11/01/2027.</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · CINCO SINAIS</div><h2 class="bloco-title">De que a base <em>serve para a pergunta</em></h2></div>
+<table class="tab"><tr><th></th><th>O sinal</th><th>A pergunta que o grupo faz</th></tr><tr><td class="n">1</td><td>Responde à pergunta</td><td>a base tem o que a pergunta pede: o lugar, a categoria, a medida?</td></tr><tr><td class="n">2</td><td>Cobre o período e o lugar</td><td>começa e termina nos anos da pergunta? tem o município ou a região?</td></tr><tr><td class="n">3</td><td>Tem dono e data</td><td>quem publica? quando foi a última atualização?</td></tr><tr><td class="n">4</td><td>A linha permite a conta</td><td>o que é uma linha? dá para contar, somar e comparar?</td></tr><tr><td class="n">5</td><td>Não expõe pessoas</td><td>tem nome, CPF ou endereço? então, só contagens e médias</td></tr></table><div class="prose"><p>Se a base falha num sinal, procurem outra, ou ajustem a pergunta. As duas saídas são boas: o Marco 1 existe para isso.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · MARCO 1, EM GRUPO</div><h2 class="bloco-title">A pergunta <em class="orange">e a base</em></h2></div>
+<table class="tab"><tr><th>No formulário do Marco 1</th><th>Um por grupo</th></tr><tr><td class="n">O grupo</td><td>a turma e o nome completo e o RA de cada integrante</td></tr><tr><td class="n">A pergunta</td><td>e quem decide alguma coisa com a resposta, e o quê</td></tr><tr><td class="n">A base</td><td>o título, quem publica, o endereço e a data de acesso</td></tr><tr><td class="n">A ficha</td><td>o que é uma linha, o período, a atualização, o formato, o dicionário e a licença</td></tr><tr><td class="n">As pessoas</td><td>se a base tem dados que identificam alguém, e o que o grupo vai fazer</td></tr><tr><td class="n">Uma dúvida</td><td>para a professora, se houver</td></tr></table><div class="prose"><p>Enquanto vocês buscam, eu passo nos grupos com os cinco sinais. A devolutiva de cada grupo sai também por comentário no Classroom.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">10 · ATÉ QUARTA-FEIRA</div><h2 class="bloco-title">O Marco 1, e <em>a pergunta seguinte</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">Até hoje, 23h59</span><h4>Marco 1</h4><ul><li>um formulário por grupo</li><li>a pergunta e a base</li></ul></div><div class="card pergunta"><span class="rot">Antes da Aula 23</span><h4>Leitura e Checagem de preparo 9</h4><ul><li>posso confiar nesse dado, e posso usá-lo?</li><li>até 13/01, às 14h</li></ul></div><div class="card certo"><span class="rot">Aula 23 · 13/01</span><h4>Governança, LAI e LGPD</h4><ul><li>a qualidade dos dados</li><li>publicar sem expor ninguém</li></ul></div></div><p class="bigline">A pergunta escolhe a base, <em>e a ficha diz se ela serve.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 22 · Dados abertos e Marco 1 · Banco de Dados · CED7651 · os exemplos de base são inventados; os portais e as leis citados são reais, com a data da consulta</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
