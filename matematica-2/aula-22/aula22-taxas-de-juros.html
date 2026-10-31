@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 22 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taxas de juros: como comparar sem se enganar - Aula 22 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 22 · Taxas de juros</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 22</span><span>·</span><span>Unidade 3 · Quanto vale no tempo</span></div>
+  <h1>Taxas de juros: <em>como comparar sem se enganar</em></h1>
+  <p class="hero-lede">Um banco oferece uma taxa ao mês; outro, uma taxa ao ano. Um contrato anuncia uma taxa e cobra outra. E um rendimento de 10% pode valer bem menos depois da inflação. Hoje, três jeitos de comparar taxas sem cair em armadilha. No fim, a oficina da Missão 5, que é amanhã.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Seis partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:6"><div><b>Tentem antes</b><span>1% ao mês ou 12,5% ao ano?</span></div><div><b>A mesma unidade</b><span>taxas equivalentes</span></div><div><b>O anúncio</b><span>taxa nominal e taxa efetiva</span></div><div><b>A inflação</b><span>a taxa real</span></div><div><b>Amanhã</b><span>a Missão 5 e o Miniteste 5</span></div><div><b>Oficina</b><span>em dupla, como a missão</span></div></div><div class="prose"><p>Calculadora na mão: hoje, as contas têm potências e raízes. A do celular serve.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · TENTEM ANTES</div><h2 class="bloco-title">Duas ofertas, <em class="orange">em dupla</em></h2></div>
+<div class="prose"><p>A prefeitura vai aplicar <strong>R$ 200.000,00</strong> por um ano. O <strong>banco A</strong> oferece <strong>1% ao mês</strong>; o <strong>banco B</strong>, <strong>12,5% ao ano</strong>. Nos dois, juros compostos, e os rendimentos ficam aplicados.</p><p><strong>a)</strong> Qual banco rende mais? &nbsp; <strong>b)</strong> Quanto a mais, em reais?</p><p><strong>c)</strong> Como vocês decidiram? Escrevam a conta.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · A MESMA TAXA EM OUTRA UNIDADE</div><h2 class="bloco-title">Nos compostos, <em class="orange">compare os fatores</em></h2></div>
+<div class="aposta">Antes de avançar: 1% ao mês, por 12 meses, dá exatamente 12% no ano? Mais ou menos?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a22-i1-a-mesma-taxa-em-outra-unidade.html?embed=1" title="Animação: a mesma taxa em outra unidade" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · o atalho · mês a mês · o fator do ano · a comparação · taxas equivalentes · do ano para o mês · simples e compostos · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · banco A: 1% ao mês · banco B: 12,5% ao ano</li><li><b>O ATALHO</b> · 1% × 12 = 12% ao ano: menos que 12,5%?</li><li><b>MÊS A MÊS</b> · cada mês, o saldo é multiplicado por 1,01</li><li><b>O FATOR DO ANO</b> · 1,01<sup>12</sup> ≈ 1,126825: 12,68% ao ano</li><li><b>A COMPARAÇÃO</b> · 12,68% ao ano é mais que 12,5% ao ano</li><li><b>TAXAS EQUIVALENTES</b> · (1 + i<sub>ano</sub>) = (1 + i<sub>mês</sub>)<sup>12</sup></li><li><b>DO ANO PARA O MÊS</b> · i<sub>mês</sub> = 1,125<sup>1/12</sup> − 1 ≈ 0,9864% ao mês</li><li><b>SIMPLES E COMPOSTOS</b> · 12% ao ano: 1% ao mês (simples) · 0,9489% ao mês (compostos)</li><li><b>LEITURA DE GESTÃO</b> · compare taxas na mesma unidade, com a regra do regime</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Do mês <em class="orange">para o ano</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1</span>
+    <p class="pergunta-ct">Uma aplicação rende 2% ao mês, em juros compostos. Em um ano, quanto ela rende?</p>
+    <ol><li>24%: são 12 meses de 2%</li><li>2%: a taxa não muda com o prazo</li><li>depende de quanto foi aplicado</li><li>cerca de 26,8%: 1,02 elevado a 12, menos 1</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · AS DUAS CONVERSÕES</div><h2 class="bloco-title">Proporcional <em>ou equivalente</em></h2></div>
+<p class="mono-eq">(1 + i<sub>ano</sub>) = (1 + i<sub>mês</sub>)<sup>12</sup></p><table class="tab"><tr><th></th><th>Juros simples: proporcional</th><th>Juros compostos: equivalente</th></tr><tr><td class="n">Do mês para o ano</td><td>multiplica por 12: 1% ao mês = 12% ao ano</td><td>1,01<sup>12</sup> − 1 ≈ 12,68% ao ano</td></tr><tr><td class="n">Do ano para o mês</td><td>divide por 12: 12% ao ano = 1% ao mês</td><td>1,12<sup>1/12</sup> − 1 ≈ 0,9489% ao mês</td></tr><tr><td class="n">Na calculadora</td><td>uma multiplicação ou uma divisão</td><td>o fator, a tecla de potência, e o expoente: 12 ou (1 ÷ 12)</td></tr></table><div class="prose"><p>Equivalentes: as duas taxas dão o <strong>mesmo fator no mesmo prazo</strong>. Nos compostos, 12% ao ano não é 1% ao mês.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · O QUE O CONTRATO ANUNCIA</div><h2 class="bloco-title">Taxa nominal <em class="orange">e taxa efetiva</em></h2></div>
+<table class="tab"><tr><th>O anúncio</th><th>A taxa de cada período</th><th>O que cresce de fato em um ano</th></tr><tr><td class="n">12% ao ano, capitalização mensal</td><td>12% ÷ 12 = 1% ao mês</td><td>1,01<sup>12</sup> − 1 ≈ 12,68%</td></tr><tr><td class="n">10% ao ano, capitalização semestral</td><td>10% ÷ 2 = 5% ao semestre</td><td>1,05<sup>2</sup> − 1 = 10,25%</td></tr></table><div class="prose"><p>A <strong>taxa nominal</strong> é o jeito de anunciar: divide-se pelo número de capitalizações para achar a taxa de cada período.</p><p>A <strong>taxa efetiva</strong> é o que a dívida, ou a aplicação, cresce de fato: vem do fator, elevado ao número de períodos.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O que o contrato <em class="orange">cobra de fato?</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2 · anote, discuta em dupla, anote de novo</span>
+    <p class="pergunta-ct">Um contrato anuncia "36% ao ano, com capitalização mensal". Quanto a dívida cresce, de fato, em um ano?</p>
+    <ol><li>cerca de 42,6%: são 3% ao mês, compostos, por 12 meses</li><li>36%: é o que está escrito no contrato</li><li>3%: a taxa de cada mês</li><li>cerca de 2,6% ao mês: a taxa equivalente</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · O QUE SOBRA DEPOIS DA INFLAÇÃO</div><h2 class="bloco-title">A taxa real: <em class="orange">divida os fatores</em></h2></div>
+<div class="aposta">Antes de avançar: rendeu 10%, e os preços subiram 4%. O ganho real é de 6%?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a22-i2-o-que-sobra-depois-da-inflacao.html?embed=1" title="Animação: o que sobra depois da inflação" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: em reais · os preços · em poder de compra · a fórmula · o atalho · taxas grandes · ganho real negativo. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · rendeu 10% · inflação de 4%</li><li><b>EM REAIS</b> · 100.000 → 110.000: a taxa aparente é de 10%</li><li><b>OS PREÇOS</b> · o que custava 100.000 passou a custar 104.000</li><li><b>EM PODER DE COMPRA</b> · 110.000 ÷ 104.000 ≈ 1,0577: 5,77% a mais</li><li><b>A FÓRMULA</b> · (1 + real) = (1 + aparente) ÷ (1 + inflação)</li><li><b>O ATALHO</b> · 10% − 4% = 6%: uma aproximação</li><li><b>TAXAS GRANDES</b> · rendeu 30% com inflação de 20%: 1,30 ÷ 1,20 ≈ 1,0833</li><li><b>GANHO REAL NEGATIVO</b> · rendeu 5% com inflação de 6%: 1,05 ÷ 1,06 ≈ 0,9906</li><li><b>LEITURA DE GESTÃO</b> · rendimento bom é rendimento acima da inflação</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O ganho <em class="orange">de verdade</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 3</span>
+    <p class="pergunta-ct">Um fundo rendeu 8% num ano em que a inflação foi de 5%. Quanto ele ganhou em poder de compra?</p>
+    <ol><li>13,4%</li><li>3%</li><li>cerca de 2,86%</li><li>1,6%</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · COMO COMPARAR TAXAS</div><h2 class="bloco-title">Quatro perguntas, <em>em qualquer oferta</em></h2></div>
+<table class="tab"><tr><th></th><th>A pergunta</th><th>O que fazer</th></tr><tr><td class="n">1</td><td>Qual é o regime?</td><td>juros simples: taxas proporcionais; compostos: equivalentes</td></tr><tr><td class="n">2</td><td>As taxas estão na mesma unidade?</td><td>mês com mês, ano com ano, antes de comparar</td></tr><tr><td class="n">3</td><td>O anúncio é nominal?</td><td>divida pelo número de capitalizações e calcule a taxa efetiva</td></tr><tr><td class="n">4</td><td>E a inflação?</td><td>para o ganho em poder de compra, divida os fatores: a taxa real</td></tr></table>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · AMANHÃ</div><h2 class="bloco-title">Missão 5 e <em class="orange">Miniteste 5</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Aula 23 · 15/01</span><h4>Missão 5, em trio</h4><ul><li>porcentagem, índices, juros e taxas</li><li>enunciado no Classroom; respostas à mão, em folhas avulsas</li><li>entrega das folhas no fim</li></ul></div><div class="card olho"><span class="rot">Depois da missão</span><h4>Miniteste 5</h4><ul><li>sozinho, no formulário da turma</li><li>objetivos 7, 8 e 9</li><li>com a sua folha de consulta</li></ul></div><div class="card certo"><span class="rot">Para trazer</span><h4>Amanhã</h4><ul><li>a folha de consulta atualizada com as taxas</li><li>calculadora ou celular carregado</li><li>folhas avulsas</li></ul></div></div><div class="prose"><p>A Checagem 11 fecha hoje, às 23h59.</p></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · OFICINA EM DUPLA</div><h2 class="bloco-title">Cinco itens, <em class="orange">para a missão</em></h2></div>
+<table class="tab"><tr><th>Item</th><th>O que fazer</th></tr><tr><td class="n">1</td><td>1,5% ao mês, em juros compostos: quanto ao ano?</td></tr><tr><td class="n">2</td><td>9% ao ano, em juros compostos: quanto ao mês?</td></tr><tr><td class="n">3</td><td>15% ao ano, capitalização mensal: a taxa efetiva</td></tr><tr><td class="n">4</td><td>Rendeu 9%, com inflação de 4,5%: a taxa real</td></tr><tr><td class="n">5</td><td>O fundo de reserva: o banco X ou o Y? E o ganho real?</td></tr></table><p class="fonte">No caderno, com a conta inteira e o fator. Garantam em sala os itens 1, 3 e 4 e o 5a. A lista completa está no Classroom; a revisão das Aulas 18 a 21 está no treino da ficha desta aula. O que faltar, terminem em casa: as respostas saem no Classroom, em PDF. Valores simulados.</p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 22 · Taxas de juros · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
