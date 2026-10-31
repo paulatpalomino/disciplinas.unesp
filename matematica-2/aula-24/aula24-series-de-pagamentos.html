@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- DECK DE AULA - Aula 24 - Matematica II (CED7724) v2 2026/2 - Direcao B. Todos os numeros de exemplo sao SIMULADOS e rotulados. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Séries de pagamentos: o valor de hoje de muitas parcelas - Aula 24 - Matemática II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--ink:#161618;--ink-soft:#3a3a3e;--ink-mute:#6b6b70;--rule:#e2e0d9;--rule-soft:#ecebe5;--orange:#c2410c;--orange-soft:#fed7aa;--teal:#115e59;--teal-soft:#ccfbf1;--blue:#1e3a8a;--blue-soft:#dbeafe;--amber-bg:#fef3c7;--correct:#15803d;--correct-soft:#dcfce7;--wrong:#b91c1c;--wrong-soft:#fee2e2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;}
+.topbar{border-bottom:1px solid var(--rule);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);background:rgba(251,250,247,0.92);backdrop-filter:blur(6px);position:sticky;top:0;z-index:100;}
+.topbar-left{display:flex;gap:28px;align-items:center;}
+.topbar-mark{font-weight:600;color:var(--ink);letter-spacing:0.12em;}
+.hero{padding:80px 32px 64px;border-bottom:1px solid var(--rule);max-width:1320px;margin:0 auto;}
+.hero-meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:20px;display:flex;gap:16px;align-items:center;}
+.hero-meta::after{content:'';flex:1;height:1px;background:var(--rule);max-width:240px;}
+.hero h1{font-family:'IBM Plex Serif',serif;font-size:clamp(36px,5.5vw,64px);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;max-width:1100px;}
+.hero h1 em{font-style:italic;color:var(--orange);}
+.hero h1 em.teal{color:var(--teal);}
+.hero-lede{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:820px;font-weight:300;}
+section.bloco{padding:72px 32px;border-bottom:1px solid var(--rule);}
+section.bloco.compacta{padding:26px 32px;}
+section.bloco.compacta .bloco-head{margin-bottom:18px;}
+section.bloco.compacta .aposta{margin:14px 0;}
+section.bloco>.inner{max-width:1320px;margin:0 auto;}
+.bloco-head{display:grid;grid-template-columns:170px 1fr;gap:32px;margin-bottom:36px;align-items:start;}
+.bloco-num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--orange);letter-spacing:0.1em;padding-top:12px;border-top:2px solid var(--orange);}
+.bloco-num.teal{color:var(--teal);border-top-color:var(--teal);}
+.bloco-title{font-family:'IBM Plex Serif',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.015em;border-top:2px solid var(--ink);padding-top:12px;}
+.bloco-title em{font-style:italic;color:var(--teal);}.bloco-title em.orange{color:var(--orange);}
+.prose{max-width:860px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);}
+.prose p{margin-bottom:18px;}.prose strong{color:var(--ink);font-weight:600;}.prose em{color:var(--orange);font-style:italic;}
+.mono-eq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:17px;color:var(--ink);background:var(--rule-soft);padding:14px 18px;margin:18px 0;max-width:900px;border-left:3px solid var(--teal);}
+.problema{background:#fff;border-left:4px solid var(--orange);padding:20px 24px;margin:24px 0;max-width:900px;}
+.problema-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);font-weight:600;margin-bottom:8px;display:block;}
+.formal{background:var(--rule-soft);border-left:4px solid var(--teal);padding:20px 24px;margin:24px 0;max-width:900px;}
+.formal-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:600;margin-bottom:8px;display:block;}
+.pullquote{margin:28px 0;padding:22px 0 22px 28px;border-left:3px solid var(--orange);font-family:'IBM Plex Serif',serif;font-size:26px;line-height:1.35;font-style:italic;color:var(--ink);max-width:900px;}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0;max-width:1000px;}
+.compara.tres{grid-template-columns:repeat(3,1fr);}
+.compara.quatro{grid-template-columns:repeat(4,1fr);}
+.compara.quatro .card h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:26px;font-weight:600;letter-spacing:-0.01em;}
+.compara .card{border:1px solid var(--rule);padding:22px;background:#fff;}
+.compara .card.olho{border-left:4px solid var(--orange);}
+.compara .card.pergunta{border-left:4px solid var(--teal);}
+.compara .card.certo{border-left:4px solid var(--correct);}
+.compara .card.errado{border-left:4px solid var(--wrong);}
+.compara .card h4{font-family:'IBM Plex Serif',serif;font-size:21px;font-weight:500;margin-bottom:6px;}
+.compara .card .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.compara .card.olho .rot{color:var(--orange);}.compara .card.pergunta .rot{color:var(--teal);}
+.compara .card.certo .rot{color:var(--correct);}.compara .card.errado .rot{color:var(--wrong);}
+.compara .card ul{list-style:none;padding:0;}
+.compara .card li{padding:8px 0 8px 22px;position:relative;color:var(--ink-soft);font-size:15.5px;border-top:1px solid var(--rule-soft);}
+.compara .card li:first-child{border-top:none;}
+.compara .card li::before{content:'›';position:absolute;left:0;color:var(--ink-mute);font-weight:600;}
+.ct{border:1px solid var(--rule);background:#fff;padding:24px;margin:24px 0;max-width:960px;}
+.ct .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);font-weight:600;display:block;margin-bottom:12px;}
+.ct .pergunta-ct{font-family:'IBM Plex Serif',serif;font-size:22px;line-height:1.35;color:var(--ink);margin-bottom:16px;}
+.ct ol{list-style:none;padding:0;counter-reset:alt;}
+.ct ol li{padding:10px 0 10px 42px;position:relative;border-top:1px solid var(--rule-soft);color:var(--ink-soft);font-size:17px;}
+.ct ol li::before{counter-increment:alt;content:counter(alt,upper-alpha);position:absolute;left:0;top:9px;width:27px;height:27px;border:1px solid var(--rule);border-radius:3px;text-align:center;line-height:27px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--ink-mute);}
+table.tab{border-collapse:collapse;width:100%;max-width:960px;margin:22px 0;font-size:16px;}
+table.tab th,table.tab td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+table.tab th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+table.tab td.n{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--ink);}
+table.tab tr.alerta td{background:var(--wrong-soft);}
+.embedwrap{border:1px solid var(--rule);background:#fff;margin:20px 0;max-width:1280px;}
+.embedwrap iframe{width:100%;height:578px;border:0;display:block;}
+.embed-nota{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:var(--ink-mute);padding:8px 14px;border-top:1px solid var(--rule-soft);letter-spacing:0.05em;}
+.aposta{margin:22px 0;padding:16px 22px;border-left:3px solid var(--blue);background:var(--blue-soft);font-family:'IBM Plex Serif',serif;font-style:italic;font-size:19px;max-width:960px;}
+.disclaimer{padding:56px 32px;border-top:1px solid var(--rule);background:var(--rule-soft);}
+.disclaimer .inner{max-width:900px;margin:0 auto;}
+.disclaimer .rot{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;display:block;margin-bottom:14px;}
+.disclaimer p{font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:820px;}
+.signoff{padding:56px 32px;text-align:center;border-top:1px solid var(--rule);}
+.signoff p{font-family:'IBM Plex Serif',serif;font-style:italic;font-size:16px;color:var(--ink-mute);margin-bottom:8px;}
+.signoff strong{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;color:var(--ink);font-weight:600;letter-spacing:0.02em;}
+html{scroll-snap-type:y proximity;}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:52px;}
+.slide>.inner{width:100%;}
+.slidenav{position:fixed;right:20px;bottom:18px;z-index:200;display:flex;align-items:center;gap:6px;background:rgba(251,250,247,0.94);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);backdrop-filter:blur(6px);}
+.slidenav button{border:1px solid var(--rule);background:var(--bg);color:var(--ink);width:30px;height:30px;border-radius:3px;cursor:pointer;font-size:15px;line-height:1;}
+.slidenav button:hover{border-color:var(--ink);}
+.slidenav .counter{min-width:52px;text-align:center;letter-spacing:0.06em;}
+@media (max-width:900px){.compara.quatro{grid-template-columns:repeat(2,1fr);}.hero{padding:48px 20px 40px;}.topbar{padding:12px 20px;flex-wrap:wrap;gap:8px;}.topbar-left{gap:14px;flex-wrap:wrap;}.bloco-head{grid-template-columns:1fr;gap:8px;}section.bloco{padding:56px 20px 40px;}.compara,.compara.tres{grid-template-columns:1fr;}.slide{min-height:auto;}}
+@media print{@page{size:A4 landscape;margin:12mm;}.topbar{position:static;}.slidenav{display:none;}html{scroll-snap-type:none;}body{font-size:13px;}.slide{min-height:auto;padding:8mm 4mm;page-break-after:always;break-after:page;justify-content:flex-start;}.slide:last-child{page-break-after:auto;}.hero{padding:8mm 4mm;}.hero h1{font-size:30px;}.bloco-title{font-size:24px;}.pullquote{font-size:18px;}.embedwrap iframe{height:430px;}}
+
+/* telas com animação embutida: cabem em telas de 768 a 880 px de altura */
+@media screen and (max-height:880px){section.slide:has(.embedwrap) > .inner{zoom:.86;}}
+</style>
+
+<style>
+/* ajustes v2 para TV de sala grande: letra maior */
+.prose{font-size:19px;line-height:1.6;max-width:980px}
+.compara .card li{font-size:17.5px}
+.compara .card h4{font-size:23px}
+table.tab{font-size:18px;max-width:1100px}
+table.tab td.n{font-size:18px}
+.ct .pergunta-ct{font-size:25px}
+.ct ol li{font-size:20px}
+.aposta{font-size:21px}
+.mono-eq{font-size:21px}
+.problema p,.formal p{font-size:19px;line-height:1.6}
+.bigline{font-family:'IBM Plex Serif',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.25;margin:18px 0;max-width:1100px}
+.bigline em{color:var(--orange);font-style:italic}.bigline em.teal{color:var(--teal)}
+.passo{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px;margin:22px 0;max-width:1180px}
+.passo div{border:1px solid var(--rule);background:#fff;padding:16px;border-top:4px solid var(--teal)}
+.passo div b{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.passo div span{font-size:17.5px;color:var(--ink-soft)}
+.estatico{display:none}
+.estatico ol{padding-left:22px}
+.estatico li{margin:4px 0;font-size:12.5px;color:var(--ink-soft)}
+.estatico li b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em}
+.fonte{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-mute);margin-top:10px;max-width:1000px}
+.qr{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--teal);border:2px dashed var(--teal);padding:18px 22px;display:inline-block;margin:10px 0}
+@media print{.estatico{display:block}.embedwrap iframe{display:none}.prose{font-size:13px}table.tab{font-size:12px}
+ .ct .pergunta-ct{font-size:16px}.ct ol li{font-size:13px}.compara .card li{font-size:12.5px}.aposta{font-size:14px}
+ .bigline{font-size:22px}.passo div span{font-size:12.5px}.problema p,.formal p{font-size:13px}.qr{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-left"><span class="topbar-mark">Matemática II · CED7724</span><span>Aula 24 · Séries de pagamentos</span></div><div>UNESP-Araraquara · Administração Pública</div></header>
+
+<section class="hero slide">
+  <div class="hero-meta"><span>Aula 24</span><span>·</span><span>Unidade 3 · Quanto vale no tempo</span></div>
+  <h1>Séries de pagamentos: <em>o valor de hoje de muitas parcelas</em></h1>
+  <p class="hero-lede">Convênios que pagam todo mês, financiamentos em parcelas iguais, fundos com depósitos mensais: quase todo dinheiro público se move em séries. Hoje, como saber quanto uma série vale hoje, e quanto um fundo terá no fim. Com a fórmula, a calculadora e as funções da planilha.</p>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Cinco partes, <em class="orange">nessa ordem</em></h2></div>
+<div class="passo" style="--n:5"><div><b>Tentem antes</b><span>aceitar a antecipação do banco?</span></div><div><b>Para hoje</b><span>o valor presente de uma série</span></div><div><b>Para a frente</b><span>o fundo que se forma</span></div><div><b>No celular</b><span>as funções, em dupla</span></div><div><b>Em casa</b><span>a planilha e a Checagem 12</span></div></div><div class="prose"><p>Calculadora na mão, e um celular por dupla para a parte final.</p></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · TENTEM ANTES</div><h2 class="bloco-title">Doze parcelas <em class="orange">ou um valor hoje?</em></h2></div>
+<div class="prose"><p>Um convênio vai pagar à prefeitura <strong>12 parcelas mensais de R$ 10.000,00</strong>, no fim de cada mês. Um banco oferece antecipar: paga <strong>R$ 115.000,00 hoje</strong> e fica com as parcelas. O dinheiro da prefeitura rende <strong>1% ao mês</strong>.</p><p><strong>a)</strong> Vale a pena aceitar? &nbsp; <strong>b)</strong> Como vocês decidiram? Escrevam a conta.</p><p>Dica: na Aula 21, para trazer um valor para hoje, vocês dividiram pelo fator do prazo.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · O QUE UMA SÉRIE VALE HOJE</div><h2 class="bloco-title">Cada parcela <em class="orange">vem para hoje</em></h2></div>
+<div class="aposta">Antes de avançar: as 12 parcelas valem hoje mais ou menos que R$ 120.000,00? E mais ou menos que R$ 115.000,00?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a24-i1-o-que-uma-serie-vale-hoje.html?embed=1" title="Animação: o que uma série vale hoje" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · o atalho · a 1ª parcela · a 12ª · a soma · a fórmula · a decisão · a taxa decide · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · 12 parcelas de R$ 10.000,00 · ou R$ 115.000,00 hoje?</li><li><b>O ATALHO</b> · 12 × 10.000 = 120.000: recusar?</li><li><b>A 1ª PARCELA</b> · 10.000 ÷ 1,01 ≈ 9.900,99</li><li><b>A 12ª PARCELA</b> · 10.000 ÷ 1,01<sup>12</sup> ≈ 8.874,49</li><li><b>A SOMA DOS VALORES DE HOJE</b> · 9.900,99 + 9.802,96 + ... + 8.874,49 ≈ 112.550,77</li><li><b>A FÓRMULA</b> · VP = P × [1 − (1 + i)<sup>−n</sup>] ÷ i</li><li><b>A DECISÃO</b> · 115.000 hoje > 112.550,77: aceitar</li><li><b>A TAXA DECIDE</b> · a 0,5% ao mês: 116.189,32</li><li><b>LEITURA DE GESTÃO</b> · uma série se compara pelo valor de hoje, e não pela soma</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Uma série <em class="orange">pequena</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 1</span>
+    <p class="pergunta-ct">Uma série de 6 parcelas mensais de R$ 1.000,00, no fim de cada mês, com o dinheiro rendendo 2% ao mês. Quanto ela vale hoje?</p>
+    <ol><li>cerca de R$ 5.601,43</li><li>R$ 6.000,00</li><li>R$ 5.880,00</li><li>cerca de R$ 6.308,12</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">04 · A FÓRMULA E AS FUNÇÕES</div><h2 class="bloco-title">Na calculadora <em class="orange">ou na planilha</em></h2></div>
+<table class="tab"><tr><th>Pergunta</th><th>Fórmula (calculadora)</th><th>Função (Planilhas Google)</th></tr><tr><td class="n">Quanto a série vale hoje?</td><td>VP = P × [1 − (1 + i)<sup>−n</sup>] ÷ i</td><td>=VP(taxa; n; −parcela)</td></tr><tr><td class="n">Qual a parcela de um financiamento?</td><td>P = VP × i ÷ [1 − (1 + i)<sup>−n</sup>]</td><td>=PGTO(taxa; n; −valor)</td></tr><tr><td class="n">Quanto o fundo terá no fim?</td><td>VF = D × [(1 + i)<sup>n</sup> − 1] ÷ i</td><td>=VF(taxa; n; −depósito)</td></tr></table><div class="prose"><p>Na planilha, o que sai do caixa entra com <strong>sinal negativo</strong>, e o resultado vem positivo. A taxa vai com o %: 1% ao mês é 1%.</p><p>Uma calculadora financeira faz as mesmas contas, com as teclas do valor presente, da parcela e do valor futuro.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">O que a função <em class="orange">devolve?</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 2</span>
+    <p class="pergunta-ct">Na planilha, =VP(1%; 12; −10000) mostra R$ 112.550,77. O que esse número é?</p>
+    <ol><li>a soma das 12 parcelas, com os juros</li><li>o valor da 12ª parcela, trazida para hoje</li><li>quanto a prefeitura terá no fim dos 12 meses</li><li>o valor de hoje das 12 parcelas, juntas</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · O FUNDO QUE SE FORMA</div><h2 class="bloco-title">Para a frente: <em class="orange">o valor futuro</em></h2></div>
+<div class="aposta">Antes de avançar: 24 depósitos de R$ 5.000,00, a 0,8% ao mês. O fundo terá mais de R$ 130.000,00?</div>
+  <div class="embedwrap">
+    <iframe src="../animacoes/a24-i2-o-fundo-que-se-forma.html?embed=1" title="Animação: o fundo que se forma" loading="lazy"></iframe>
+    <div class="embed-nota">Caminho: a pergunta · o atalho · o 1º depósito · o último · a soma no fim · a fórmula · os juros · na planilha · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
+  </div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A PERGUNTA</b> · R$ 5.000,00 por mês, 24 meses, a 0,8% ao mês</li><li><b>O ATALHO</b> · 24 × 5.000 = 120.000</li><li><b>O 1º DEPÓSITO</b> · 5.000 × 1,008<sup>23</sup> ≈ 6.005,68</li><li><b>O ÚLTIMO DEPÓSITO</b> · 5.000 × 1 = 5.000,00</li><li><b>A SOMA NO FIM</b> · ≈ 131.715,78</li><li><b>A FÓRMULA</b> · VF = D × [(1 + i)<sup>n</sup> − 1] ÷ i</li><li><b>OS JUROS</b> · 131.715,78 − 120.000,00 = 11.715,78</li><li><b>NA PLANILHA</b> · =VF(0,8%; 24; −5000)</li><li><b>LEITURA DE GESTÃO</b> · para a frente, multiplica; para trás, divide</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">PARA VOTAR</div><h2 class="bloco-title">Se a taxa <em class="orange">sobe</em></h2></div>
+<div class="ct"><span class="rot">Pergunta 3</span>
+    <p class="pergunta-ct">Uma série de parcelas fixas. Se a taxa que o dinheiro da prefeitura rende sobe, o valor de hoje da série:</p>
+    <ol><li>sobe, porque os juros são maiores</li><li>cai, porque cada parcela é dividida por um fator maior</li><li>não muda, porque as parcelas são as mesmas</li><li>depende só do número de parcelas</li></ol></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · NO CELULAR, EM DUPLA</div><h2 class="bloco-title">Três funções, <em class="orange">um celular por dupla</em></h2></div>
+<div class="passo" style="--n:4"><div><b>1 · Abrir</b><span>uma planilha nova, nas Planilhas Google</span></div><div><b>2 · Valor de hoje</b><span>=VP(1%; 12; −10000): bate com a animação?</span></div><div><b>3 · Parcela</b><span>=PGTO(1,5%; 12; −100000): um financiamento de R$ 100.000,00</span></div><div><b>4 · Valor no fim</b><span>=VF(0,8%; 24; −5000): o fundo da animação</span></div></div><div class="prose"><p>Quem tem uma calculadora financeira no celular pode usá-la: ela faz as mesmas contas.</p><p><strong>Sem internet?</strong> A professora faz na TV, e a dupla confere na calculadora, pela fórmula da tela 04.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco compacta slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">07 · CONFIRAM</div><h2 class="bloco-title">O que a planilha <em>deve mostrar</em></h2></div>
+<table class="tab"><tr><th></th><th>Função</th><th>Resultado</th><th>Pela fórmula</th></tr><tr><td class="n">2</td><td>=VP(1%; 12; −10000)</td><td>R$ 112.550,77</td><td>10.000 × [1 − 1,01<sup>−12</sup>] ÷ 0,01</td></tr><tr><td class="n">3</td><td>=PGTO(1,5%; 12; −100000)</td><td>R$ 9.168,00</td><td>100.000 × 0,015 ÷ [1 − 1,015<sup>−12</sup>]</td></tr><tr><td class="n">4</td><td>=VF(0,8%; 24; −5000)</td><td>R$ 131.715,78</td><td>5.000 × [1,008<sup>24</sup> − 1] ÷ 0,008</td></tr></table><div class="prose"><p>Deu um número negativo? Faltou o sinal de menos na parcela. Deu um número enorme? A taxa entrou como 1, e não como 1%.</p></div><p class="fonte">Valores simulados.</p>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">08 · EM CASA</div><h2 class="bloco-title">A planilha <em class="orange">e a Checagem 12</em></h2></div>
+<div class="compara tres"><div class="card olho"><span class="rot">No Classroom</span><h4>A planilha da Aula 24</h4><ul><li>os 24 aluguéis de um prédio da prefeitura, um financiamento e um fundo</li><li>no computador ou no celular, nas Planilhas Google ou no Excel</li><li>sem computador? pela fórmula, na calculadora: os números são os mesmos</li></ul></div><div class="card pergunta"><span class="rot">Abre hoje</span><h4>Checagem 12</h4><ul><li>as perguntas pedem os números que a SUA planilha mostrou</li><li>fica aberta até quinta-feira, 28/01, às 23h59</li><li>a nota é pela entrega</li></ul></div><div class="card certo"><span class="rot">Para estudar</span><h4>A ficha de estudo</h4><ul><li>séries de pagamentos</li><li>com treino e respostas</li></ul></div></div>
+  </div>
+</section>
+
+<section class="bloco slide">
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">09 · ATÉ AMANHÃ</div><h2 class="bloco-title">O que vem <em>amanhã</em></h2></div>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Aula 25 · 22/01</span><h4>Fundos, reservas e repasses</h4><ul><li>quanto depositar por mês para chegar a uma meta</li><li>o repasse que perde valor com a inflação</li><li>e a orientação da Parte 2 do projeto</li></ul></div><div class="card certo"><span class="rot">Para trazer</span><h4>Amanhã</h4><ul><li>calculadora (a do celular serve)</li><li>a equipe do projeto junta, se der</li></ul></div></div><p class="bigline">Parcelas em datas diferentes <em>se comparam pelo valor de hoje, e não pela soma.</em></p>
+  </div>
+</section>
+
+<section class="disclaimer slide"><div class="inner"><span class="rot">Transparência · uso de IA na produção deste material</span><p>Material produzido com o auxílio das ferramentas de IA Claude e Claude Cowork (Anthropic), empregadas na elaboração e estruturação do conteúdo didático, dos arquivos em HTML e PDF e das animações. A versão final foi revisada, editada e adaptada pela Profa. Dra. Paula Toledo Palomino, que assume integral responsabilidade pedagógica e autoral sobre este material.</p></div></section>
+
+<section class="signoff slide"><p>Aula 24 · Séries de pagamentos · Matemática II · CED7724 · todos os valores dos exemplos são simulados</p><p><strong>Profa. Dra. Paula Toledo Palomino</strong> · UNESP-Araraquara</p></section>
+
+<nav class="slidenav" aria-label="Navegação de slides"><button id="prevSlide" title="Slide anterior" aria-label="Slide anterior">&lsaquo;</button><span class="counter" id="slideCounter">1 / 1</span><button id="nextSlide" title="Próximo slide" aria-label="Próximo slide">&rsaquo;</button></nav>
+<script>
+(function(){var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));var counter=document.getElementById('slideCounter');var total=slides.length;var current=0;
+function render(){counter.textContent=(current+1)+' / '+total;}
+function go(i){current=Math.max(0,Math.min(total-1,i));slides[current].scrollIntoView({behavior:'smooth',block:'start'});render();}
+if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=slides.indexOf(e.target);if(idx!==-1){current=idx;render();}}});},{threshold:0.55});slides.forEach(function(s){obs.observe(s);});}
+document.getElementById('prevSlide').addEventListener('click',function(){go(current-1);});
+document.getElementById('nextSlide').addEventListener('click',function(){go(current+1);});
+document.addEventListener('keydown',function(ev){var t=ev.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;if(ev.key==='ArrowRight'||ev.key==='PageDown'){ev.preventDefault();go(current+1);}else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ev.preventDefault();go(current-1);}else if(ev.key==='Home'){ev.preventDefault();go(0);}else if(ev.key==='End'){ev.preventDefault();go(total-1);}});
+render();})();
+</script>
+</body>
+</html>
