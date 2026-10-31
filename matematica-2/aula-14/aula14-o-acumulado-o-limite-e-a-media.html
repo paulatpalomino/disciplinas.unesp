@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O acumulado, o limite e a média - Aula 14 - Matemática II</title>
+<title>O acumulado, o teto e a média - Aula 14 - Matemática II</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -128,25 +128,25 @@ table.tab td.n{font-size:18px}
 
 <section class="hero slide">
   <div class="hero-meta"><span>Aula 14</span><span>·</span><span>Unidade 2 · Quanto se acumulou</span></div>
-  <h1>Aplicações da integral definida: <em>o acumulado, o limite e a média</em></h1>
-  <p class="hero-lede">O teorema da semana passada calcula totais. Hoje ele responde a mais duas perguntas de gestão: quando o acumulado encosta num limite, e qual é o ritmo médio. São as perguntas da Parte 1 do projeto.</p>
+  <h1>Aplicações da integral definida: <em>o acumulado, o teto e a média</em></h1>
+  <p class="hero-lede">O teorema da semana passada calcula totais. Hoje ele responde a mais duas perguntas de gestão: quando o acumulado chega a um teto, e qual é o ritmo médio. São as perguntas da Parte 1 do projeto.</p>
 </section>
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">01 · O PLANO DE HOJE</div><h2 class="bloco-title">Quatro partes, <em class="orange">nessa ordem</em></h2></div>
-<div class="passo" style="--n:4"><div><b>De volta</b><span>a Missão 3, e o gabarito do Miniteste 3</span></div><div><b>Quando acaba?</b><span>o momento em que o acumulado atinge um limite</span></div><div><b>Qual é a média?</b><span>o valor médio de um ritmo</span></div><div><b>Em dupla, e o projeto</b><span>dois problemas, e o que usar na Parte 1</span></div></div><div class="prose"><p>A Checagem 8 abre hoje. Amanhã, na Aula 15: o saldo entre receita e despesa, e o acompanhamento do projeto.</p></div>
+<div class="passo" style="--n:4"><div><b>De volta</b><span>a Missão 3, e as respostas comentadas</span></div><div><b>Quando acaba?</b><span>o momento em que o acumulado chega ao teto</span></div><div><b>Qual é a média?</b><span>o valor médio de um ritmo</span></div><div><b>Em dupla, e o projeto</b><span>dois problemas, e o que usar na Parte 1</span></div></div><div class="prose"><p>A Checagem 8 abre hoje. Amanhã, na Aula 15: o saldo entre receita e despesa, e o acompanhamento do projeto.</p></div>
   </div>
 </section>
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">02 · DE VOLTA</div><h2 class="bloco-title">A Missão 3, <em>em três números</em></h2></div>
-<div class="compara tres"><div class="card pergunta"><span class="rot">Tarefa 2</span><h4>Por baixo e por cima</h4><ul><li>integral: 116 e 134</li><li>noturno: 99 e 126</li><li>o valor exato fica entre os dois</li></ul></div><div class="card pergunta"><span class="rot">Tarefa 3</span><h4>A primitiva do termo em t²</h4><ul><li>integral: −2t² vira −2t³ ÷ 3</li><li>noturno: −3t² vira −t³</li><li>fora da faixa, a conta denuncia o erro</li></ul></div><div class="card certo"><span class="rot">O total do mutirão</span><h4>Total ÷ duração</h4><ul><li>integral: 252 ÷ 6 = 42 pessoas por hora</li><li>noturno: 228 ÷ 6 = 38 famílias por hora</li><li>hoje essa conta ganha nome</li></ul></div></div><div class="prose"><p>As folhas da missão voltam hoje; o gabarito comentado do Miniteste 3 está no Classroom. Quem ainda não atingiu algum objetivo tem a repescagem da Aula 17 (11/12), sem desconto.</p></div><p class="fonte">Valores simulados.</p>
+<div class="compara tres"><div class="card pergunta"><span class="rot">Tarefa 2</span><h4>Por baixo e por cima</h4><ul><li>integral: 116 e 134</li><li>noturno: 99 e 126</li><li>o valor exato fica entre os dois</li></ul></div><div class="card pergunta"><span class="rot">Tarefa 3</span><h4>A primitiva do termo em t²</h4><ul><li>integral: −2t² vira −2t³ ÷ 3</li><li>noturno: −3t² vira −t³</li><li>fora da faixa, a conta denuncia o erro</li></ul></div><div class="card certo"><span class="rot">O total do mutirão</span><h4>Total ÷ duração</h4><ul><li>integral: 252 ÷ 6 = 42 pessoas por hora</li><li>noturno: 228 ÷ 6 = 38 famílias por hora</li><li>hoje essa conta ganha nome</li></ul></div></div><div class="prose"><p>As folhas da missão voltam hoje; as respostas comentadas da Missão 3 e do Miniteste 3 estão no Classroom. Quem ainda não atingiu algum objetivo tem a repescagem da Aula 17 (11/12), sem desconto.</p></div><p class="fonte">Valores simulados.</p>
   </div>
 </section>
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">03 · TRÊS PERGUNTAS</div><h2 class="bloco-title">O que a integral definida <em>responde</em></h2></div>
-<table class="tab"><tr><th>A pergunta de gestão</th><th>A conta</th><th>No projeto</th></tr><tr><td>Quanto se acumulou no período?</td><td class="n">o total: F(b) − F(a)</td><td>pergunta 1</td></tr><tr><td>Quando o acumulado atinge um limite?</td><td class="n">igualar o acumulado ao limite, e resolver para o tempo</td><td>pergunta 3</td></tr><tr><td>Qual é o ritmo médio?</td><td class="n">o total, dividido pela duração</td><td>pergunta 2</td></tr></table><div class="prose"><p>A primeira você já sabe. As outras duas são de hoje.</p></div>
+<table class="tab"><tr><th>A pergunta de gestão</th><th>A conta</th><th>No projeto</th></tr><tr><td>Quanto se acumulou no período?</td><td class="n">o total: F(b) − F(a)</td><td>pergunta 1</td></tr><tr><td>Quando o acumulado chega ao teto?</td><td class="n">igualar o acumulado ao teto, e resolver para o tempo</td><td>pergunta 3</td></tr><tr><td>Qual é o ritmo médio?</td><td class="n">o total, dividido pela duração</td><td>pergunta 2</td></tr></table><div class="prose"><p>A primeira você já sabe. As outras duas são de hoje. <strong>Teto</strong> é a quantidade que não pode ser passada: um contrato, um orçamento, uma capacidade. (Não chamamos de limite porque essa palavra já tem outro sentido na matemática, o da Aula 2.)</p></div>
   </div>
 </section>
 
@@ -157,13 +157,13 @@ table.tab td.n{font-size:18px}
     <iframe src="../animacoes/a14-i1-o-contrato-que-acaba-antes-da-hora.html?embed=1" title="Animação: o contrato que acaba antes da hora" loading="lazy"></iframe>
     <div class="embed-nota">Caminho: a situação · a conta rápida · o acumulado até T · um ano · procurar o mês · a equação · resolver · a resposta · se nada mudar · leitura de gestão. &nbsp;·&nbsp; as setas do teclado avançam a animação.</div>
   </div>
-  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · c(t) = 30 + 2t mil litros por mês &nbsp;·&nbsp; contrato: 600 mil litros</li><li><b>A CONTA RÁPIDA</b> · 600 ÷ 30 = 20 meses</li><li><b>O ACUMULADO ATÉ T</b> · C(T) = ∫<sub>0</sub><sup>T</sup> (30 + 2t) dt = 30T + T²</li><li><b>UM ANO</b> · C(12) = 360 + 144 = 504</li><li><b>PROCURAR O MÊS</b> · C(13) = 390 + 169 = 559 &nbsp;·&nbsp; C(14) = 420 + 196 = 616</li><li><b>A EQUAÇÃO</b> · 30T + T² = 600</li><li><b>RESOLVER</b> · T² + 30T − 600 = 0 &nbsp;→&nbsp; T = (−30 + √3.300) ÷ 2 ≈ 13,7</li><li><b>A RESPOSTA</b> · o contrato acaba perto do mês 13,7</li><li><b>SE NADA MUDAR</b> · C(20) = 600 + 400 = 1.000</li><li><b>LEITURA DE GESTÃO</b> · a pergunta é: quando o acumulado encosta no limite?</li></ol></div>
+  <div class="estatico"><p class="fonte">Versão impressa da animação (todos os passos):</p><ol><li><b>A SITUAÇÃO</b> · c(t) = 30 + 2t mil litros por mês &nbsp;·&nbsp; contrato: 600 mil litros</li><li><b>A CONTA RÁPIDA</b> · 600 ÷ 30 = 20 meses</li><li><b>O ACUMULADO ATÉ T</b> · C(T) = ∫<sub>0</sub><sup>T</sup> (30 + 2t) dt = 30T + T²</li><li><b>UM ANO</b> · C(12) = 360 + 144 = 504</li><li><b>PROCURAR O MÊS</b> · C(13) = 390 + 169 = 559 &nbsp;·&nbsp; C(14) = 420 + 196 = 616</li><li><b>A EQUAÇÃO</b> · 30T + T² = 600</li><li><b>RESOLVER</b> · T² + 30T − 600 = 0 &nbsp;→&nbsp; T = (−30 + √3.300) ÷ 2 ≈ 13,7</li><li><b>A RESPOSTA</b> · o contrato acaba perto do mês 13,7</li><li><b>SE NADA MUDAR</b> · C(20) = 600 + 400 = 1.000</li><li><b>LEITURA DE GESTÃO</b> · a pergunta é: quando o acumulado chega ao teto?</li></ol></div>
   </div>
 </section>
 
 <section class="bloco slide">
-  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A RECEITA</div><h2 class="bloco-title">Acumulado igual ao limite: <em>três passos</em></h2></div>
-<p class="mono-eq">F(T) − F(0) = limite</p><div class="passo" style="--n:3"><div><b>1 · O acumulado até T</b><span>a primitiva em T, menos a primitiva no começo</span></div><div><b>2 · A equação</b><span>o acumulado até T, igualado ao limite</span></div><div><b>3 · Resolver e conferir</b><span>descarte a solução sem sentido, e teste o resultado</span></div></div><div class="prose"><p>Com o ritmo em linha reta, a equação é do segundo grau. Com exponencial, quem resolve é o logaritmo.</p><p><strong>No projeto:</strong> a coluna do acumulado, na planilha, mostra em qual linha o limite é ultrapassado.</p></div>
+  <div class="inner"><div class="bloco-head"><div class="bloco-num">05 · A RECEITA</div><h2 class="bloco-title">Acumulado igual ao teto: <em>três passos</em></h2></div>
+<p class="mono-eq">F(T) − F(0) = teto</p><div class="passo" style="--n:3"><div><b>1 · O acumulado até T</b><span>a primitiva em T, menos a primitiva no começo</span></div><div><b>2 · A equação</b><span>o acumulado até T, igualado ao teto</span></div><div><b>3 · Resolver e conferir</b><span>descarte a solução sem sentido, e teste o resultado</span></div></div><div class="prose"><p>Com o ritmo em linha reta, a equação é do segundo grau: para a · T² + b · T + c = 0, T = (−b + raiz de (b² − 4 · a · c)) ÷ (2 · a); a outra raiz é negativa e não serve. Com exponencial, quem resolve é o logaritmo.</p><p><strong>No projeto:</strong> a coluna do acumulado, na planilha, mostra em qual linha o teto é ultrapassado.</p></div>
   </div>
 </section>
 
@@ -177,7 +177,7 @@ table.tab td.n{font-size:18px}
 
 <section class="bloco compacta slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">06 · COM EXPONENCIAL</div><h2 class="bloco-title">O mesmo caminho, <em>com o logaritmo no fim</em></h2></div>
-<div class="prose"><p>A demanda cresce no ritmo d(t) = 200 · e<sup>0,1t</sup>, em pedidos por mês. O contrato cobre <strong>3.000 pedidos</strong>. Quando ele acaba?</p></div><table class="tab"><tr><th>Passo</th><th>Conta</th></tr><tr><td>1 · O acumulado até T</td><td class="n">D(T) = 2.000 · e<sup>0,1T</sup> − 2.000</td></tr><tr><td>2 · A equação</td><td class="n">2.000 · e<sup>0,1T</sup> − 2.000 = 3.000 &nbsp;→&nbsp; e<sup>0,1T</sup> = 2,5</td></tr><tr><td>3 · Resolver</td><td class="n">0,1T = ln 2,5 ≈ 0,9163 &nbsp;→&nbsp; T ≈ 9,2 meses</td></tr><tr><td>Conferir</td><td class="n">D(9) ≈ 2.919 e D(10) ≈ 3.437: o limite de 3.000 fica entre os dois</td></tr></table><div class="prose"><p>A conta rápida, com o ritmo parado em 200, daria 3.000 ÷ 200 = 15 meses. O contrato acaba quase seis meses antes.</p></div><p class="fonte">Valores simulados.</p>
+<div class="prose"><p>A demanda cresce no ritmo d(t) = 200 · e<sup>0,1t</sup>, em pedidos por mês. O contrato cobre <strong>3.000 pedidos</strong>. Quando ele acaba?</p></div><table class="tab"><tr><th>Passo</th><th>Conta</th></tr><tr><td>1 · O acumulado até T</td><td class="n">D(T) = 2.000 · e<sup>0,1T</sup> − 2.000</td></tr><tr><td>2 · A equação</td><td class="n">2.000 · e<sup>0,1T</sup> − 2.000 = 3.000 &nbsp;→&nbsp; e<sup>0,1T</sup> = 2,5</td></tr><tr><td>3 · Resolver</td><td class="n">0,1T = ln 2,5 ≈ 0,9163 &nbsp;→&nbsp; T ≈ 9,2 meses</td></tr><tr><td>Conferir</td><td class="n">D(9) ≈ 2.919 e D(10) ≈ 3.437: o teto de 3.000 fica entre os dois</td></tr></table><div class="prose"><p>A conta rápida, com o ritmo parado em 200, daria 3.000 ÷ 200 = 15 meses. O contrato acaba quase seis meses antes.</p></div><p class="fonte">Valores simulados.</p>
   </div>
 </section>
 
@@ -228,13 +228,13 @@ table.tab td.n{font-size:18px}
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">11 · NO PROJETO</div><h2 class="bloco-title">A Parte 1, <em class="orange">pergunta por pergunta</em></h2></div>
-<table class="tab"><tr><th>Pergunta da Parte 1</th><th>Ferramenta</th><th>De qual aula</th></tr><tr><td class="n">1 · Quanto se acumula no período?</td><td>as fatias, na planilha, e a integral definida pelo teorema</td><td>Aulas 9, 11 e 12</td></tr><tr><td class="n">2 · Qual é o valor médio do ritmo?</td><td>o total, dividido pela duração</td><td>hoje</td></tr><tr><td class="n">3 · Em que momento o acumulado atinge o limite?</td><td>a coluna do acumulado, na planilha (e a equação, se a equipe quiser)</td><td>hoje</td></tr><tr><td class="n">4 · O que a equipe recomenda?</td><td>os três números, lidos para quem decide</td><td>todas</td></tr></table><div class="prose"><p><strong>Amanhã, na Aula 15:</strong> tragam a planilha do tema, no notebook, no celular ou impressa. Cada equipe conversa comigo.</p></div>
+<table class="tab"><tr><th>Pergunta da Parte 1</th><th>Ferramenta</th><th>De qual aula</th></tr><tr><td class="n">1 · Quanto se acumula no período?</td><td>as fatias, na planilha, e a integral definida pelo teorema</td><td>Aulas 9, 11 e 12</td></tr><tr><td class="n">2 · Qual é o valor médio do ritmo?</td><td>o total, dividido pela duração</td><td>hoje</td></tr><tr><td class="n">3 · Em que momento o acumulado chega ao teto?</td><td>a coluna do acumulado, na planilha (e a equação, se a equipe quiser)</td><td>hoje</td></tr><tr><td class="n">4 · O que a equipe recomenda?</td><td>os três números, lidos para quem decide</td><td>todas</td></tr></table><div class="prose"><p><strong>Amanhã, na Aula 15:</strong> tragam a planilha do tema, no notebook, no celular ou impressa. Cada equipe conversa comigo.</p></div>
   </div>
 </section>
 
 <section class="bloco slide">
   <div class="inner"><div class="bloco-head"><div class="bloco-num">12 · ATÉ AMANHÃ</div><h2 class="bloco-title">O que vem <em>agora</em></h2></div>
-<div class="compara tres"><div class="card olho"><span class="rot">Hoje</span><h4>Checagem 8</h4><ul><li>abre hoje no Classroom</li><li>sete dias; a nota é pela entrega</li><li>o limite e o valor médio</li></ul></div><div class="card pergunta"><span class="rot">Aula 15 · amanhã</span><h4>Saldo e projeto</h4><ul><li>receita menos despesa: a área com sinal</li><li>ateliê do projeto: tragam a planilha</li></ul></div><div class="card certo"><span class="rot">Aula 17 · 11/12</span><h4>Fecha o cálculo</h4><ul><li>Missão 4 e Miniteste 4</li><li>repescagem dos objetivos 1 a 5</li><li>entrega da Parte 1 do projeto</li></ul></div></div><p class="bigline">O limite se atinge no acumulado. <em>A média é o total dividido pelo tempo.</em></p>
+<div class="compara tres"><div class="card olho"><span class="rot">Hoje</span><h4>Checagem 8</h4><ul><li>abre hoje no Classroom</li><li>sete dias; a nota é pela entrega</li><li>o teto e o valor médio</li></ul></div><div class="card pergunta"><span class="rot">Aula 15 · amanhã</span><h4>Saldo e projeto</h4><ul><li>receita menos despesa: a área com sinal</li><li>ateliê do projeto: tragam a planilha</li></ul></div><div class="card certo"><span class="rot">Aula 17 · 11/12</span><h4>Fecha o cálculo</h4><ul><li>Missão 4 e Miniteste 4</li><li>repescagem dos objetivos 1 a 5</li><li>entrega da Parte 1 do projeto</li></ul></div></div><p class="bigline">O teto se atinge no acumulado. <em>A média é o total dividido pelo tempo.</em></p>
   </div>
 </section>
 
